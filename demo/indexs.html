@@ -1,0 +1,222 @@
+﻿<!doctype html>
+<html style="">
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../layout.css">
+</head>
+<body style="height: 1200px; margin:0;">
+	<div class="pager_nav" style="position: relative;height: 300px; width: 1050px;border: 1px solid red; margin: 20px;overflow:auto;" id="table-warp">
+		<select>
+			<option>1</option>
+		</select>
+		<div style="height:350px;">1111111我的偶尔1111111</div>
+	</div>
+	<a href="" id="newDialog">点死我</a>
+	<input type="button" id="set-container" value="设置容器">
+	<input type="button" id="remove-container" value="取消容器">
+	<input type="button" id="resizebig" value="容器变大">
+	<input type="button" id="resizesmall" value="容器变小">
+	<input type="button" id="hide" value="隐藏">
+	<input type="button" id="show" value="显示">
+	<input type="button" id="title" value="设置标题">
+	<input type="button" id="button" value="设置按钮">
+	<input type="button" id="move" value="移动">
+
+	<!-- <div class="xcy-warp" id="xcy-warp">
+		<table class="xcy-table">
+			<tbody>
+				<tr>
+					<td class="xcy-tl"></td>
+					<td class="xcy-tc"></td>
+					<td class="xcy-tr"></td>
+				</tr>
+				<tr>
+					<td class="xcy-cl"></td>
+					<td class="xcy-cc">
+						<div class="xcy-layer">
+							<div class="xcy-tit">
+								<span>信息3</span><a class="xcy-close-btn" href="javascript:;">×</a>
+							</div>
+							<div class="xcy-content" style="height:166px;">
+
+							</div>
+							<div class="xcy-foot">
+								<input class="xcy-btn xcy-save-btn" type="button" value="确定"><input class="xcy-btn xcy-cancel-btn" type="button" value="取消">
+							</div>
+						</div>
+					</td>
+					<td class="xcy-cr"></td>
+				</tr>
+				<tr>
+					<td class="xcy-bl"></td>
+					<td class="xcy-bc"></td>
+					<td class="xcy-br"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div> -->
+	<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="../dialog.js"></script>
+	<script type="text/javascript">
+
+	var arr = [], num = 0;
+	
+	// $( '#newDialog ').click(function(e){
+		arr[ num++ ] = Dialog({
+			type: 'confirm',
+			// container: '#table-warp',
+			showShade: false,
+			// shadeClose: true,
+			title: 'false',
+			// left: '50%',
+			// top: '50%',
+			width: '230',
+			height: '80',
+			// delay: 600,
+			init: function(){
+				var that = this,
+					i = 5;
+
+		        var fn = function () {
+		            that.title(i + '秒后关闭');
+		            if( !i ){
+		            	that.close();
+		            	clearInterval(timer);
+		            }
+		            i --;
+		        };
+		        timer = setInterval(fn, 1000);
+		        fn();
+			},
+			html: '真的吗？',
+			// fixed: true,
+			drag: {
+				// limit: true
+				// range: [40,400,320,40],
+				// lockX: true
+			},
+			align: 'right',
+			button: [
+                {
+                    name: '确定',
+                    callback: function(){
+                    	dialog.load( 'Loading', 600, true )
+                    },
+                    disabled: false,
+                    focus: true
+                },
+                {
+                    name: '取消',
+                    callback: function(){},
+                    disabled: false,
+                    focus: false
+                }
+            ]
+		});
+		(function(){
+
+		})();
+// console.log( arr[0] );
+		// e.preventDefault();
+	// })
+// console.log( dialog.confirm( 'ssssssssssssssssssssssssssss', function(){}) );
+// dialog.prompt( 'promptpromptpromptpromptprompt真的吗?', 'sss', function(t,v){ alert(v) }, function(t,v){ alert(t) } )
+// dialog.confirm( 'prompt' );
+// dialog.alert( '<div style="padding:10px 50px;">成功</div>', function(t){alert(t)})
+// dialog.msg( '就是这样的' );
+dialog.msg( '就是这样的', false );
+// dialog.load( 'Loading', 600 );
+// console.log( 
+	//dialog.alert( '<div style="padding:10px 50px;">成功</div>', function(){})
+	// dialog.alert( '<div style="padding:10px 50px;">成功</div>', 'sss', function(){}) 
+	// )
+
+// 	// init pageinator
+	// var d2 = Dialog({
+	// 	type: 'page',
+	// 	// container: '#table-warp',
+	// 	isAutoClose: false,
+	// 	isShowShade: true,
+	// 	// isMove: false,
+	// 	title: '信息4',
+	// 	width: '130',
+	// 	height: '130',
+	// 	fixed: true,
+	// 	drag: {
+	// 		limit: false
+	// 	},
+	// 	html: '<div style="padding:10px;">真的</div>',
+	// 	ok: function(){ alert('yes')}
+	// })
+// console.log( d2 );
+	// init pageinator
+	// var d3 = Dialog({
+	// 	type: 'iframe',
+	// 	// container: '#table-warp',
+	// 	isAutoClose: false,
+	// 	isBindShadeClose: true,
+	// 	isShowShade: true,
+	// 	src: 'http://www.baidu.com',
+	// 	width: 650,
+	// 	height: 350,
+	// 	// fixed: true,
+	// 	// client: true,
+	// 	// isMove: false,
+	// 	drag: {
+	// 		limit: false
+	// 	},
+	// 	title: '信息3',
+	// 	html: '<div style="padding:10px;">真的</div>',
+	// 	ok: function(){ alert('yes')}
+	// })
+// console.log( d3 );
+
+	$( '#set-container' ).click(function(){
+		arr[0].setDrag({
+			limit: true,
+			range: [40,400,320,40],
+		})
+	})
+	$( '#remove-container' ).click(function(){
+		arr[0].setDrag({
+			limit: false
+		})
+	})
+	$( '#resizebig' ).click(function(){
+		arr[0].resize( '100%', '100%' )
+	})
+	$( '#resizesmall' ).click(function(){
+		arr[0].resize( 130, 30 )
+	})
+	$( '#hide' ).click(function(){
+		arr[0].hide();
+	})
+	$( '#show' ).click(function(){
+		arr[0].show();
+	})
+	$( '#title' ).click(function(){
+		arr[0].title( '去吧' );
+	})
+	$( '#button' ).click(function(){
+		arr[0].button( [
+                {
+                    name: '确定1',
+                    callback: function(){},
+                    disabled: true,
+                    focus: true
+                },
+                {
+                    name: '取消2',
+                    callback: function(e){alert(e)},
+                    disabled: false,
+                    focus: false
+                }
+            ] );
+	})
+	var t = 20, l = 30;
+	$( '#move' ).click(function(){
+		arr[0].moveTo( '50%', '60%' );
+	})
+	</script>
+</body>
+</html>

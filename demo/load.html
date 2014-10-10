@@ -1,0 +1,46 @@
+﻿<!doctype html>
+<html style="">
+<head>
+	<title>load加载层</title>
+	<link rel="stylesheet" type="text/css" href="../css/layout.css">
+</head>
+<body style="height: 1200px; margin:0;">
+	<div class="pager_nav" style="position: relative;height: 300px; width: 1050px;border: 1px solid red; margin: 20px;overflow:auto;" id="table-warp">
+		<select>
+			<option>1</option>
+		</select>
+		<div style="height:350px;">1111111我的偶尔1111111</div>
+	</div>
+	<input type="button" id="newDialog" value="全屏加载">
+
+	<script type="text/javascript" src="../lib/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="../dialog.js"></script>
+	<script type="text/javascript">
+
+	var arr = [], num = 0;
+	
+		arr[ num++ ] = Dialog({
+			type: 'load',
+			container: '#table-warp',
+			// shade: false,
+			// shadeClose: true,
+			title: 'false',
+			// left: '50%',
+			// top: '50%',
+			delay: 600
+			// html: '还在加载。。。',
+			// fixed: true
+		})
+
+	$( '#newDialog' ).click(function( e ){
+		/**
+		 * @prama { string } title 标题
+		 * @prama { boolean|number } delay 延迟时间 false为不消失
+		 * @prama { boolean } shade 遮罩层
+		 * @return Dialog
+		 */
+		dialog.load( 'Loading', false, true );
+	})
+	</script>
+</body>
+</html>
