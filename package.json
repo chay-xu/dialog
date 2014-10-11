@@ -1,0 +1,28 @@
+{
+  "name": "dialog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "demo/indexs.html",
+  "dependencies": {
+    "gulp": "^3.8.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/xu8511831/dialog.git"
+  },
+  "keywords": [
+    "dialog",
+    "layer",
+    "message"
+  ],
+  "author": "bigwind <569455187@qq.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xu8511831/dialog/issues"
+  },
+  "homepage": "https://github.com/xu8511831/dialog"
+}
