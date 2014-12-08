@@ -198,7 +198,6 @@
             context = context || null;  
             var timeout;  
             var runIt = function(){
-                    console.log(1)  
                     callback.apply(context);  
                 };  
             return (function(){
@@ -695,7 +694,7 @@
                     case 'xcy-close-btn':
                     case 'xcy-x-btn':
                         // return callback
-                        if( closeBtn ) isReturn = closeBtn();
+                        if( closeBtn ) isReturn = closeBtn( that.title() );
 
                         if( isReturn === false ){
                             return;
@@ -895,9 +894,11 @@
             that.resize( restore.width, restore.height, restore.top, restore.left );
         },
         title: function( title ){
-            this._getTitle().children( 'span' ).html( title );
+            var el = this._getTitle().children( 'span' );
 
-            return this;
+            var newTitle = title ? el.html( title ) : el.html();
+
+            return title ? this : newTitle;
         },
         html: function( html ){
             this._getContent().html( html );

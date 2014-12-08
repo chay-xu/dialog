@@ -40,8 +40,8 @@
 				// lockX: true
 			},
 			align: 'right',
-			closeBtn: function(){
-            	dialog.confirm( '你确定关闭吗？',
+			closeBtn: function( tit ){
+            	dialog.confirm( '你确定关闭'+tit+'吗？',
             		function(){
             			dialog.msg( '关闭了！');
             			arr[0].close();
