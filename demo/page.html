@@ -2,7 +2,7 @@
 <html style="">
 <head>
 	<title></title>
-	<link rel="stylesheet" type="text/css" href="../layout.css">
+	<link rel="stylesheet" type="text/css" href="../src/css/layout.css">
 </head>
 <body style="height: 1200px; margin:0;">
 	<div id="getHtml">我的偶尔1111111</div>
@@ -23,16 +23,17 @@
 	<input type="button" id="button" value="设置按钮">
 	<input type="button" id="move" value="移动">
 
-	<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="../dialog.js"></script>
+	<script type="text/javascript" src="../lib/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="../src/dialog.js"></script>
 	<script type="text/javascript">
 
 	var arr = [], num = 0;
 	
 	// $( '#newDialog ').click(function(e){
 		arr[ num++ ] = Dialog({
-			type: 'page',
-			// container: '#table-warp',
+			// type: 'page',
+			type: 'prompt',
+			container: '#table-warp',
 			shade: false,
 			// shadeClose: true,
 			title: 'false',

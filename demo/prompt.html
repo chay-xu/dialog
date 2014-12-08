@@ -2,7 +2,7 @@
 <html style="">
 <head>
 	<title>prompt输入层</title>
-	<link rel="stylesheet" type="text/css" href="../css/layout.css">
+	<link rel="stylesheet" type="text/css" href="../src/css/layout.css">
 </head>
 <body style="height: 1200px; margin:0;">
 	<div class="pager_nav" style="position: relative;height: 300px; width: 1050px;border: 1px solid red; margin: 20px;overflow:auto;" id="table-warp">
@@ -14,7 +14,7 @@
 	<input type="button" id="set-container" value="快捷提示">
 
 	<script type="text/javascript" src="../lib/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="../dialog.js"></script>
+	<script type="text/javascript" src="../src/dialog.js"></script>
 	<script type="text/javascript">
 
 	var arr = [], num = 0;
@@ -24,6 +24,7 @@
 			type: 'prompt',
 			// container: '#table-warp',
 			// shade: false,
+			shadeClose: true,
 			unload: false,
 			title: 'false',
 			left: '50%',
@@ -36,13 +37,14 @@
 			fixed: true,
 			// resize: false,
 			align: 'left',
-			button: [
+			buttons: [
                 {
                     name: '确定',
                     callback: function( bt, val ){
                     	Dialog({
 							type: 'load',
 							container: '#table-warp',
+							html: '努力的加载',
 							delay: true,
 							unload: true
 						})

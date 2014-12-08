@@ -197,7 +197,8 @@
             delay = delay || 150;  
             context = context || null;  
             var timeout;  
-            var runIt = function(){  
+            var runIt = function(){
+                    console.log(1)  
                     callback.apply(context);  
                 };  
             return (function(){
@@ -317,6 +318,7 @@
             // container is body
             // if( that.$parent[0].nodeName == 'BODY' ){
                 // fixed position
+                // layer滚动
                 if( opt.fixed ){
                     // parent is body
                     if( that._isBody ){
@@ -444,7 +446,7 @@
 
             return $( '.xcy-foot', this.$el );
         },
-        // common html API
+        // html render
         _layerHtml: function( title, content, buttonArr ){
             var that = this,
                 opt = that.options,
@@ -475,8 +477,10 @@
                 con = that._iframeHtml( opt.src );
             }else{
                 if( type == 'prompt' ){
-                    con = that._conHtml( '<div class="xcy-text">' + content
+                    con = that._conHtml( '<div class="xcy-text">'
                         + '</div><input class="xcy-input" type="text" value=\"' + opt.value + '\" />' );
+
+                    con.find( '.xcy-text' ).html( content );
                 }else{
                     con = that._conHtml( content );
                 }
@@ -595,6 +599,7 @@
                     that._elemBack = null;
                 };
             }
+
             // set content html
             node.find( '.xcy-main' ).html( html );
 
@@ -729,7 +734,11 @@
                     that.$el.css({
                         top: that.top + parent.scrollTop(),
                         left: that.left + parent.scrollLeft()
-                    }) 
+                    })
+                    // that.$el.animate({
+                    //     top: that.top + parent.scrollTop(),
+                    //     left: that.left + parent.scrollLeft()
+                    // })  
                 })();
             };
 

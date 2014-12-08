@@ -1,63 +1,87 @@
-'use strict';
+var gulp = require('gulp');
+var jshint = require('gulp-jshint');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var cssmin = require('gulp-minify-css');
+var rename = require('gulp-rename');
+var rev = require('gulp-rev');
 
-var util = require('util');
-var Orchestrator = require('orchestrator');
-var gutil = require('gulp-util');
-var deprecated = require('deprecated');
-var vfs = require('vinyl-fs');
+//var gifsicle = require('imagemin-gifsicle');
+//var pngcrush = require('imagemin-pngcrush')
 
-function Gulp() {
-  Orchestrator.call(this);
-}
-util.inherits(Gulp, Orchestrator);
+// 语法检查
+gulp.task('jshint', function () {
+    return gulp.src('dialog.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+});
 
-Gulp.prototype.task = Gulp.prototype.add;
-Gulp.prototype.run = function () {
-  // run() is deprecated as of 3.5 and will be removed in 4.0
-  // use task dependencies instead
-
-  // impose our opinion of "default" tasks onto orchestrator
-  var tasks = arguments.length ? arguments : ['default'];
-
-  this.start.apply(this, tasks);
+var options = {
+    preserveComments: 'some'
 };
+// js压缩代码
+gulp.task('script', function (){
+     return gulp.src('src/*.js')
+          // .pipe(concat('all.js'))
+          // .pipe(gulp.dest('dist'))
+          .pipe(uglify(options))
+          .pipe(rename({
+            suffix: "-min"
+          }))
+          .pipe(gulp.dest('build'));
+});
 
-Gulp.prototype.src = vfs.src;
-Gulp.prototype.dest = vfs.dest;
-Gulp.prototype.watch = function (glob, opt, fn) {
-  if (typeof opt === 'function' || Array.isArray(opt)) {
-    fn = opt;
-    opt = null;
-  }
+// css压缩代码
+gulp.task('css', function (){
+     return gulp.src('src/css/*.css')
+          // .pipe(concat('all.js'))
+          // .pipe(gulp.dest('dist'))
+          .pipe(cssmin({
+            keepSpecialComments: 1
+          }))
+          .pipe(rename({
+            suffix: "-min"
+          }))
+          .pipe(gulp.dest('build/css/'));
+});
 
-  // array of tasks given
-  if (Array.isArray(fn)) {
-    return vfs.watch(glob, opt, function () {
-      this.start.apply(this, fn);
-    }.bind(this));
-  }
+// images压缩代码
+gulp.task('image', function (){
+     return gulp.src('src/images/*.gif')
+          // .pipe(concat('all.js'))
+          // .pipe(gulp.dest('dist'))
+          .pipe(gifsicle({
+            interlaced: true
+          }))
+          // .pipe(rename({
+          //   suffix: "-min"
+          // }))
+          .pipe(gulp.dest('build/images/'));
+});
 
-  return vfs.watch(glob, opt, fn);
-};
+// 修改文件名
+gulp.task('rev', function () {
+    return gulp.src('src/*.js')
+          .pipe( rev() )
+          .pipe( gulp.dest('build') );
+});
 
-// let people use this class from our instance
-Gulp.prototype.Gulp = Gulp;
+// 监视文件的变化
+gulp.task('watch', function () {
+    gulp.watch('src/*.js', ['jshint', 'minify']);
+});
 
-// deprecations
-deprecated.field('gulp.env has been deprecated. ' +
-  'Use your own CLI parser instead. ' +
-  'We recommend using yargs or minimist.',
-  console.warn,
-  Gulp.prototype,
-  'env',
-  gutil.env
-);
+// 压缩代码
+gulp.task('minify', ['script', 'css' ] );
 
-Gulp.prototype.run = deprecated.method('gulp.run() has been deprecated. ' +
-  'Use task dependencies or gulp.watch task triggering instead.',
-  console.warn,
-  Gulp.prototype.run
-);
+// 注册缺省任务
+gulp.task('default', ['jshint', 'minify', 'watch']);
 
-var inst = new Gulp();
-module.exports = inst;
+// 可以看出，基本上所有的任务体都是这么个模式：
+// gulp.task('任务名称', function () {
+//     return gulp.src('文件')
+//         .pipe(...)
+//         .pipe(...)
+//         // 直到任务的最后一步
+//         .pipe(...);
+// });
