@@ -18,7 +18,7 @@
 	<script type="text/javascript" src="../src/dialog.js"></script>
 	<script type="text/javascript">
 
-	var arr = [], num = 0;
+	var arr = [], num = 0, loadObj;
 	
 	// $( '#newDialog ').click(function(e){
 		arr[ num++ ] = Dialog({
@@ -40,6 +40,21 @@
 				// lockX: true
 			},
 			align: 'right',
+			afterFn: function(){
+				loadObj = Dialog({
+                    type: 'load',
+                    container: this._getContent(),
+                    // shade: false,
+                    // shadeClose: true,
+                    title: 'false',
+                    delay: false,
+                    html: 'loading'
+                    // fixed: true
+                })
+			},
+			onloadFn: function(){
+				loadObj.unload();
+			},
 			closeBtn: function( tit ){
             	dialog.confirm( '你确定关闭'+tit+'吗？',
             		function(){

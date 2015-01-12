@@ -94,9 +94,7 @@ table.xcy-fixed{
 /* content */
 .xcy-content{
 	/*overflow: hidden;*/
-	/*width: 300px;
-	height: 200px;*/
-	/*padding: 20px;*/
+	position: relative;
 }
 /* foot */
 .xcy-foot{

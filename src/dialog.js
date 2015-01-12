@@ -63,8 +63,10 @@
                 //     focus: false
                 // }
             ],
-            closeBtn: function(){},
-            init: function(){},
+            closeBtn: function(){},         // 关闭图层执行
+            beforeFn: function(){},         // 初始化之前执行函数
+            onloadFn: function(){},         // iframe 页面加载完成执行
+            afterFn: function(){},          // 初始化之后执行函数
 			shade: true,
 			shadeClose: false,
             unload: true,
@@ -228,7 +230,7 @@
 
         // dialog parent
         // that.$parent = $( opt.fixed ? 'body' : opt.container );
-        that.$parent = $( opt.container );
+        that.$parent = (typeof opt.container === 'string') ? $( opt.container ) : opt.container;
         // dialog warpper
         that.$el =  $( dialogHtml );
 
@@ -243,9 +245,29 @@
 
         // type layer id array
         that.$elArr = [];
+        // init function 初始化之前执行的自定义函数
+        opt.beforeFn.apply( this );
+
     	that.init( _drag );
-        // init function 初始化后执行的自定义函数
-        opt.init.apply( this );
+
+        // init function 初始化之后执行的自定义函数
+        opt.afterFn.apply( this );
+
+        // 监控加载状态
+        if( that.$iframe ){
+            var iframe = that.$iframe[0];
+            if( iframe.attachEvent ){
+                iframe.attachEvent( "onload", function(){
+                    opt.onloadFn && opt.onloadFn();
+                    iframe.detachEvent( "onload", arguments.caller);
+                });
+            }else{
+                iframe.onload = function(){
+                    opt.onloadFn && opt.onloadFn();
+                    iframe.onload = null;
+                };
+            }
+        }
 	}
 	// dialog
     DialogLayer.prototype = {
@@ -305,7 +327,7 @@
                 default:
                     id = '#page-layer-'+ that._cid;
                 
-                    that._layerHtml( false, html, false );
+                    that._layerHtml( title, html, false );
             }
             // push id
             that.$elArr.push( id );
@@ -472,8 +494,8 @@
 
                 con = that._loadHtml( content );
             }else if( type == 'iframe' ){
-
-                con = that._iframeHtml( opt.src );
+                
+                con = that._iframeHtml( opt.src );           
             }else{
                 if( type == 'prompt' ){
                     con = that._conHtml( '<div class="xcy-text">'
@@ -569,9 +591,13 @@
         _iframeHtml: function( src ){
             var that = this,
                 opt = that.options,
-                iframe = $('<iframe allowtransparency="true" frameborder="0" class="xcy-iframe" name="xcy-iframe' + that._cid +'" onload="this.className=\'xcy-iframe\'" src="'+src+'" scrolling="'+opt.scrolling+'"></iframe>');
+                $iframe = $('<iframe allowtransparency="true" frameborder="0" class="xcy-iframe" name="xcy-iframe' 
+                    + that._cid +'"  src="'+src+'" scrolling="'+opt.scrolling+'"></iframe>');
 
-            return that._conHtml( '' ).html( iframe );
+                // 添加 iframe 对象
+                that.$iframe = $iframe;
+
+            return that._conHtml( '' ).html( $iframe );
         },
         // content html
         _conHtml: function( html ){
@@ -680,7 +706,7 @@
                 node.append( '<a class="xcy-winBtn-btn" id="xcy-full-btn" href="javascript:;">+</a>' );
             }
             // if type is msg or page, change close class
-            if( ( type == 'msg' && that.options.title === false ) || type == 'page' )
+            if( ( type == 'msg' && that.options.title === false ) || (type == 'page' && that.options.title === false) )
                 msgClass = 'xcy-x-btn';
             
             // close
