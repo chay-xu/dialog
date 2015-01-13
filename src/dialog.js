@@ -42,6 +42,7 @@
             scrolling: 'auto',
             align: 'center',
             animate: false,
+            winBtn: true,
             buttons: [
                 {
                     name: '确定',
@@ -695,13 +696,15 @@
         },
         _winBtnHtml: function( type ){
             var that = this,
-                closeBtn = that.options.closeBtn,
+                opts = that.options,
+                closeBtn = opts.closeBtn,
+                winBtn = opts.winBtn,
                 node = $( '<div class="xcy-winBtn"></div>' ),
                 state = true,
                 msgClass = 'xcy-close-btn';
 
             // min max
-            if( type == 'iframe' ){
+            if( type == 'iframe' && winBtn ){
                 node.append( '<a class="xcy-winBtn-btn" id="xcy-min-btn" href="javascript:;">-</a>' );
                 node.append( '<a class="xcy-winBtn-btn" id="xcy-full-btn" href="javascript:;">+</a>' );
             }
