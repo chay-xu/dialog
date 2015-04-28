@@ -1,0 +1,156 @@
+﻿<!doctype html>
+<html style="">
+<head>
+	<title>dialog moblie</title>
+	<link rel="stylesheet" type="text/css" href="../../src/moblie/css/dialog.css">
+</head>
+<body style="height: 1200px; margin:0;">
+	<input type="button" id="load" value="加载层">
+	<input type="button" id="confirm" value="警告层">
+	<input type="button" id="alert" value="提示层">
+	<input type="button" id="tip" value="tip层">
+	<input type="button" id="page1" value="自定义层中">
+	<input type="button" id="page2" value="自定义层下">
+	<input type="button" id="page3" value="自定义层上">
+	<input type="button" id="page4" value="自定义层左">
+	<input type="button" id="page5" value="自定义层右">
+	<script type="text/javascript" src="../../lib/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="../../src/moblie/dialog-moblie.js"></script>
+	<script type="text/javascript">
+	$( '#load' ).click(function(){
+		/**
+		 * @prama { string } 消息内容
+		 * @prama { number|boolean } 可选 时间延长,false不消失
+		 * @prama { boolean } 可选 shade点击关闭
+		 * @return Dialog
+		 */
+		Dialog.load( '成功', false)
+
+	})
+	$( '#confirm' ).click(function(){
+		/**
+		 * @prama { string } 消息内容
+		 * @prama { function } ok 确认回调事件
+		 * @prama { function } cancel 确认回调事件
+		 * @prama { boolean } shade点击关闭
+		 * @return Dialog
+		 */
+		Dialog.confirm( '<div style="padding:10px 50px;">成功</div>')
+
+	})
+	$( '#alert' ).click(function(){
+		/**
+		 * @prama { string } 消息内容
+		 * @prama { function } ok 确认回调事件
+		 * @prama { boolean } shade点击关闭
+		 * @return Dialog
+		 */
+		Dialog.alert( '<div style="padding:10px 50px;">成功</div>', function(t){
+			// alert(t)
+		})
+
+	})
+	$( '#tip' ).click(function(){
+		/**
+		 * @prama { string } 消息内容
+		 * @prama { number|boolean } 时间延长 false不消失
+		 * @prama { boolean } shade点击关闭
+		 * @return Dialog
+		 */
+		// Dialog.tip( '成功')
+		Dialog.create({
+			type: 'tip',
+			html: '成功',
+			shade: false,
+			align: 'bottom',
+			animation: 'slideupin'
+		})
+
+	})
+	var pageDialog1 = null;
+	$( '#page1' ).click(function(){
+		/**
+		 * @prama { string } 消息内容
+		 * @prama { string } 标题
+		 * @prama { function } ok 确认回调事件
+		 * @return Dialog
+		 */
+		var init = $( this ).attr( 'data-dialog' );
+		if( !init ){
+			var html = '<div style="height:300px;width:500px;background:white;">1111111</div>'
+			pageDialog1 = Dialog.page( html)
+			$( this ).attr( 'data-dialog', 'true' );
+		}else{
+			pageDialog1.show();
+		}
+
+	})
+
+	$( '#page2' ).click(function(){
+		/**
+		 * @prama { string } 消息内容
+		 * @prama { string } 标题
+		 * @prama { function } ok 确认回调事件
+		 * @return Dialog
+		 */
+		var html = '<div style="height:300px;width:100%;background:white;">1111111</div>'
+		Dialog.create({
+			type: 'page',
+			html: html,
+			align: 'bottom',
+			animation: 'slideupin'
+		})
+
+	})
+	$( '#page3' ).click(function(){
+		/**
+		 * @prama { string } 消息内容
+		 * @prama { string } 标题
+		 * @prama { function } ok 确认回调事件
+		 * @return Dialog
+		 */
+		var html = '<div style="height:300px;width:100%;background:white;">1111111</div>'
+		Dialog.create({
+			type: 'page',
+			html: html,
+			align: 'top',
+			animation: 'slidedownin'
+		})
+
+	})
+	$( '#page4' ).click(function(){
+		/**
+		 * @prama { string } 消息内容
+		 * @prama { string } 标题
+		 * @prama { function } ok 确认回调事件
+		 * @return Dialog
+		 */
+		var html = '<div style="height:100%;width:500px;background:white;">1111111</div>'
+		Dialog.create({
+			type: 'page',
+			html: html,
+			align: 'left',
+			animation: 'slideleftin'
+		})
+
+	})
+	$( '#page5' ).click(function(){
+		/**
+		 * @prama { string } 消息内容
+		 * @prama { string } 标题
+		 * @prama { function } ok 确认回调事件
+		 * @return Dialog
+		 */
+		var html = '<div style="height:100%;width:500px;background:white;">1111111</div>'
+		Dialog.create({
+			type: 'page',
+			html: html,
+			align: 'right',
+			animation: 'sliderightin'
+		})
+
+	})
+	</script>
+
+</body>
+</html>

@@ -1349,10 +1349,16 @@
 
     })();
 
-    window.dialog = {
+    var dialog = {
+        create: function( options ){
+            var dl = new DialogLayer( options );
+            // save global dialog
+            layers.push( dl );
+            return dl;
+        },
         load: function( msg, delay, shade ){
             // delay is not exist
-            return Dialog({
+            return Dialog.create({
                 type: 'load',
                 html: msg,
                 fixed: true,
@@ -1362,7 +1368,7 @@
             })
         },
         prompt: function( msg, val, ok, cancel ){
-            return Dialog({
+            return Dialog.create({
                 type: 'prompt',
                 html: msg,
                 value: val,
@@ -1388,7 +1394,7 @@
         },
         confirm: function( msg, ok, cancel ){
 
-            return Dialog({
+            return Dialog.create({
                 type: 'confirm',
                 html: msg,
                 fixed: true,
@@ -1417,7 +1423,7 @@
                 title = '信息';
             }
 
-            return Dialog({
+            return Dialog.create({
                 type: 'alert',
                 html: msg,
                 shade: false,
@@ -1439,7 +1445,7 @@
             // delay is not exist
             delay = typeof delay !== 'undefined' ? delay : true;
 
-            return Dialog({
+            return Dialog.create({
                 type: 'msg',
                 title: false,
                 html: msg,
@@ -1450,25 +1456,15 @@
                 delay: delay,
                 isMove: false
             })
+        },
+        // config default param
+        config: function( config ){
+            return $.extend( Default, config );
         }
     }
 
-    Dialog = window.Dialog = function( options ){
-        // var $selector = typeof options.selector === 'string' ? $( options.selector ) : options.selector;
-
-        // var newD = $selector.data( 'xcy-dialog' );
-        // if( newD ){
-        //     return newD.show();
-        // }else{
-            var dl = new DialogLayer( options );
-            // save global dialog
-            layers.push( dl );
-        	return dl;
-        // }
-    }
-    // config default param
-    Dialog.config = function( config ){
-        return $.extend( Default, config );
-    }
+    'function' === typeof define? define(function(){
+        return dialog;
+    }) : window.Dialog = dialog;
     
 })(jQuery, undefined)
