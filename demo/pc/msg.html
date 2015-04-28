@@ -2,7 +2,7 @@
 <html style="">
 <head>
 	<title>msg消息层</title>
-	<link rel="stylesheet" type="text/css" href="../src/css/layout.css">
+	<link rel="stylesheet" type="text/css" href="../../src/pc/css/layout.css">
 </head>
 <body style="height: 1200px; margin:0;">
 	<p>默认不消失，使用关闭按钮，延迟消失没有关闭按钮</p>
@@ -14,14 +14,14 @@
 	</div>
 	<input type="button" id="msg" value="快捷消息层">
 
-	<script type="text/javascript" src="../lib/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="../build/dialog-min.js" id="prama-s"></script>
+	<script type="text/javascript" src="../../lib/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="../../src/pc/dialog.js" id="prama-s"></script>
 	<script type="text/javascript">
 
 	var arr = [], num = 0;
 	
 	// $( '#newDialog ').click(function(e){
-		arr[ num++ ] = Dialog({
+		arr[ num++ ] = Dialog.create({
 			type: 'msg',
 			// container: '#table-warp',
 			shade: false,
@@ -59,9 +59,9 @@ arr[ 0 ].close();
 		 * @prama { boolean } shade 是否显示遮罩
 		 * @return Dialog
 		 */
-		dialog.msg( '就是这样的', true, true );
+		Dialog.msg( '就是这样的', true, true );
 	})
-	dialog.msg( '就是这样的?', false, true );
+	Dialog.msg( '就是这样的?', false, true );
 	</script>
 </body>
 </html>

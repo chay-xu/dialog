@@ -2,7 +2,7 @@
 <html style="">
 <head>
 	<title>confirm对话层</title>
-	<link rel="stylesheet" type="text/css" href="../src/css/layout.css">
+	<link rel="stylesheet" type="text/css" href="../../src/pc/css/layout.css">
 </head>
 <body style="height: 1200px; margin:0;">
 	<div class="pager_nav" style="position: relative;height: 300px; width: 1050px;border: 1px solid red; margin: 20px;overflow:auto;" id="table-warp">
@@ -13,13 +13,13 @@
 	</div>
 	<input type="button" id="confirm" value="快捷对话层">
 	
-	<script type="text/javascript" src="../lib/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="../src/dialog.js"></script>
+	<script type="text/javascript" src="../../lib/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="../../src/pc/dialog.js"></script>
 	<script type="text/javascript">
 
 	var arr = [], num = 0;
 	
-		arr[ num++ ] = Dialog({
+		arr[ num++ ] = Dialog.create({
 			type: 'confirm',
 			container: '#table-warp',
 			shade: false,
@@ -37,7 +37,7 @@
                 {
                     name: '确定',
                     callback: function(){
-                    	dialog.load( 'Loading', 600, true )
+                    	Dialog.load( 'Loading', 600, true )
                     },
                     disabled: false,
                     focus: true
@@ -58,7 +58,7 @@
 		 * @prama { function } cancel 取消回调事件
 		 * @return Dialog
 		 */
-		dialog.confirm( '<div style="padding:10px;">prompt</div>',
+		Dialog.confirm( '<div style="padding:10px;">prompt</div>',
 			function(t){ 
 				dialog.msg( '点击按钮: ' + t, true, true );
 			},

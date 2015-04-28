@@ -2,7 +2,7 @@
 <html style="">
 <head>
 	<title>iframe加载层</title>
-	<link rel="stylesheet" type="text/css" href="../src/css/layout.css">
+	<link rel="stylesheet" type="text/css" href="../../src/pc/css/layout.css">
 </head>
 <body style="height: 1200px;width: 1600px; margin:0;">
 	因为使用ajax加载，请使用本地服务器查看
@@ -14,14 +14,14 @@
 	</div>
 	<input type="button" id="iframe" value="设置容器">
 
-	<script type="text/javascript" src="../lib/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="../src/dialog.js"></script>
+	<script type="text/javascript" src="../../lib/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="../../src/pc/dialog.js"></script>
 	<script type="text/javascript">
 
 	var arr = [], num = 0, loadObj;
 	
 	// $( '#newDialog ').click(function(e){
-		arr[ num++ ] = Dialog({
+		arr[ num++ ] = Dialog.create({
 			type: 'iframe',
 			// container: '#table-warp',
 			shade: false,

@@ -2,7 +2,7 @@
 <html style="">
 <head>
 	<title></title>
-	<link rel="stylesheet" type="text/css" href="../src/css/layout.css">
+	<link rel="stylesheet" type="text/css" href="../../src/pc/css/layout.css">
 </head>
 <body style="height: 1200px; margin:0;">
 	<div id="getHtml">我的偶尔1111111</div>
@@ -23,14 +23,14 @@
 	<input type="button" id="button" value="设置按钮">
 	<input type="button" id="move" value="移动">
 
-	<script type="text/javascript" src="../lib/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="../src/dialog.js"></script>
+	<script type="text/javascript" src="../../lib/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="../../src/pc/dialog.js"></script>
 	<script type="text/javascript">
 
 	var arr = [], num = 0;
 	
 	// $( '#newDialog ').click(function(e){
-		arr[ num++ ] = Dialog({
+		arr[ num++ ] = Dialog.create({
 			type: 'page',
 			// type: 'prompt',
 			container: '#table-warp',
@@ -55,7 +55,7 @@
                 {
                     name: '确定',
                     callback: function(){
-                    	dialog.load( 'Loading', 600, true )
+                    	Dialog.load( 'Loading', 600, true )
                     },
                     disabled: false,
                     focus: true
