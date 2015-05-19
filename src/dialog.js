@@ -441,6 +441,8 @@
             var that = this,
                 len = that.$elArr.length - 1;
 
+            that.closed = true;
+
             $.each( that.$elArr, function( i, v ){
                 $( v ).animate({opacity: '0'}, 800, function(){ 
                     i == len && that.close(); 
@@ -452,7 +454,7 @@
     			$el = $( '.xcy-shade', that.$parent );
 
     		$el && $el.bind( 'click', function( e ){
-
+                if( that.closed ) return;
     			that.close();
     		});
     	},
@@ -1036,6 +1038,7 @@
                 clearTimeout( that.timer )
                 that.timer = null;
             }
+            that.closed = null;
 
             // not unload
             if( !that.options.unload ){
