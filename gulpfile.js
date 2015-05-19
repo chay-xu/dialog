@@ -5,6 +5,7 @@ var uglify = require('gulp-uglify');
 var cssmin = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var rev = require('gulp-rev');
+var sourcemaps = require('gulp-sourcemaps');
 
 //var gifsicle = require('imagemin-gifsicle');
 //var pngcrush = require('imagemin-pngcrush')
@@ -33,16 +34,18 @@ gulp.task('script', function (){
 
 // css压缩代码
 gulp.task('css', function (){
-     return gulp.src('src/css/*.css')
+     return gulp.src('src/**/*.css')
           // .pipe(concat('all.js'))
           // .pipe(gulp.dest('dist'))
+          .pipe(sourcemaps.init())
           .pipe(cssmin({
             keepSpecialComments: 1
           }))
           .pipe(rename({
             suffix: "-min"
           }))
-          .pipe(gulp.dest('build/css/'));
+          .pipe(sourcemaps.write('./'))
+          .pipe(gulp.dest('build/'));
 });
 
 // images压缩代码
