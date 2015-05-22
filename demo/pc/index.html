@@ -1,0 +1,54 @@
+﻿<!doctype html>
+<html style="">
+<head>
+	<title>dialog测试</title>
+	<link rel="stylesheet" type="text/css" href="../../src/pc/css/layout.css">
+</head>
+<body style="height: 1200px; margin:0;">
+	<div class="pager_nav" style="position: relative;height: 300px; width: 1050px;border: 1px solid red; margin: 20px;overflow:auto;" id="table-warp">
+		<select>
+			<option>1</option>
+		</select>
+		<div style="height:350px;">1111111我的偶尔1111111</div>
+	</div>
+	<input type="button" id="alert" value="快捷警告层">
+	<script type="text/javascript" src="../../lib/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="../../src/pc/dialog.js"></script>
+	<script type="text/javascript">
+		Dialog.create({
+            type: 'alert',
+            html: 'msg1',
+            shade: false,
+            fixed: true,
+            title: 'title1',
+            left: '50%',
+            unload: true,
+            buttons: [
+                {
+                    name: '确定',
+                    callback: function(){},
+                    disabled: false,
+                    focus: true
+                }
+            ]
+        })
+		Dialog.create({
+            type: 'alert',
+            html: 'msg2',
+            shade: false,
+            fixed: true,
+            title: 'title2',
+            left: '55%',
+            unload: true,
+            buttons: [
+                {
+                    name: '确定',
+                    callback: function(){},
+                    disabled: false,
+                    focus: true
+                }
+            ]
+        })
+	</script>
+</body>
+</html>

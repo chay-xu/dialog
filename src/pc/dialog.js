@@ -19,20 +19,19 @@
   * }
   */
   
-;!(function($, undefined){	
+;!(function(){  
 // function Dialog( options ){
-	var _cid = 1,
-		_zIndex = 99999900,
+    var _cid = 1,
+        _zIndex = 99999900,
         layers = [],
         _isIE = !-[1,],
         _isIE6 = _isIE && !window.XMLHttpRequest,
         $doc = $( document ),
         $win = $( window ),
-		Default = {
-			// height: 40,
-			// width: 120,
-			container: 'body',
-			css: { padding: '10px' },
+        Default = {
+            className: '',
+            container: 'body',
+            css: { padding: '10px' },
             html: '加载中...',
             value: '',
             title: '信息',
@@ -42,6 +41,7 @@
             scrolling: 'auto',
             align: 'center',
             animate: false,
+            animateAlign: 'bottom',
             winBtn: true,
             buttons: [
                 {
@@ -68,10 +68,10 @@
             beforeFn: function(){},         // 初始化之前执行函数
             onloadFn: function(){},         // iframe 页面加载完成执行
             afterFn: function(){},          // 初始化之后执行函数
-			shade: true,
-			shadeClose: false,
+            shade: true,
+            shadeClose: false,
             unload: true,
-			delay: false,
+            delay: false,
             opacity: 0.3,
             fixed: false,
             isMove: true,
@@ -86,7 +86,7 @@
                 onMove: function(){},
                 onEnd: function(){}
             }
-		},
+        },
         dialogHtml;
 
     dialogHtml = ''
@@ -128,16 +128,6 @@
             for( j = 0; j < len; j++ ){
                 // bubble key position
                 if( layers[ j ]._cid == cid ){
-                    // last key
-                    // if( j == len - 1 ){
-                    //     // no change
-                    //     if( !_cid ) return;
-                    //     // change z-inde style
-                    //     $.each( layers, function( i, obj ){
-                    //         obj.$el.css( 'zIndex', obj._zIndex );
-                    //     })
-                    //     return;
-                    // };
 
                     if( j == len - 1 ){
                         // no change
@@ -199,8 +189,8 @@
 
             delay = delay || 150;  
             context = context || null;  
-            var timeout;  
-            var runIt = function(){
+            var timeout,
+                runIt = function(){
                     callback.apply(context);  
                 };  
             return (function(){
@@ -210,30 +200,33 @@
         }    
     };
 
-	function DialogLayer( options ){
-		var that = this,
-			$el, opt;
+    function DialogLayer( options ){
+        var that = this,
+            $el, opt;
 
         /**
          * mix param
          * drag css dialog
          */
         
-        // drag
-        var _drag = $.extend( {}, Default.drag, options.drag );
-        // css
-        that.css = $.extend( {}, Default.css, options.css );
+        // // drag
+        // var _drag = $.extend( {}, Default.drag, options.drag );
+        // // css
+        // that.css = $.extend( {}, Default.css, options.css );
         // dialog
-		opt = $.extend( {}, Default, options );
+        opt = $.extend( true, {}, Default, options );
+        var _drag = opt.drag;
+        that.css = opt.css;
 
-		that.options = opt;
-    	that.type = opt.type;
+        that.options = opt;
+        that.type = opt.type;
 
         // dialog parent
         // that.$parent = $( opt.fixed ? 'body' : opt.container );
         that.$parent = (typeof opt.container === 'string') ? $( opt.container ) : opt.container;
         // dialog warpper
         that.$el =  $( dialogHtml );
+        that.$el.addClass( opt.className );
 
         // fixed or limit choose
         that._isBody = (this.$parent[0].nodeName == 'BODY');
@@ -241,15 +234,15 @@
             that.options.isMove = false;
 
         // private
-    	that._cid = _cid++;
-    	that._zIndex = _zIndex++;
+        that._cid = _cid++;
+        that._zIndex = _zIndex++;
 
         // type layer id array
         that.$elArr = [];
         // init function 初始化之前执行的自定义函数
         opt.beforeFn.apply( this );
 
-    	that.init( _drag );
+        that.init( _drag );
 
         // init function 初始化之后执行的自定义函数
         opt.afterFn.apply( this );
@@ -269,10 +262,11 @@
                 };
             }
         }
-	}
-	// dialog
+        options = null;
+    }
+    // dialog
     DialogLayer.prototype = {
-        v: '1.0.0',
+        v: '2.0.1',
         constructor: DialogLayer,
         init: function( _drag ){
             var that = this,
@@ -364,14 +358,6 @@
                 // set shade layer the height
                 // $( '#shade-layer-' + that._cid ).css( 'height', that.$parent[0].scrollHeight );
             // }
-            
-            // get focus
-            // $win.focus();
-
-            // set pop-up layer css style
-            // if( that.type !== 'shade' ){
-            //     that._setCss( that.$el );
-            // }
 
             // ie6 bug
             if( _isIE6 ){
@@ -395,7 +381,7 @@
                     support.debounce( function(){
                         
                         that._getParentSize();
-                        // 刷新窗口改变后layer位置
+                        // 刷新窗口重新计算layer位置
                         var nph = that.parentHeight - that.warpperHeight,
                             npw = that.parentWidth - that.warpperWidth,
                             top = Math.round( t*nph ),
@@ -434,12 +420,14 @@
 
             // auto hidden
             if( opt.delay )
-                setTimeout( function(){ that._autoClose(); }, typeof opt.delay === 'boolean' ? 1800 : opt.delay );
+                that.timer = setTimeout( function(){ that._autoClose(); }, typeof opt.delay === 'boolean' ? 1800 : opt.delay );
 
         },
         _autoClose: function(){
             var that = this,
                 len = that.$elArr.length - 1;
+
+            that.closed = true;
 
             $.each( that.$elArr, function( i, v ){
                 $( v ).animate({opacity: '0'}, 800, function(){ 
@@ -447,15 +435,15 @@
                 });
             });
         },
-    	_bindShadeClose: function( parent ){
-    		var that = this,
-    			$el = $( '.xcy-shade', that.$parent );
+        _bindShadeClose: function( parent ){
+            var that = this,
+                $el = $( '.xcy-shade', that.$parent );
 
-    		$el && $el.bind( 'click', function( e ){
-
-    			that.close();
-    		});
-    	},
+            $el && $el.bind( 'click', function( e ){
+                if( that.closed ) return;
+                that.close();
+            });
+        },
         _getContent: function(){
 
             return $( '.xcy-content', this.$el );
@@ -541,10 +529,32 @@
             // get warpper size
             that._getWarpperSize( $el );
 
-            // // set warpper css position
+            // set warpper css position
             if( opt.animate ){
+                var animateCss = {};
                 // console.log(that.warpperWidth, that.parentWidth)
-                $el.css( {top: (Number(that.parentHeight) + Number(that.warpperHeight) ), left: (Number(that.parentWidth) - that.warpperWidth) } );
+                if( opt.animateAlign == 'bottom' ){
+                    animateCss = {
+                        top: that.parentHeight + that.warpperHeight,
+                        left: support.toNumber(opt.left, that.parentWidth - that.warpperWidth)
+                    }
+                }else if( opt.animateAlign == 'top' ){
+                    animateCss = {
+                        top: -that.parentHeight,
+                        left: support.toNumber(opt.left, that.parentWidth - that.warpperWidth)
+                    }
+                }else if( opt.animateAlign == 'left' ){
+                    animateCss = {
+                        top: support.toNumber(opt.top, that.parentHeight - that.warpperHeight),
+                        left: -that.warpperWidth
+                    }
+                }else if( opt.animateAlign == 'right' ){
+                    animateCss = {
+                        top: support.toNumber(opt.top, that.parentHeight - that.warpperHeight),
+                        left: that.parentWidth + that.warpperWidth
+                    }
+                }
+                $el.css( animateCss );
 
                 $el.animate( that._setCss(opt.top, opt.left), 1200 );
             }else{
@@ -557,16 +567,16 @@
             }catch( e ){}
         },
         // shade html
-    	_shadeHtml: function( id ){
+        _shadeHtml: function( id ){
             var that = this,
                 shade = $( '<div class="xcy-shade" id=\"'+ id.substring( 1 ) +'\"></div>' );
 
             that._shadeCss( shade );
-    		// set id
+            // set id
             // shade.css( { width: width, height: height, opacity: opacity, 'z-index': that._zIndex } );
 
             that.$parent.append( shade );
-    	},
+        },
         _shadeCss: function( el ){
             var that = this,
                 opacity = that.options.opacity,
@@ -579,7 +589,7 @@
             el.css( { width: width, height: height, opacity: opacity, 'z-index': that._zIndex } );
         },
         // load html
-    	_loadHtml: function( html ){
+        _loadHtml: function( html ){
             var that = this,
                 opt = that.options,
                 node = $( '<div class="xcy-load"><span class="xcy-load-img"></span><span>'+html+'</span></div>' );
@@ -588,7 +598,7 @@
             that._setConCss( node, opt.width, opt.height );
 
             return node;
-    	},
+        },
         _iframeHtml: function( src ){
             var that = this,
                 opt = that.options,
@@ -843,14 +853,14 @@
             el.css( { height: that.height } );
         },
         // set warpper css
-    	_setCss: function( t, l ){
-    		var that = this,
-    			opt = that.options,
+        _setCss: function( t, l ){
+            var that = this,
+                opt = that.options,
                 $parent = that.$parent,
                 isBody = that._isBody,
                 dt = 0,
                 dl = 0,
-    			cssObj = {};
+                cssObj = {};
 
             if( opt.fixed && _isIE6 ){
                 dt = isBody ? $doc.scrollTop() : that.$parent.scrollTop();
@@ -873,13 +883,13 @@
             l = support.toNumber( l, that.parentWidth - that.warpperWidth );
             that.left = l;
 
-    		cssObj[ 'z-index' ] = that._zIndex;
+            cssObj[ 'z-index' ] = that._zIndex;
 
             cssObj[ 'top' ] = t + dt;
             cssObj[ 'left' ] = l + dl;
 
-    		return cssObj;
-    	},
+            return cssObj;
+        },
         // 获取dialog content容器宽度
         _getConWidth: function(){
             var that = this;
@@ -1032,6 +1042,12 @@
         close: function(){
             var that = this;
 
+            if( that.timer ){
+                clearTimeout( that.timer )
+                that.timer = null;
+            }
+            that.closed = null;
+
             // not unload
             if( !that.options.unload ){
                 that.hide();
@@ -1041,8 +1057,8 @@
             // unload
             that.unload();
         },
-    	unload: function(){
-    		var that = this, t;
+        unload: function(){
+            var that = this, t;
 
             // unbind input buttons click event
             $( 'button', that.$el ).unbind( 'click' );
@@ -1057,7 +1073,6 @@
                 that.$parent.unbind( 'scroll', that._ie6Fix ); 
             }
             
-
             // unbind shade
             that.options.shadeClose && $( '.xcy-shade', that.$parent ).unbind( 'click' );
 
@@ -1066,11 +1081,20 @@
             // if html is element, back move position
             that._elemBack && that._elemBack();
 
+            // 低版本ie 内存回收 iframe
+            if( that.type === 'iframe' ){
+                try {
+                    var iframe = that.$iframe[0];
+                    iframe.contentWindow.document.write('');
+                    iframe.contentWindow.close();
+                    that.$iframe.remove();
+                } catch(e){}
+            }
             // remove dom
             $.each( that.$elArr, function( i, v ){
                 $( v ).remove();
             })
-    		that.$elArr = null;
+            that.$elArr = null;
 
             // delete global array object
             t = layers.length;
@@ -1080,12 +1104,12 @@
                 }
             }
 
-    	},
-    	closeAll: function(){
+        },
+        closeAll: function(){
             $.each( layers, function( i, v ){
                 v.close();
             })
-    	}
+        }
     }
 
     // drag layer
@@ -1426,7 +1450,6 @@
             return Dialog.create({
                 type: 'alert',
                 html: msg,
-                shade: false,
                 fixed: true,
                 title: title,
                 unload: true,
@@ -1467,4 +1490,4 @@
         return dialog;
     }) : window.Dialog = dialog;
     
-})(jQuery, undefined)
+})()

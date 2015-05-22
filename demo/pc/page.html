@@ -71,57 +71,30 @@
 console.log( arr[0] );
 		// e.preventDefault();
 	// })
-// console.log( dialog.confirm( 'ssssssssssssssssssssssssssss', function(){}) );
-// dialog.prompt( 'promptpromptpromptpromptprompt真的吗?', 'sss', function(t,v){ alert(v) }, function(t,v){ alert(t) } )
-// dialog.confirm( 'prompt' );
-// dialog.alert( '<div style="padding:10px 50px;">成功</div>', function(t){alert(t)})
-// dialog.msg( '就是这样的' );
-// dialog.msg( '就是这样的', false );
-// dialog.load( 'Loading', 600 );
-// console.log( 
-	//dialog.alert( '<div style="padding:10px 50px;">成功</div>', function(){})
-	// dialog.alert( '<div style="padding:10px 50px;">成功</div>', 'sss', function(){}) 
-	// )
-
-// 	// init pageinator
-	// var d2 = Dialog({
-	// 	type: 'page',
-	// 	// container: '#table-warp',
-	// 	isAutoClose: false,
-	// 	isShowShade: true,
-	// 	// isMove: false,
-	// 	title: '信息4',
-	// 	width: '130',
-	// 	height: '130',
-	// 	fixed: true,
-	// 	drag: {
-	// 		limit: false
-	// 	},
-	// 	html: '<div style="padding:10px;">真的</div>',
-	// 	ok: function(){ alert('yes')}
-	// })
-// console.log( d2 );
-	// init pageinator
-	// var d3 = Dialog({
-	// 	type: 'iframe',
-	// 	// container: '#table-warp',
-	// 	isAutoClose: false,
-	// 	isBindShadeClose: true,
-	// 	isShowShade: true,
-	// 	src: 'http://www.baidu.com',
-	// 	width: 650,
-	// 	height: 350,
-	// 	// fixed: true,
-	// 	// client: true,
-	// 	// isMove: false,
-	// 	drag: {
-	// 		limit: false
-	// 	},
-	// 	title: '信息3',
-	// 	html: '<div style="padding:10px;">真的</div>',
-	// 	ok: function(){ alert('yes')}
-	// })
-// console.log( d3 );
+	Dialog.create({
+		type: 'page',
+		// container: '#table-warp',
+		shade: false,
+		// shadeClose: true,
+		title: 'false',
+		left: '0',
+		top: '0',
+		width: '230',
+		height: '80',
+		animate: true,
+		animateAlign: 'right',
+		// delay: 600,
+		html: '真的吗？',
+		fixed: true,
+		drag: {
+			// limit: true
+			// range: [40,400,320,40],
+			// lockX: true
+		},
+		align: 'center',
+		buttons: [
+        ]
+	})
 
 	$( '#set-container' ).click(function(){
 		arr[0].setDrag({

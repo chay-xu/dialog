@@ -28,10 +28,10 @@ table.xcy-fixed{
 	/*border: 0 none;*/
 	/*margin:0;*/
 	visibility: visible;
-	-webkit-box-shadow: 0 0 5px #666;
-	-moz-box-shadow: 0 0 5px #666;
-	-ms-box-shadow: 0 0 5px #666;
-	box-shadow: 0 0 5px #666;
+	-webkit-box-shadow: 0 0 6px #888;
+	-moz-box-shadow: 0 0 6px #888;
+	-ms-box-shadow: 0 0 6px #888;
+	box-shadow: 0 0 6px #888;
 }
 .xcy-tl, .xcy-tc, .xcy-tr, .xcy-cl, .xcy-cc, .xcy-cr, .xcy-bl, .xcy-bc, .xcy-br{
 	padding: 0;
