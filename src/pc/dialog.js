@@ -558,7 +558,7 @@
                 }
                 $el.css( animateCss );
 
-                $el.animate( that._setCss(opt.top, opt.left), 1200 );
+                $el.animate( that._setCss(opt.top, opt.left), opt.delay );
             }else{
                 $el.css( that._setCss(opt.top, opt.left), opt.delay );
             }
