@@ -464,7 +464,8 @@
                 $el = that.$el,
                 cssObj = that.css,
                 isTitle = title !== false,
-                tit, con, btn, winBtn, top, left;
+                tit, con, btn, winBtn,
+                animateCss, animateAlign;
 
             opt.title = title;
             // get parent size 
@@ -531,24 +532,25 @@
 
             // set warpper css position
             if( opt.animate ){
-                var animateCss = {};
+                animateCss = {};
+                animateAlign = opt.animateAlign;
                 // console.log(that.warpperWidth, that.parentWidth)
-                if( opt.animateAlign == 'bottom' ){
+                if( animateAlign == 'bottom' ){
                     animateCss = {
                         top: that.parentHeight + that.warpperHeight,
                         left: support.toNumber(opt.left, that.parentWidth - that.warpperWidth)
                     }
-                }else if( opt.animateAlign == 'top' ){
+                }else if( animateAlign == 'top' ){
                     animateCss = {
                         top: -that.parentHeight,
                         left: support.toNumber(opt.left, that.parentWidth - that.warpperWidth)
                     }
-                }else if( opt.animateAlign == 'left' ){
+                }else if( animateAlign == 'left' ){
                     animateCss = {
                         top: support.toNumber(opt.top, that.parentHeight - that.warpperHeight),
                         left: -that.warpperWidth
                     }
-                }else if( opt.animateAlign == 'right' ){
+                }else if( animateAlign == 'right' ){
                     animateCss = {
                         top: support.toNumber(opt.top, that.parentHeight - that.warpperHeight),
                         left: that.parentWidth + that.warpperWidth
