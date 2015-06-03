@@ -33,7 +33,7 @@
 
 	function DialogLayer( options ){
 		this.options = $.extend( {}, defaults, options ? options : {} );
-
+console.log(isDialog)
 		// 销毁存在的对象
 		if( isDialog ) isDialog.close();
 
@@ -225,11 +225,14 @@
 			_self.$shade.off('click touchmove');
 			_self.$shade.remove();
 		}
-		
+		_self.options = null;
 	}
 	DialogLayer.prototype.show = function(){
 		var _self = this,
 			opts = _self.options;
+
+		// 销毁存在的对象
+		if( isDialog ) isDialog.close();
 
 		_self.$el.show();
 		_self.$shade && _self.$shade.show();
