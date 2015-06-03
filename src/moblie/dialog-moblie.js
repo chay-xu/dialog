@@ -33,7 +33,7 @@
 
 	function DialogLayer( options ){
 		this.options = $.extend( {}, defaults, options ? options : {} );
-console.log(isDialog)
+
 		// 销毁存在的对象
 		if( isDialog ) isDialog.close();
 
