@@ -15,7 +15,7 @@
 			shade: true,
 			shadeClose: true,
 			html: '',
-			animation: 'slidedownin',
+			animation: false,
 			unload: true,
 			align: 'center',
 			buttons: [
@@ -31,15 +31,9 @@
 			init: function(){}
 		}
 
-	cssStyle = {
-		center: {
-
-		}
-	}
-
 	function DialogLayer( options ){
 		this.options = $.extend( {}, defaults, options ? options : {} );
-// console.log($)
+
 		// 销毁存在的对象
 		if( isDialog ) isDialog.close();
 
@@ -109,13 +103,14 @@
 				'zIndex': _zIndex++
 			})
 		}
+		// 动画 animation
+		opts.animation && $div.addClass( opts.animation + 'in' );
 
-		$div.addClass( opts.animation );
 		$div.attr( 'id', 'xcy-layer-' + (_cid++) );
 		$( 'body' ).append( $div );
 		// 绑定事件
 		_self.action();
-// console.log(_self.$el)
+
 		// 设置弹出层css
 		if( align == 'center' ){
 			cssStyle = {
@@ -142,7 +137,6 @@
 			type = opts.type,
 			time = opts.time,
 			html = opts.html;
-// console.log(_self.$el.find( '.xcy-shade' ))
 		
 		// 定时关闭
 		if( time !== false ){
@@ -187,12 +181,34 @@
 			opts = _self.options;
 
 		if( opts.unload ){
-			_self.unload();
+			if( opts.animation ){
+				_self.animate( _self.unload )
+			}else{
+				_self.unload();
+			}
 		}else{
-			_self.hide();
+			if( opts.animation ){
+				_self.animate( _self.hide )
+			}else{
+				_self.hide();
+			}
 		}
 
 		isDialog = null;
+	}
+	DialogLayer.prototype.animate = function( callback ){
+		var _self = this,
+			opts = _self.options;
+
+		_self.$el.removeClass( opts.animation + 'in' )
+		_self.$el.addClass( opts.animation + 'out' )
+
+		_self.$el.on('webkitAnimationEnd', function(){
+			_self.$el.removeClass( opts.animation + 'out' )
+
+			callback.apply(_self)
+			_self.$el.off();
+		})
 	}
 	DialogLayer.prototype.unload = function(){
 		var _self = this,
@@ -212,17 +228,19 @@
 		
 	}
 	DialogLayer.prototype.show = function(){
-		var _self = this;
+		var _self = this,
+			opts = _self.options;
 
 		_self.$el.show();
-		_self.$shade.show();
+		_self.$shade && _self.$shade.show();
 		isDialog = _self;
 	}
 	DialogLayer.prototype.hide = function(){
-		var _self = this;
+		var _self = this,
+			opts = _self.options;
 
 		_self.$el.hide();
-		_self.$shade.hide();
+		_self.$shade && _self.$shade.hide();
 	}
 
 	var dialog = {

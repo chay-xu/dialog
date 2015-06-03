@@ -8,7 +8,8 @@
     top: 0;
     left: 0;
     height: 100%;
-    width: 100%
+    width: 100%;
+    transition: opacity .5s;
 }
 .xcy-layer, .xcy-loading{
     position: fixed;
@@ -155,28 +156,25 @@
     -moz-animation: sliderightin 350ms ease-in-out;
     animation: sliderightin 350ms ease-in-out
 }
-.slidedownout {
-    -webkit-animation: slidedownout 350ms ease-in-out;
-    -moz-animation: slidedownout 350ms ease-in-out;
-    animation: slidedownout 350ms ease-in-out
-}
-
 .slidedownin {
     -webkit-animation: slidedownin 350ms ease-in-out;
     -moz-animation: slidedownin 350ms ease-in-out;
     animation: slidedownin 350ms ease-in-out
 }
-
-.slideupout {
-    -webkit-animation: slideupout 350ms ease-in-out;
-    -moz-animation: slideupout 350ms ease-in-out;
-    animation: slideupout 350ms ease-in-out
+.slidedownout {
+    -webkit-animation: slidedownout 350ms ease-in-out;
+    -moz-animation: slidedownout 350ms ease-in-out;
+    animation: slidedownout 350ms ease-in-out
 }
-
 .slideupin {
     -webkit-animation: slideupin 350ms ease-in-out;
     -moz-animation: slideupin 350ms ease-in-out;
     animation: slideupin 350ms ease-in-out
+}
+.slideupout {
+    -webkit-animation: slideupout 350ms ease-in-out;
+    -moz-animation: slideupout 350ms ease-in-out;
+    animation: slideupout 350ms ease-in-out
 }
 @-webkit-keyframes loading {
     from {
@@ -200,106 +198,90 @@
         opacity:1
     }
 }
-
-@-webkit-keyframes sliderightout {
-    from {
-        -webkit-transform: translateX(0px);
-        opacity: 1
-    }
-
-    to {
-        -webkit-transform: translateX(50%);
-        opacity: 0
-    }
-}
-@keyframes sliderightout {
-    from {
-        transform: translateX(0px);
-        opacity: 1
-    }
-
-    to {
-        transform: translateX(50%);
-        opacity: 0
-    }
-}
-
+/*向右渐显*/
 @-webkit-keyframes slideleftin {
     from {
-        -webkit-transform: translateX(-50%);
-        opacity: 0
+        -webkit-transform: translateX(-100%);
     }
 
     to {
         -webkit-transform: translateX(0px);
-        opacity: 1
     }
 }
 @keyframes slideleftin {
     from {
-        transform: translateX(-50%);
-        opacity: 0
+        transform: translateX(-100%);
     }
 
     to {
         transform: translateX(0px);
-        opacity: 1
     }
 }
-
+/*向右渐隐*/
 @-webkit-keyframes slideleftout {
     from {
         -webkit-transform: translateX(0px);
-        opacity: 1
     }
 
     to {
-        -webkit-transform: translateX(-50%);
-        opacity: 0
+        -webkit-transform: translateX(-100%);
     }
 }
 @keyframes slideleftout {
     from {
         transform: translateX(0px);
-        opacity: 1
     }
 
     to {
-        transform: translateX(-50%);
-        opacity: 0
+        transform: translateX(-100%);
     }
 }
-
+/*向左渐显*/
 @-webkit-keyframes sliderightin {
     from {
-        -webkit-transform: translateX(50%);
-        opacity: 0
+        -webkit-transform: translateX(100%);
     }
 
     to {
         -webkit-transform: translateX(0px);
-        opacity: 1
     }
 }
 @keyframes sliderightin {
     from {
-        transform: translateX(50%);
-        opacity: 0
+        transform: translateX(100%);
     }
 
     to {
         -webkit-transform: translateX(0px);
-        opacity: 1
     }
 }
+/*向左渐隐*/
+@-webkit-keyframes sliderightout {
+    from {
+        -webkit-transform: translateX(0px);
+    }
 
+    to {
+        -webkit-transform: translateX(100%);
+    }
+}
+@keyframes sliderightout {
+    from {
+        transform: translateX(0px);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}
+/*向上渐显*/
 @-webkit-keyframes slideupin {
     from {
         -webkit-transform: translate3d(0,100%,0);
     }
 
     to {
-        -webkit-transform: translate3d(0,0%,0);
+        -webkit-transform: translate3d(0,0,0);
     }
 }
 @keyframes slideupin {
@@ -308,13 +290,32 @@
     }
 
     to {
-        -webkit-transform: translate3d(0,0%,0);
+        -webkit-transform: translate3d(0,0,0);
     }
 }
+/*向上渐隐*/
+@-webkit-keyframes slideupout {
+    from {
+        -webkit-transform: translate3d(0,0,0);
+    }
 
+    to {
+        -webkit-transform: translate3d(0,100%,0);
+    }
+}
+@keyframes slideupout {
+    from {
+        -webkit-transform: translate3d(0,0,0);
+    }
+
+    to {
+        -webkit-transform: translate3d(0,100%,0);
+    }
+}
+/*向下渐显*/
 @-webkit-keyframes slidedownin {
     from {
-        -webkit-transform: translate3d(0,-50%,0);
+        -webkit-transform: translate3d(0,-100%,0);
     }
 
     to {
@@ -323,10 +324,29 @@
 }
 @keyframes slidedownin {
     from {
-        -webkit-transform: translate3d(0,-50%,0);
+        -webkit-transform: translate3d(0,-100%,0);
     }
 
     to {
         -webkit-transform: translate3d(0,0,0);
+    }
+}
+/*向下渐隐*/
+@-webkit-keyframes slidedownout {
+    from {
+        -webkit-transform: translate3d(0,0,0);
+    }
+
+    to {
+        -webkit-transform: translate3d(0,-100%,0);
+    }
+}
+@keyframes slidedownout {
+    from {
+        -webkit-transform: translate3d(0,0,0);
+    }
+
+    to {
+        -webkit-transform: translate3d(0,-100%,0);
     }
 }

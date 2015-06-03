@@ -3,8 +3,8 @@
 <head>
 	<title>dialog moblie</title>
 	<meta name="viewport" content="width=320.1, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<!-- <link rel="stylesheet" type="text/css" href="../../src/moblie/css/dialog.css"> -->
-	<link rel="stylesheet" type="text/css" href="../../build/moblie/css/dialog-min.css">
+	<link rel="stylesheet" type="text/css" href="../../src/moblie/css/dialog.css">
+	<!-- <link rel="stylesheet" type="text/css" href="../../build/moblie/css/dialog-min.css"> -->
 </head>
 <body style="height: 1200px; margin:0;">
 	<div>
@@ -91,10 +91,16 @@
 		 */
 		var init = $( this ).attr( 'data-dialog' );
 		if( !init ){
-			var html = '<div style="height:300px;width:500px;background:white;">1111111</div>'
-			pageDialog1 = Dialog.page( html)
+			var html = '<div style="height:300px;width:150px;background:red;">1111111</div>'
+			pageDialog1 = Dialog.create({
+				type: 'page',
+				html: html,
+				unload: false,
+				shade: false
+			})
 			$( this ).attr( 'data-dialog', 'true' );
 		}else{
+			console.log(pageDialog1)
 			pageDialog1.show();
 		}
 
@@ -107,12 +113,12 @@
 		 * @prama { function } ok 确认回调事件
 		 * @return Dialog
 		 */
-		var html = '<div style="height:300px;width:100%;background:white;">1111111</div>'
+		var html = '<div style="height:150px;width:100%;background:white;">1111111</div>'
 		Dialog.create({
 			type: 'page',
 			html: html,
 			align: 'bottom',
-			animation: 'slideupin'
+			animation: 'slideup'
 		})
 
 	})
@@ -123,12 +129,12 @@
 		 * @prama { function } ok 确认回调事件
 		 * @return Dialog
 		 */
-		var html = '<div style="height:300px;width:100%;background:white;">1111111</div>'
+		var html = '<div style="height:150px;width:100%;background:white;">1111111</div>'
 		Dialog.create({
 			type: 'page',
 			html: html,
 			align: 'top',
-			animation: 'slidedownin'
+			animation: 'slidedown'
 		})
 
 	})
@@ -139,12 +145,12 @@
 		 * @prama { function } ok 确认回调事件
 		 * @return Dialog
 		 */
-		var html = '<div style="height:100%;width:500px;background:white;">1111111</div>'
+		var html = '<div style="height:100%;width:150px;background:white;">1111111</div>'
 		Dialog.create({
 			type: 'page',
 			html: html,
 			align: 'left',
-			animation: 'slideleftin'
+			animation: 'slideleft'
 		})
 
 	})
@@ -155,12 +161,12 @@
 		 * @prama { function } ok 确认回调事件
 		 * @return Dialog
 		 */
-		var html = '<div style="height:100%;width:500px;background:white;">1111111</div>'
+		var html = '<div style="height:100%;width:150px;background:white;">1111111</div>'
 		Dialog.create({
 			type: 'page',
 			html: html,
 			align: 'right',
-			animation: 'sliderightin'
+			animation: 'slideright'
 		})
 
 	})
