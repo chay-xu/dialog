@@ -2,8 +2,8 @@
  * @file dialog plugin
  * @author xucaiyu
  * @email 569455187@qq.com
- * @version 1.0.0
- * @date 2014-10-15
+ * @version 2.0.5
+ * @date 2015-06-18
  * @license MIT License 
  */
  
@@ -31,6 +31,7 @@
         Default = {
             className: '',
             container: 'body',
+            // css: {},
             css: { padding: '10px' },
             html: '加载中...',
             value: '',
@@ -49,16 +50,10 @@
                     callback: function(){},
                     disabled: false,
                     focus: false
-                },
-                {
-                    name: '取消',
-                    callback: function(){},
-                    disabled: false,
-                    focus: false
                 }
                 // ,
                 // {
-                //     name: '取消21',
+                //     name: '取消',
                 //     callback: function(){},
                 //     disabled: false,
                 //     focus: false
@@ -72,7 +67,7 @@
             shadeClose: false,
             unload: true,
             delay: false,
-            opacity: 0.3,
+            opacity: 0.5,
             fixed: false,
             isMove: true,
             resize: true,
@@ -94,22 +89,22 @@
     +    '<table class="xcy-table xcy-warpper">'
     +        '<tbody>'
     +            '<tr>'
-    +                '<td class="xcy-tl"></td>'
-    +                '<td class="xcy-tc"></td>'
-    +                '<td class="xcy-tr"></td>'
+    +                '<td class="xcy-tl xcy-resize-item" id="xcy-resize-tl"></td>'
+    +                '<td class="xcy-tc xcy-resize-item" id="xcy-resize-tc"></td>'
+    +                '<td class="xcy-tr xcy-resize-item" id="xcy-resize-tr"></td>'
     +            '</tr>'
     +            '<tr>'
-    +                '<td class="xcy-cl"></td>'
+    +                '<td class="xcy-cl xcy-resize-item" id="xcy-resize-cl"></td>'
     +                '<td class="xcy-cc">'
     +                    '<div class="xcy-layer">'
     +                    '</div>'
     +                '</td>'
-    +                '<td class="xcy-cr"></td>'
+    +                '<td class="xcy-cr xcy-resize-item" id="xcy-resize-cr"></td>'
     +            '</tr>'
     +            '<tr>'
-    +                '<td class="xcy-bl"></td>'
-    +                '<td class="xcy-bc"></td>'
-    +                '<td class="xcy-br"></td>'
+    +                '<td class="xcy-bl xcy-resize-item" id="xcy-resize-bl"></td>'
+    +                '<td class="xcy-bc xcy-resize-item" id="xcy-resize-bc"></td>'
+    +                '<td class="xcy-br xcy-resize-item" id="xcy-resize-br"></td>'
     +            '</tr>'
     +        '</tbody>'
     +    '</table>';
@@ -128,13 +123,15 @@
             for( j = 0; j < len; j++ ){
                 // bubble key position
                 if( layers[ j ]._cid == cid ){
-
+                    // 如果是最后1位开始重新渲染
                     if( j == len - 1 ){
-                        // no change
+                        // if no change 如果原始位置就在最后1位立即返回
                         if( !_cid ) return;
                         // change z-inde style
                         $.each( layers, function( i, obj ){
                             obj.$el.css( 'zIndex', obj._zIndex );
+                            obj.$proxy.css( 'zIndex', obj._zIndex );
+                            obj.$shade && obj.$shade.css( 'zIndex', obj._zIndex );
                         });
 
                         return;
@@ -223,7 +220,9 @@
 
         // dialog parent
         // that.$parent = $( opt.fixed ? 'body' : opt.container );
+        
         that.$parent = (typeof opt.container === 'string') ? $( opt.container ) : opt.container;
+        if( this.$parent.length == 0 ) that.$parent = $('body');
         // dialog warpper
         that.$el =  $( dialogHtml );
         that.$el.addClass( opt.className );
@@ -243,30 +242,16 @@
         opt.beforeFn.apply( this );
 
         that.init( _drag );
+        // save global dialog
+        layers.push( this );
 
         // init function 初始化之后执行的自定义函数
         opt.afterFn.apply( this );
-
-        // 监控加载状态
-        if( that.$iframe ){
-            var iframe = that.$iframe[0];
-            if( iframe.attachEvent ){
-                iframe.attachEvent( "onload", function(){
-                    opt.onloadFn && opt.onloadFn();
-                    iframe.detachEvent( "onload", arguments.caller);
-                });
-            }else{
-                iframe.onload = function(){
-                    opt.onloadFn && opt.onloadFn();
-                    iframe.onload = null;
-                };
-            }
-        }
         options = null;
     }
     // dialog
     DialogLayer.prototype = {
-        v: '2.0.1',
+        v: '2.0.5',
         constructor: DialogLayer,
         init: function( _drag ){
             var that = this,
@@ -280,9 +265,9 @@
 
             // shade layer
             if( showShade ){
-                id = '#shade-layer-'+ that._cid;
+                id = 'shade-layer-'+ that._cid;
 
-                that.$elArr.push( id );
+                that.$elArr.push( '#'+id );
 
                 // that.shadeEvent( that.parent, id );
                 that._shadeHtml( id );
@@ -290,46 +275,55 @@
             }
             switch( that.type ){
                 case 'load':
-                    id = '#load-layer-'+ that._cid;
+                    id = 'load-layer-'+ that._cid;
 
                     that._layerHtml( false, html, false );
                     break;
                 case 'confirm':
-                    id = '#confirm-layer-'+ that._cid;
+                    id = 'confirm-layer-'+ that._cid;
 
                     that._layerHtml( title, html, opt.buttons );
                     break;
                 case 'prompt':
-                    id = '#prompt-layer-'+ that._cid;
+                    id = 'prompt-layer-'+ that._cid;
 
                     that._layerHtml( title, html, opt.buttons );
                     break;
                 case 'alert':
-                    id = '#alert-layer-'+ that._cid;
+                    id = 'alert-layer-'+ that._cid;
 
                     that._layerHtml( title, html, opt.buttons );
                     break;
                 case 'msg':
-                    id = '#msg-layer-'+ that._cid;
+                    id = 'msg-layer-'+ that._cid;
                 
                     that._layerHtml( title, html, false );
                     break;
                 case 'iframe':
-                    id = '#iframe-layer-'+ that._cid;
+                    id = 'iframe-layer-'+ that._cid;
 
                     that._layerHtml( title, true, false );
                     break;
                 default:
-                    id = '#page-layer-'+ that._cid;
+                    id = 'page-layer-'+ that._cid;
                 
                     that._layerHtml( title, html, false );
             }
             // push id
-            that.$elArr.push( id );
+            that.$elArr.push( '#'+id );
 
-            // that._id = id;
             // set id
-            $el.attr( 'id', id.substring( 1 ) );
+            $el.attr( 'id', id );
+
+            // append drag proxy
+            that.$proxy = $('<div class="xcy-proxy xcy-proxy-hidden"><div class="xcy-title xcy-drag"><span>'+title+'</span></div></div>').css({
+                width: that.warpperWidth,
+                height: that.warpperHeight,
+                top: that.top,
+                left: that.left,
+                zIndex: that._zIndex
+            })
+            that.$parent.append( that.$proxy );
 
             // container is body
             // if( that.$parent[0].nodeName == 'BODY' ){
@@ -345,6 +339,7 @@
                             $win.bind( 'scroll', that._ie6Fix );
                         }else{
                             that.$el.addClass( 'xcy-fixed' );
+                            that.$proxy.css( 'position', 'fixed' );
                         }
 
                     // parent is not body
@@ -399,28 +394,159 @@
                 $win.bind( 'resize', that._winResize );
             }
 
+            // restore 记住原始大小和位置
+            that._restore = {top: that.top, left: that.left, height: that.height, width: that.width };
+
             // drag layer move
-            if( opt.isMove ){              
+            if( opt.isMove ){   
+                // var timeStep;          
                 // set drag value
-                _drag.selector = id;
-                _drag.container = opt.container;
-                _drag.fixed = opt.fixed;
-                _drag.target = '.xcy-title';
-                _drag.isBody = that._isBody;
+                $.extend( _drag, {
+                    selector: that.$proxy,
+                    container: opt.container,
+                    fixed: opt.fixed,
+                    target: $('.xcy-title', $el),
+                    isBody: that._isBody
+                })
+                _drag.onStart = function( $drag ){
+                    // $drag.css({ top: that.top, left: that.left })
+                    $el.hide();
+                };
                 var onMove = _drag.onMove;
                 _drag.onMove = function( t, l ){
+                    // clearTimeout(timeStep)
+                    // showProxy()
                     that.top = t;
                     that.left = l;
                     onMove( t, l );
+                };
+                _drag.onEnd = function( t, l ){
+                    that.$el.css({ top: t, left: l })
+                    $el.show();
                 };
 
                 // drag drop init
                 that._dragObj = new DragDrop( _drag );
             }
+            // 层级冒泡排序
+            $el.bind('mousedown', function(){
+                // bubble z-index, set drag ladyer z-index
+                support.sort( id.split( '-' )[2] );
+            })
+            
+            // 监控加载状态
+            if( that.$iframe ){
+                var iframe = that.$iframe[0];
+                if( iframe.attachEvent ){
+                    iframe.attachEvent( "onload", function(){
+                        opt.onloadFn && opt.onloadFn();
+                        iframe.detachEvent( "onload", arguments.caller);
+                    });
+                }else{
+                    iframe.onload = function(){
+                        opt.onloadFn && opt.onloadFn();
+                        iframe.onload = null;
+                    };
+                }
+                // iframe层级冒泡排序
+                // $(that.$iframe[0].contentDocument).bind('mousedown', function(){
+                //     // bubble z-index, set drag ladyer z-index
+                //     that.$el.mousedown();
+                // })
+            }
 
             // auto hidden
             if( opt.delay )
                 that.timer = setTimeout( function(){ that._autoClose(); }, typeof opt.delay === 'boolean' ? 1800 : opt.delay );
+
+            // resize
+//             $el.addClass('xcy-resize');
+//             $el.delegate('.xcy-resize-item', 'mousedown', function(){
+//                 var $me = $(this),
+//                     id = $me.attr('id'),
+//                     // h = $win.innerHeight(),
+//                     // w = $win.innerWidth();
+//                     parentOffset = that.$parent.offset(),
+//                     parentTop = parentOffset.top,
+//                     parentLeft = parentOffset.left;
+//                     // oldLeft = that.left;
+//                     that.$proxy.css({
+//                         top: that.top,
+//                         left: that.left
+//                     })
+
+//                 var offset = that.$proxy.offset(),
+//                     top = offset.top,
+//                     left = offset.left,
+//                     width = that.$proxy.width(),
+//                     height = that.$proxy.height();
+
+//                     // $(document).bind( 'mousemove', handleResize );
+//                     // $(document).bind( 'mouseup', unResize)
+                    
+//                     function handleResize( e ){
+//                         var type = e.type;
+
+//                         // var offset = $proxy.offset(),
+//                         //     top = offset.top,
+//                         //     left = offset.left;
+
+//                         // window capture focus
+//                         if( _isIE ){
+//                             $me.bind( 'losecapture', that._end );
+//                             $me[0].setCapture();
+//                         }else{
+//                             $doc.bind( 'blur', that._end );
+//                         }
+
+//                         // clear selected text
+//                         window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+
+//                         switch(id){
+//                             case 'xcy-resize-tl':
+//                                 break;
+//                             case 'xcy-resize-tc':
+//                                 break;
+//                             case 'xcy-resize-tr':
+//                                 break;
+//                             case 'xcy-resize-cl':
+//                                 // console.log(left, oldLeft);
+//                                 if(e.clientX < parentLeft) return;
+//                                 if(e.clientX > left+width-150) return;
+// console.log(left );
+//                                 var cssPosition = that._dragObj.range(top, e.clientX - parentLeft, width + (left - e.clientX), height) 
+//                                 that.$proxy.css({
+//                                     left: cssPosition.left,
+//                                     width: cssPosition.width
+//                                 })
+//                                 // that.resize( (that.width + that.left - e.clientX)+left, that.height, that.top, e.clientX-left)
+//                                 break;
+//                             case 'xcy-resize-cr':
+//                                 if(e.clientX > that.parentWidth + left-6) return;
+//                                 console.log(e.clientX - that.left);
+//                                 // that.resize( e.clientX - (that.left) - left, that.height, that.top, that.left)
+//                                 break;
+//                         }
+                        
+//                         // if(e.clientX <= 20) return;
+
+//                         // that.resize( (that.width + that.left - (e.clientX ))+20, that.height, that.top, e.clientX-20)
+//                         // console.log(that.left, e.clientX, that.$parent.offset().left)
+
+//                         return false;
+//                     }
+
+//                     function unResize(){
+//                         $(document).unbind( 'mousemove', handleResize );
+//                         $(document).unbind( 'mouseup', unResize );
+
+//                         var offset = that.$proxy.position();
+//                         console.log(offset.top, offset.left, '---++++---')
+
+//                         that.resize( that.$proxy.width(), that.$proxy.height(), offset.top, offset.left, true )
+//                         that.$proxy.hide();
+//                     }
+//             })
 
         },
         _autoClose: function(){
@@ -496,8 +622,8 @@
                     con = that._conHtml( content );
                 }
 
-                // 宽高设置xcy-content层
-                // 自定义css 设置在xyc-main层
+                // 宽高设置xcy-main层
+                // 自定义css 设置在xyc-main-inner层
                 $( '.xcy-main', con ).css( cssObj ); 
             }
 
@@ -522,10 +648,13 @@
                 // render window buttons
                 $( '.xcy-layer', $el ).append( winBtn );
 
-            }            
+            }   
+            // 转换宽高为数字
+            that._toNumberW( opt.width );
+            that._toNumberH( opt.height );      
 
             // set content css
-            that._setConCss( that._getContent(), opt.width, opt.height );
+            that._setCssSize( that._getContent() );
 
             // get warpper size
             that._getWarpperSize( $el );
@@ -571,9 +700,10 @@
         // shade html
         _shadeHtml: function( id ){
             var that = this,
-                shade = $( '<div class="xcy-shade" id=\"'+ id.substring( 1 ) +'\"></div>' );
+                shade = $( '<div class="xcy-shade" id=\"'+ id +'\"></div>' );
 
             that._shadeCss( shade );
+            that.$shade = shade;
             // set id
             // shade.css( { width: width, height: height, opacity: opacity, 'z-index': that._zIndex } );
 
@@ -596,15 +726,18 @@
                 opt = that.options,
                 node = $( '<div class="xcy-load"><span class="xcy-load-img"></span><span>'+html+'</span></div>' );
 
+            // 转换宽高为数字
+            that._toNumberW( opt.width );
+            that._toNumberH( opt.height ); 
             // set content css
-            that._setConCss( node, opt.width, opt.height );
+            that._setCssSize( node );
 
             return node;
         },
         _iframeHtml: function( src ){
             var that = this,
                 opt = that.options,
-                $iframe = $('<iframe allowtransparency="true" frameborder="0" class="xcy-iframe" name="xcy-iframe' 
+                $iframe = $('<iframe allowtransparency="true" frameborder="0" class="xcy-iframe" name="xcy-iframe-' 
                     + that._cid +'"  src="'+src+'" scrolling="'+opt.scrolling+'"></iframe>');
 
                 // 添加 iframe 对象
@@ -640,6 +773,11 @@
 
             // set content html
             node.find( '.xcy-main' ).html( html );
+            // add icon
+            if( opt.icon ){
+                node.addClass('xcy-icon-box')
+                node.append('<div class="xcy-icon-default xcy-icon-'+opt.icon+'"></div>')
+            }
 
             return node;
         },
@@ -648,7 +786,7 @@
             var that = this,
                 node = $( '<div class="xcy-title"></div>' );
 
-            node.append( '<span>'+ title +'</span>' );
+            node.append( '<span title=\"'+ title +'\">'+ title +'</span>' );
 
             return node;
         },
@@ -721,7 +859,7 @@
                 node.append( '<a class="xcy-winBtn-btn" id="xcy-full-btn" href="javascript:;">+</a>' );
             }
             // if type is msg or page, change close class
-            if( ( type == 'msg' && that.options.title === false ) || (type == 'page' && that.options.title === false) )
+            if( ( type == 'msg' && opts.title === false ) || (type == 'page' && opts.title === false) )
                 msgClass = 'xcy-x-btn';
             
             // close
@@ -744,19 +882,26 @@
                         }
                         break;
                     case 'xcy-full-btn':
-                        if( state ){
+                        // if( state ){
                             that.full();
-                            state = false;
-                        }else{
+                            $( this ).attr( 'id', 'xcy-restore-btn' )
                             $( '#xcy-min-btn', that.$el ).show();
-                            that.restore();
-                            state = true;
-                        }
+                            // state = false;
+                        // }else{
+                        //     $( '#xcy-min-btn', that.$el ).show();
+                        //     that.restore();
+                        //     state = true;
+                        // }
+                        break;
+                    case 'xcy-restore-btn':
+                        that.restore();
+                        $( this ).attr( 'id', 'xcy-full-btn' )
+                        $( '#xcy-min-btn', that.$el ).show();
                         break;
                     case 'xcy-min-btn':
                         $( this ).hide();
                         that.min();
-                        state = false;
+                        $( this ).next().attr( 'id', 'xcy-restore-btn' )
                         break;
                 }
             });
@@ -818,7 +963,7 @@
                     overW = that.warpperWidth - conW;
                     w = support.toNumber( w, that.parentWidth -overW );
                 }
-                that.width = w;
+                that.width = Number(w);
             }
         },
         // 高度百分比转换数字
@@ -839,20 +984,20 @@
                     overH = that.warpperHeight - conH;
                     h = support.toNumber( h, that.parentHeight -overH );
                 }
-                that.height = h;
+                that.height = Number(h);
             }
         },
         // set content css
-        _setConCss: function( el, w, h ){
+        _setCssSize: function( el ){
             var that = this,
                 cssObj = that.css;
 
             // 宽高分开渲染，不然高度受宽度影响获取值不对
-            that._toNumberW( w );
-            el.css( { width: that.width } );
+            // that._toNumberW( w );
+            el.css( { width: that.width, height: that.height } );
 
-            that._toNumberH( h );
-            el.css( { height: that.height } );
+            // that._toNumberH( h );
+            // el.css( { height: that.height } );
         },
         // set warpper css
         _setCss: function( t, l ){
@@ -870,7 +1015,7 @@
             }
 
             // top
-            if( t === undefined || t == '' ){
+            if( t === undefined || t === '' ){
                 t = '50%';
             }
             // top % to number
@@ -878,7 +1023,7 @@
             that.top = t;
 
             // left
-            if( l === undefined || l == '' ){
+            if( l === undefined || l === '' ){
                 l = '50%';
             }
             // left % to number
@@ -896,13 +1041,13 @@
         _getConWidth: function(){
             var that = this;
 
-            that.width = that._getContent().outerWidth();
+            that.width = that._getContent().width();
         },
         // 获取dialog content容器高度
         _getConHeight: function(){
             var that = this;
 
-            that.height = that._getContent().outerHeight();
+            that.height = that._getContent().height();
         },
         // 获取dialog父级可视大小
         _getParentSize: function(){
@@ -923,9 +1068,10 @@
         },
         min: function(){
 
-            this.resize( '180', '0', 0, (layers.length-1) * 180 );
+            this.resize( '180', '0', this.top, this.left );
         },
         full: function(){
+
             this.resize( '100%', '100%', 0, 0 );
         },
         restore: function(){
@@ -952,7 +1098,7 @@
 
             return this;
         },
-        resize: function( w, h, t, l ){
+        resize: function( w, h, t, l, isdrag ){
             var that = this,
                 offL = parseInt( that.$el.css( 'left' ) ),  //left
                 offT = parseInt( that.$el.css( 'top' ) ),
@@ -962,7 +1108,7 @@
                 left, top, box;
 
             // restore
-            that._restore = {top: that.top, left: that.left, height: that.height, width: that.width };
+            // that._restore = {top: that.top, left: that.left, height: that.height, width: that.width };
 
             // 宽高转换数字
             that._toNumberW( w );
@@ -975,12 +1121,12 @@
             this.options.width = w;            
 
             // 除内容外的宽度/2
-            diffW = (conW - w)/2;
-            diffH = (conH - h)/2;
-            // exist l and t 指定位置
-            // no exist [ offL + diffW ]
-            left = l !== undefined ? l : offL + diffW;
-            top = t !== undefined ? t : offT + diffH;
+            // diffW = (conW - w)/2;
+            // diffH = (conH - h)/2;
+            // // exist l and t 指定位置
+            // // no exist [ offL + diffW ]
+            // left = l !== undefined ? l : offL + diffW;
+            // top = t !== undefined ? t : offT + diffH;
            
             // t = that.oTop;
             // l = that.oLeft;
@@ -988,16 +1134,34 @@
 // console.log( that._restore );
 
             // set content css
-            that._setConCss( that._getContent(), w, h );
+            that._setCssSize( that._getContent() );
             // reset warpper size
             that._getWarpperSize( that.$el );
+            // exist l and t 指定位置
+            // no exist [ offL + diffW ]
+            box = that._setCss( t, l );
+            top = box.top;
+            left = box.left;
+
+            that.$proxy.css({
+                left: left,
+                top: top,
+                width: that.warpperWidth,
+                height: that.warpperHeight
+            })
 
             // move positon
-            if( !this._dragObj ){
-                that.$el.css( that._setCss( t, l ) );
-            }else{
-                that._dragObj._move( top, left, that.warpperHeight, that.warpperWidth );
-            }
+            // if( !this._dragObj || isdrag ){
+                console.log( top, left, that.warpperHeight, that.warpperWidth )
+                // that.$el.css( that._setCss( top, left ) );
+                that.$el.css({
+                    top: top,
+                    left: left
+                });
+            // }else{
+                // that._dragObj._move( top, left, that.warpperHeight, that.warpperWidth );
+                // that._dragObj._end( top, left );
+            // }
 
             return this;
         },
@@ -1010,7 +1174,7 @@
 
             // get drag layer limit range
             if( !this._dragObj ){
-                box = that.$el.css( that._setCss( t, l ) );
+                box = that._setCss( t, l );
             }else{
                 box = that._dragObj.range( t, l, that.warpperWidth, that.warpperHeight );
             }
@@ -1065,6 +1229,7 @@
             // unbind input buttons click event
             $( 'button', that.$el ).unbind( 'click' );
             $( '.xcy-winBtn a', that.$el ).unbind( 'click' );
+            that.$el.unbind( 'mousedown' );
 
             // unbind window event
             if( that._winResize ){
@@ -1128,8 +1293,8 @@
             that.diffx = 0;
             that.diffy = 0;
             that.options = options;
-            that.$parent = $( that.options.selector );
-            that.target = options.target;
+            that.$drag = typeof options.selector === 'string' ? $( options.selector ) : options.selector;
+            that.$target = typeof options.selector === 'string' ? $( options.target ) : options.target;
             that._handleEvent = _handleEvent;
 
             that._init();
@@ -1139,11 +1304,12 @@
                 var type = e.type,
                     _self = that,
                     $target = $( e.target ),
+                    className = that.$target.attr('class'),
                     $el;
 
                 // target is tit childer
-                if( $target.parents( that.target ).length !== 0 ){
-                    $el = $target.parents( that.target );
+                if( $target.parents( '.xcy-drag' ).length !== 0 ){
+                    $el = $target.parents( '.xcy-drag' );
                 // target is tit
                 }else{
                     $el = $target;
@@ -1151,13 +1317,16 @@
 
                 switch( type ){
                     case 'mousedown':
-                        // bubble z-index, set drag ladyer z-index
-                        support.sort( that.options.selector.split( '-' )[2] ); 
+                        // bind start event
+                        that.options.onStart( that.$drag );
 
-                        if( $el.attr( 'data-move' ) == 'true' ){
+                        if( $el.hasClass( 'xcy-drag' ) ){
+
+                            that.$drag.removeClass('xcy-proxy-hidden');
+                            // console.log(that.$target[0].getBoundingClientRect())
                             // mouse clientx - drag layer offset left
-                            that.diffx = e.clientX - that.$parent[0].offsetLeft;
-                            that.diffy = e.clientY - that.$parent[0].offsetTop;
+                            that.diffx = e.clientX - that.$drag[0].offsetLeft;
+                            that.diffy = e.clientY - that.$drag[0].offsetTop;
                             // afresh size
                             that._getOffSize();
                    
@@ -1166,16 +1335,14 @@
                             
                             // window capture focus
                             if( _isIE ){
-                                that.$parent.bind( 'losecapture', that._end );
-                                that.$parent[0].setCapture();
+                                that.$drag.bind( 'losecapture', that._end );
+                                that.$drag[0].setCapture();
                             }else{
                                 $doc.bind( 'blur', that._end );
                             }
 
                             $doc.bind( 'mousemove', that._handleEvent );
                             $doc.bind( 'mouseup', that._handleEvent );
-                            // bind start event
-                            that.options.onStart();
 
                             e.preventDefault();
                         }
@@ -1184,11 +1351,13 @@
                         var l = e.clientX - that.diffx,
                             t = e.clientY - that.diffy;
 
-                        that._move( t, l, that.offH, that.offW );
+                        that._move( t, l, that.dragH, that.dragW );
 
                         e.preventDefault();
                         break;
                     case 'mouseup':
+                        // dragable proxy hidden
+                        that.$drag.addClass('xcy-proxy-hidden');
 
                         that._end();
                         break;
@@ -1197,21 +1366,21 @@
         }
         dragdrop.prototype = {
             _init: function(){
-                var that = this,
-                    $tit = $( that.target, that.$parent );
+                var that = this;
 
                 that._size();
 
-                $tit.attr( 'data-move', 'true' );
-                $tit.css( 'cursor', 'move' );
+                // $tit.attr( 'data-move', 'true' );
+                // $tit.css( 'cursor', 'move' );
+                that.$target.addClass( 'xcy-drag' );
                 // mousedown event
-                that.$parent.bind( 'mousedown', that._handleEvent );
+                that.$target.bind( 'mousedown', that._handleEvent );
             },
             _getActive: function () {
-                try {// try: ie8~9, iframe #26
-                    var activeElement = document.activeElement;
-                    var contentDocument = activeElement.contentDocument;
-                    var elem = contentDocument && contentDocument.activeElement || activeElement;
+                try {// try: ie8~9, iframe bug
+                    var activeElement = document.activeElement,
+                        contentDocument = activeElement.contentDocument,
+                        elem = contentDocument && contentDocument.activeElement || activeElement;
                     return elem;
                 } catch (e) {}
             },
@@ -1253,7 +1422,6 @@
                         // client range value值
                         that.h = $container[0].scrollHeight;
                         that.w = $container[0].scrollWidth;
-
                     }
 
                     // container css style position
@@ -1270,28 +1438,28 @@
                 var that = this;
 
                 // get parent width and height value
-                that.offW = that.$parent.outerWidth();
-                that.offH = that.$parent.outerHeight();
+                that.dragW = that.$drag.outerWidth();
+                that.dragH = that.$drag.outerHeight();
                 // left top
-                that.left = parseInt( that.$parent.css( 'left' ) );
-                that.top = parseInt( that.$parent.css( 'top' ) );
+                that.left = parseInt( that.$drag.css( 'left' ) );
+                that.top = parseInt( that.$drag.css( 'top' ) );
 
                 // reprai 修正右下limit range值
                 // limit right值: 右限制最大值
                 // limit left值 + 拖动容器width值: 右限制范围最小值
-                that.mxR = Math.max( that.mxR, that.mxL + that.offW );
-                that.mxB = Math.max( that.mxB, that.mxT + that.offH );
+                that.mxR = Math.max( that.mxR, that.mxL + that.dragW );
+                that.mxB = Math.max( that.mxB, that.mxT + that.dragH );
             },
-            _move: function( t, l, offH, offW ){
+            _move: function( t, l, dragH, dragW ){
                 var that = this,
                     position, left, top;
 
                 // left and top value
-                position = that.range( t, l, offW, offH );
+                position = that.range( t, l, dragW, dragH );
                 left = position.left;
                 top = position.top;
 
-                that.$parent.css( { 'left': left, 'top': top } );
+                that.$drag.css( { 'left': left, 'top': top } );
                 that.left = left;
                 that.top = top;
 
@@ -1305,15 +1473,15 @@
                 $doc.unbind( 'mouseup', that._handleEvent );
 
                 if( _isIE ){
-                    that.$parent.unbind( 'losecapture', that._end );
-                    that.$parent[0].releaseCapture();
+                    that.$drag.unbind( 'losecapture', that._end );
+                    that.$drag[0].releaseCapture();
                 }else{
                     $doc.unbind( 'blur', that._end );
                 }
 
-                that.options.onEnd();
+                that.options.onEnd(that.top, that.left);
             },
-            range: function( t, l, offW, offH ){
+            range: function( t, l, dragW, dragH ){
                 var that = this,
                     opt = that.options,
                     obj = {},
@@ -1335,11 +1503,11 @@
                     if( opt.container ){
                         // [ limit range , container range ] 容器最小活动范围
                         mxT = Math.max( that.mxT, 0 );
-                        mxR = Math.min( that.w - offW, that.mxR );
+                        mxR = Math.min( that.w - dragW, that.mxR - dragW );
                         mxL = Math.max( that.mxL, 0 );
-                        mxB = Math.min( that.h - offH, that.mxB );
+                        mxB = Math.min( that.h - dragH, that.mxB - dragH );
                     }
-// console.log( that.w, offW );
+
                     // 获取drag时正确的范围值
                     l = Math.max(Math.min( l, mxR ), mxL );
                     t = Math.max(Math.min( t, mxB ), mxT );
@@ -1347,6 +1515,8 @@
 
                 obj.left = l;
                 obj.top = t;
+                obj.width = dragW;
+                obj.height = dragH;
 
                 return obj;
             },
@@ -1361,13 +1531,13 @@
             enable: function(){
                 var that = this;
 
-                that.$parent.bind( 'mousedown', that._handleEvent );
+                that.$drag.bind( 'mousedown', that._handleEvent );
             },
             // unbind event
             disable: function(){
                 var that = this;
 
-                that.$parent.unbind( 'mousedown', that._handleEvent ); 
+                that.$drag.unbind( 'mousedown', that._handleEvent ); 
             }
         }
 
@@ -1379,10 +1549,10 @@
         create: function( options ){
             var dl = new DialogLayer( options );
             // save global dialog
-            layers.push( dl );
+            // layers.push( dl );
             return dl;
         },
-        load: function( msg, delay, shade ){
+        load: function( msg, delay, shade, shadeClose ){
             // delay is not exist
             return Dialog.create({
                 type: 'load',
@@ -1390,6 +1560,7 @@
                 fixed: true,
                 unload: true,
                 shade: shade || false,
+                shadeClose: shadeClose || true,
                 delay: typeof delay !== 'undefined' ? delay : false
             })
         },
