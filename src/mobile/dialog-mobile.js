@@ -28,7 +28,8 @@
 					callback: function(){}
 				}
 			],
-			init: function(){}
+			init: function(){},
+			closeFn: function(){}
 		}
 
 	function DialogLayer( options ){
@@ -195,6 +196,7 @@
 		}
 
 		isDialog = null;
+		opts.closeFn();
 	}
 	DialogLayer.prototype.animate = function( callback ){
 		var _self = this,
@@ -285,12 +287,13 @@
 				}]
 			});
 		},
-		tip: function( html, time, close ){
+		tip: function( html, time, close, callback ){
 			return isDialog = new DialogLayer({
 				type: 'tip',
 				html: html,
-				time: time !== undefined ? time : 1200,
-				shadeClose: close ? close : true
+				time: typeof time === 'number' ? time : 1200,
+				shadeClose: typeof close === 'boolean' ? close : true,
+				closeFn: callback ? callback : function(){}
 			});
 		},
 		page: function( html, callback, close ){
