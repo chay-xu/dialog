@@ -2,26 +2,32 @@
 <html style="">
 <head>
 	<title>dialog测试</title>
-	<link rel="stylesheet" type="text/css" href="../../src/pc/css/layout.css">
+	<link rel="stylesheet" type="text/css" href="../../src/pc/css/layout-classic.css">
 </head>
-<body style="height: 1200px; margin:0;">
+<body style="width: 1600px; height: 1200px; margin:0;">
 	<div class="pager_nav" style="position: relative;height: 300px; width: 1050px;border: 1px solid red; margin: 20px;overflow:auto;" id="table-warp">
 		<select>
 			<option>1</option>
 		</select>
 		<div style="height:350px;">1111111我的偶尔1111111</div>
 	</div>
-	<input type="button" id="alert" value="快捷警告层">
+    <input type="button" id="alert" value="快捷警告层">
+    <input type="button" id="size" value="大小">
+	<input type="button" id="limit" value="限制范围">
 	<script type="text/javascript" src="../../lib/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="../../src/pc/dialog.js"></script>
 	<script type="text/javascript">
-		Dialog.create({
+		var alertObj = Dialog.create({
             type: 'alert',
-            html: 'msg1',
+            html: '添加数据失败！添加数据失败！',
             shade: false,
-            fixed: true,
-            title: 'title1',
-            left: '50%',
+            fixed: false,
+            // fixed: true,
+            title: 'alert',
+            icon: 'warning',
+            left: '5%',
+            // width: 150,
+            // height: 100,
             unload: true,
             buttons: [
                 {
@@ -32,13 +38,38 @@
                 }
             ]
         })
+        console.log(alertObj)
+
 		Dialog.create({
-            type: 'alert',
+            type: 'confirm',
             html: 'msg2',
             shade: false,
             fixed: true,
-            title: 'title2',
-            left: '55%',
+            title: 'confirm',
+            left: '30%',
+            unload: true,
+            buttons: [
+                {
+                    name: '确定',
+                    callback: function(){},
+                    disabled: false,
+                    focus: true
+                },
+                {
+                    name: '取消',
+                    callback: function(){},
+                    disabled: true,
+                    focus: false
+                }
+            ]
+        })
+        Dialog.create({
+            type: 'prompt',
+            html: 'msg2',
+            shade: false,
+            fixed: true,
+            title: 'prompt',
+            left: '85%',
             unload: true,
             buttons: [
                 {
@@ -48,6 +79,108 @@
                     focus: true
                 }
             ]
+        })
+        Dialog.create({
+            type: 'page',
+            html: 'msg2',
+            shade: false,
+            fixed: true,
+            title: 'page',
+            left: '65%',
+            top: '25%',
+            unload: true,
+            buttons: [
+                {
+                    name: '确定',
+                    callback: function(){},
+                    disabled: false,
+                    focus: true
+                }
+            ]
+        })
+        Dialog.create({
+            container: '#table-warp',
+            type: 'load',
+            html: 'msg2',
+            shade: false,
+            fixed: true,
+            title: 'page',
+            left: '35%',
+            top: '25%',
+            unload: true,
+            buttons: [
+                {
+                    name: '确定',
+                    callback: function(){},
+                    disabled: false,
+                    focus: true
+                }
+            ]
+        })
+        Dialog.create({
+            type: 'msg',
+            html: 'msg2',
+            shade: false,
+            fixed: true,
+            title: false,
+            left: '15%',
+            top: '25%',
+            unload: true,
+            buttons: [
+                {
+                    name: '确定',
+                    callback: function(){},
+                    disabled: false,
+                    focus: true
+                }
+            ]
+        })
+        var loadObj;
+        var test = Dialog.create({
+            type: 'iframe',
+            html: 'msg2',
+            shade: false,
+            fixed: true,
+            title: 'iframe',
+            // left: '15%',
+            // top: '95%',
+            // src: 'http://www.baidu.com',
+            unload: true,
+            afterFn: function(){
+                loadObj = Dialog.create({
+                    type: 'load',
+                    container: this._getContent(),
+                    shade: true,
+                    // shadeClose: true,
+                    title: 'false',
+                    delay: false,
+                    html: 'loading'
+                })
+            },
+            onloadFn: function(){
+               loadObj.close()
+            },
+            buttons: [
+                {
+                    name: '确定',
+                    callback: function(){},
+                    disabled: false,
+                    focus: true
+                }
+            ]
+        })
+
+        /**
+         * 
+         */
+        $('#size').click(function(){
+            test.resize(500,200)
+        })
+        $('#limit').click(function(){
+            test.setDrag({
+                limit: true,
+                range: [20,1052,322,20]
+            })
         })
 	</script>
 </body>

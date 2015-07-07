@@ -3,7 +3,7 @@
 <head>
 	<title>dialog moblie</title>
 	<meta name="viewport" content="width=320.1, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<link rel="stylesheet" type="text/css" href="../../src/moblie/css/dialog.css">
+	<link rel="stylesheet" type="text/css" href="../../src/mobile/css/dialog.css">
 	<!-- <link rel="stylesheet" type="text/css" href="../../build/moblie/css/dialog-min.css"> -->
 </head>
 <body style="height: 1200px; margin:0;">
@@ -11,7 +11,8 @@
 		<input type="button" id="load" value="加载层">
 		<input type="button" id="confirm" value="警告层">
 		<input type="button" id="alert" value="提示层">
-		<input type="button" id="tip" value="tip层">
+		<input type="button" id="tip1" value="tip层1">
+		<input type="button" id="tip2" value="tip层2">
 	</div>
 	<div>
 		<input type="button" id="page1" value="自定义层中">
@@ -29,7 +30,7 @@
 		<input type="button" id="page5" value="自定义层右">
 	</div>
 	<script type="text/javascript" src="../../lib/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="../../src/moblie/dialog-moblie.js"></script>
+	<script type="text/javascript" src="../../src/mobile/dialog-mobile.js"></script>
 	<script type="text/javascript">
 	$( '#load' ).click(function(){
 		/**
@@ -64,7 +65,7 @@
 		})
 
 	})
-	$( '#tip' ).click(function(){
+	$( '#tip1' ).click(function(){
 		/**
 		 * @prama { string } 消息内容
 		 * @prama { number|boolean } 时间延长 false不消失
@@ -80,6 +81,9 @@
 			animation: 'slideup'
 		})
 
+	})
+	$( '#tip2' ).click(function(){
+		Dialog.tip('自动关闭', 1800, true, function(){alert('关闭了')})
 	})
 	var pageDialog1 = null;
 	$( '#page1' ).click(function(){
