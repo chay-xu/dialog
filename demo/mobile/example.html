@@ -60,8 +60,14 @@
 		 * @prama { boolean } shade点击关闭
 		 * @return Dialog
 		 */
-		Dialog.alert( '<div style="padding:10px 50px;">成功</div>', function(t){
-			// alert(t)
+		// Dialog.alert( '<div style="padding:10px 50px;">成功</div>', function(t){
+		// 	// alert(t)
+		// })
+		Dialog.create({
+			type: 'tip',
+			html: '成功',
+			// shade: true,
+			animation: 'opacity'
 		})
 
 	})

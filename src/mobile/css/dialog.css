@@ -9,7 +9,8 @@
     left: 0;
     height: 100%;
     width: 100%;
-    transition: opacity .5s;
+    /*transition: opacity .5s;*/
+    animation: opacityin .5s;
 }
 .xcy-layer, .xcy-loading{
     position: fixed;
@@ -177,7 +178,25 @@
     -moz-animation: slideupout 350ms ease-in-out;
     animation: slideupout 350ms ease-in-out
 }
-@-webkit-keyframes loading {
+.opacityin {
+    -webkit-animation: opacityin 350ms ease-in-out;
+    -moz-animation: opacityin 350ms ease-in-out;
+    animation: opacityin 350ms ease-in-out
+}
+.opacityout {
+    -webkit-animation: opacityout 350ms ease-in-out;
+    -moz-animation: opacityout 350ms ease-in-out;
+    animation: opacityout 350ms ease-in-out
+}
+@-webkit-keyframes opacityin{
+    0%{opacity:0;}
+    100%{opacity:1;}
+}
+@-webkit-keyframes opacityout{
+    0%{opacity:1;}
+    100%{opacity:0;}
+}
+@-webkit-keyframes loading{
     from {
         -webkit-transform:rotate(0deg) translateZ(0);
     }
