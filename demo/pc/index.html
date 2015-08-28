@@ -4,7 +4,7 @@
 	<title>dialog测试</title>
 	<link rel="stylesheet" type="text/css" href="../../src/pc/css/layout-classic.css">
 </head>
-<body style="width: 1600px; height: 1200px; margin:0;">
+<body style="min-width: 1600px; height: 1200px; margin:0;">
 	<div class="pager_nav" style="position: relative;height: 300px; width: 1050px;border: 1px solid red; margin: 20px;overflow:auto;" id="table-warp">
 		<select>
 			<option>1</option>
@@ -19,7 +19,7 @@
 	<script type="text/javascript">
 		var alertObj = Dialog.create({
             type: 'alert',
-            html: '添加数据失败！添加数据失败！',
+            html: '添加数据失败！<br>添加数据失败！',
             shade: false,
             fixed: false,
             // fixed: true,
@@ -41,10 +41,12 @@
         console.log(alertObj)
 
 		Dialog.create({
+            container: '#table-warp',
             type: 'confirm',
             html: 'msg2',
             shade: false,
             fixed: true,
+            isMove: true,
             title: 'confirm',
             left: '30%',
             unload: true,
@@ -65,7 +67,7 @@
         })
         Dialog.create({
             type: 'prompt',
-            html: 'msg2',
+            html: 'prompt text',
             shade: false,
             fixed: true,
             title: 'prompt',
@@ -99,14 +101,32 @@
             ]
         })
         Dialog.create({
+            type: 'page',
+            html: 'msg2 msg2',
+            shade: false,
+            fixed: true,
+            title: false,
+            left: '65%',
+            top: '55%',
+            unload: true,
+            buttons: [
+                {
+                    name: '确定',
+                    callback: function(){},
+                    disabled: false,
+                    focus: true
+                }
+            ]
+        })
+        Dialog.create({
             container: '#table-warp',
             type: 'load',
-            html: 'msg2',
+            html: 'loading',
             shade: false,
             fixed: true,
             title: 'page',
-            left: '35%',
-            top: '25%',
+            left: '50%',
+            top: '50%',
             unload: true,
             buttons: [
                 {
@@ -141,9 +161,9 @@
             html: 'msg2',
             shade: false,
             fixed: true,
-            title: 'iframe',
-            // left: '15%',
-            // top: '95%',
+            title: 'iframe 框架',
+            left: '45%',
+            top: '90%',
             // src: 'http://www.baidu.com',
             unload: true,
             afterFn: function(){

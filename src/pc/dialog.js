@@ -23,6 +23,7 @@
 // function Dialog( options ){
     var _cid = 1,
         _zIndex = 99999900,
+        _zIndexc = 999900,
         layers = [],
         _isIE = !-[1,],
         _isIE6 = _isIE && !window.XMLHttpRequest,
@@ -382,8 +383,14 @@
                             top = Math.round( t*nph ),
                             left = Math.round( l*npw );
 
+                        // set layer css
                         that.$el.css( that._setCss( top, left ) );
-
+                        // set proxy css
+                        that.$proxy && that.$proxy.css({
+                                top:  top,
+                                left: left 
+                            })
+                        // set shade css
                         if( showShade ){
                             that._shadeCss( $( that.$elArr[0] ) );
                         }
@@ -391,7 +398,11 @@
                     // that.$parent.scroll();
                 };
 
-                $win.bind( 'resize', that._winResize );
+                if( that._isBody ){
+                    $win.bind( 'resize', that._winResize );
+                }else{
+                    // this.$parent.bind( 'resize', that._winResize );
+                }
             }
 
             // restore 记住原始大小和位置
@@ -422,6 +433,9 @@
                 };
                 _drag.onEnd = function( t, l ){
                     that.$el.css({ top: t, left: l })
+                    // set _restore 修改原始位置
+                    that._restore.top = t;
+                    that._restore.left = l;
                     $el.show();
                 };
 
@@ -460,93 +474,94 @@
                 that.timer = setTimeout( function(){ that._autoClose(); }, typeof opt.delay === 'boolean' ? 1800 : opt.delay );
 
             // resize
-//             $el.addClass('xcy-resize');
-//             $el.delegate('.xcy-resize-item', 'mousedown', function(){
-//                 var $me = $(this),
-//                     id = $me.attr('id'),
-//                     // h = $win.innerHeight(),
-//                     // w = $win.innerWidth();
-//                     parentOffset = that.$parent.offset(),
-//                     parentTop = parentOffset.top,
-//                     parentLeft = parentOffset.left;
-//                     // oldLeft = that.left;
-//                     that.$proxy.css({
-//                         top: that.top,
-//                         left: that.left
-//                     })
+            $el.addClass('xcy-resize');
+            $el.delegate('.xcy-resize-item', 'mousedown', function(){
+                var $me = $(this),
+                    id = $me.attr('id'),
+                    // h = $win.innerHeight(),
+                    // w = $win.innerWidth();
+                    parentOffset = that.$parent.offset(),
+                    parentTop = parentOffset.top,
+                    parentLeft = parentOffset.left;
+                    // oldLeft = that.left;
+                    that.$proxy.css({
+                        top: that.top,
+                        left: that.left
+                    })
 
-//                 var offset = that.$proxy.offset(),
-//                     top = offset.top,
-//                     left = offset.left,
-//                     width = that.$proxy.width(),
-//                     height = that.$proxy.height();
+                var offset = that.$proxy.offset(),
+                    top = offset.top,
+                    left = offset.left,
+                    width = that.$proxy.width(),
+                    height = that.$proxy.height();
 
-//                     // $(document).bind( 'mousemove', handleResize );
-//                     // $(document).bind( 'mouseup', unResize)
+                    // $(document).bind( 'mousemove', handleResize );
+                    // $(document).bind( 'mouseup', unResize)
                     
-//                     function handleResize( e ){
-//                         var type = e.type;
+                    function handleResize( e ){
+                        var type = e.type;
 
-//                         // var offset = $proxy.offset(),
-//                         //     top = offset.top,
-//                         //     left = offset.left;
+                        // var offset = $proxy.offset(),
+                        //     top = offset.top,
+                        //     left = offset.left;
 
-//                         // window capture focus
-//                         if( _isIE ){
-//                             $me.bind( 'losecapture', that._end );
-//                             $me[0].setCapture();
-//                         }else{
-//                             $doc.bind( 'blur', that._end );
-//                         }
+                        // window capture focus
+                        if( _isIE ){
+                            $me.bind( 'losecapture', that._end );
+                            $me[0].setCapture();
+                        }else{
+                            $doc.bind( 'blur', that._end );
+                        }
 
-//                         // clear selected text
-//                         window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+                        // clear selected text
+                        window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
 
-//                         switch(id){
-//                             case 'xcy-resize-tl':
-//                                 break;
-//                             case 'xcy-resize-tc':
-//                                 break;
-//                             case 'xcy-resize-tr':
-//                                 break;
-//                             case 'xcy-resize-cl':
-//                                 // console.log(left, oldLeft);
-//                                 if(e.clientX < parentLeft) return;
-//                                 if(e.clientX > left+width-150) return;
-// console.log(left );
-//                                 var cssPosition = that._dragObj.range(top, e.clientX - parentLeft, width + (left - e.clientX), height) 
-//                                 that.$proxy.css({
-//                                     left: cssPosition.left,
-//                                     width: cssPosition.width
-//                                 })
-//                                 // that.resize( (that.width + that.left - e.clientX)+left, that.height, that.top, e.clientX-left)
-//                                 break;
-//                             case 'xcy-resize-cr':
-//                                 if(e.clientX > that.parentWidth + left-6) return;
-//                                 console.log(e.clientX - that.left);
-//                                 // that.resize( e.clientX - (that.left) - left, that.height, that.top, that.left)
-//                                 break;
-//                         }
+                        switch(id){
+                            case 'xcy-resize-tl':
+                                break;
+                            case 'xcy-resize-tc':
+                                break;
+                            case 'xcy-resize-tr':
+                                break;
+                            case 'xcy-resize-cl':
+                                // console.log(left, oldLeft);
+                                if(e.clientX < parentLeft) return;
+                                if(e.clientX > left+width-150) return;
+console.log(left );
+                                // var cssPosition = that._dragObj.range(top, e.clientX - parentLeft, width + (left - e.clientX), height) 
+                                that.$proxy.css({
+                                    display: 'block',
+                                    left: cssPosition.left,
+                                    width: cssPosition.width
+                                })
+                                // that.resize( (that.width + that.left - e.clientX)+left, that.height, that.top, e.clientX-left)
+                                break;
+                            case 'xcy-resize-cr':
+                                if(e.clientX > that.parentWidth + left-6) return;
+                                console.log(e.clientX - that.left);
+                                // that.resize( e.clientX - (that.left) - left, that.height, that.top, that.left)
+                                break;
+                        }
                         
-//                         // if(e.clientX <= 20) return;
+                        // if(e.clientX <= 20) return;
 
-//                         // that.resize( (that.width + that.left - (e.clientX ))+20, that.height, that.top, e.clientX-20)
-//                         // console.log(that.left, e.clientX, that.$parent.offset().left)
+                        // that.resize( (that.width + that.left - (e.clientX ))+20, that.height, that.top, e.clientX-20)
+                        // console.log(that.left, e.clientX, that.$parent.offset().left)
 
-//                         return false;
-//                     }
+                        return false;
+                    }
 
-//                     function unResize(){
-//                         $(document).unbind( 'mousemove', handleResize );
-//                         $(document).unbind( 'mouseup', unResize );
+                    function unResize(){
+                        $(document).unbind( 'mousemove', handleResize );
+                        $(document).unbind( 'mouseup', unResize );
 
-//                         var offset = that.$proxy.position();
-//                         console.log(offset.top, offset.left, '---++++---')
+                        var offset = that.$proxy.position();
+                        console.log(offset.top, offset.left, '---++++---')
 
-//                         that.resize( that.$proxy.width(), that.$proxy.height(), offset.top, offset.left, true )
-//                         that.$proxy.hide();
-//                     }
-//             })
+                        that.resize( that.$proxy.width(), that.$proxy.height(), offset.top, offset.left, true )
+                        that.$proxy.hide();
+                    }
+            })
 
         },
         _autoClose: function(){

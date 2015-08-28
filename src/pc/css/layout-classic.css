@@ -97,6 +97,7 @@ table.xcy-fixed{
 	line-height: 25px;
 	padding: 0 5px;
 	font-weight: bold;
+	text-shadow: 1px 1px 0 #0B77C5;
 	/*border-bottom: 1px solid #99ccff;*/
 }
 .xcy-title span{
