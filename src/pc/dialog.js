@@ -474,94 +474,94 @@
                 that.timer = setTimeout( function(){ that._autoClose(); }, typeof opt.delay === 'boolean' ? 1800 : opt.delay );
 
             // resize
-            $el.addClass('xcy-resize');
-            $el.delegate('.xcy-resize-item', 'mousedown', function(){
-                var $me = $(this),
-                    id = $me.attr('id'),
-                    // h = $win.innerHeight(),
-                    // w = $win.innerWidth();
-                    parentOffset = that.$parent.offset(),
-                    parentTop = parentOffset.top,
-                    parentLeft = parentOffset.left;
-                    // oldLeft = that.left;
-                    that.$proxy.css({
-                        top: that.top,
-                        left: that.left
-                    })
+//             $el.addClass('xcy-resize');
+//             $el.delegate('.xcy-resize-item', 'mousedown', function(){
+//                 var $me = $(this),
+//                     id = $me.attr('id'),
+//                     // h = $win.innerHeight(),
+//                     // w = $win.innerWidth();
+//                     parentOffset = that.$parent.offset(),
+//                     parentTop = parentOffset.top,
+//                     parentLeft = parentOffset.left;
+//                     // oldLeft = that.left;
+//                     that.$proxy.css({
+//                         top: that.top,
+//                         left: that.left
+//                     })
 
-                var offset = that.$proxy.offset(),
-                    top = offset.top,
-                    left = offset.left,
-                    width = that.$proxy.width(),
-                    height = that.$proxy.height();
+//                 var offset = that.$proxy.offset(),
+//                     top = offset.top,
+//                     left = offset.left,
+//                     width = that.$proxy.width(),
+//                     height = that.$proxy.height();
 
-                    // $(document).bind( 'mousemove', handleResize );
-                    // $(document).bind( 'mouseup', unResize)
+//                     // $(document).bind( 'mousemove', handleResize );
+//                     // $(document).bind( 'mouseup', unResize)
                     
-                    function handleResize( e ){
-                        var type = e.type;
+//                     function handleResize( e ){
+//                         var type = e.type;
 
-                        // var offset = $proxy.offset(),
-                        //     top = offset.top,
-                        //     left = offset.left;
+//                         // var offset = $proxy.offset(),
+//                         //     top = offset.top,
+//                         //     left = offset.left;
 
-                        // window capture focus
-                        if( _isIE ){
-                            $me.bind( 'losecapture', that._end );
-                            $me[0].setCapture();
-                        }else{
-                            $doc.bind( 'blur', that._end );
-                        }
+//                         // window capture focus
+//                         if( _isIE ){
+//                             $me.bind( 'losecapture', that._end );
+//                             $me[0].setCapture();
+//                         }else{
+//                             $doc.bind( 'blur', that._end );
+//                         }
 
-                        // clear selected text
-                        window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+//                         // clear selected text
+//                         window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
 
-                        switch(id){
-                            case 'xcy-resize-tl':
-                                break;
-                            case 'xcy-resize-tc':
-                                break;
-                            case 'xcy-resize-tr':
-                                break;
-                            case 'xcy-resize-cl':
-                                // console.log(left, oldLeft);
-                                if(e.clientX < parentLeft) return;
-                                if(e.clientX > left+width-150) return;
-console.log(left );
-                                // var cssPosition = that._dragObj.range(top, e.clientX - parentLeft, width + (left - e.clientX), height) 
-                                that.$proxy.css({
-                                    display: 'block',
-                                    left: cssPosition.left,
-                                    width: cssPosition.width
-                                })
-                                // that.resize( (that.width + that.left - e.clientX)+left, that.height, that.top, e.clientX-left)
-                                break;
-                            case 'xcy-resize-cr':
-                                if(e.clientX > that.parentWidth + left-6) return;
-                                console.log(e.clientX - that.left);
-                                // that.resize( e.clientX - (that.left) - left, that.height, that.top, that.left)
-                                break;
-                        }
+//                         switch(id){
+//                             case 'xcy-resize-tl':
+//                                 break;
+//                             case 'xcy-resize-tc':
+//                                 break;
+//                             case 'xcy-resize-tr':
+//                                 break;
+//                             case 'xcy-resize-cl':
+//                                 // console.log(left, oldLeft);
+//                                 if(e.clientX < parentLeft) return;
+//                                 if(e.clientX > left+width-150) return;
+// console.log(left );
+//                                 // var cssPosition = that._dragObj.range(top, e.clientX - parentLeft, width + (left - e.clientX), height) 
+//                                 that.$proxy.css({
+//                                     display: 'block',
+//                                     left: cssPosition.left,
+//                                     width: cssPosition.width
+//                                 })
+//                                 // that.resize( (that.width + that.left - e.clientX)+left, that.height, that.top, e.clientX-left)
+//                                 break;
+//                             case 'xcy-resize-cr':
+//                                 if(e.clientX > that.parentWidth + left-6) return;
+//                                 console.log(e.clientX - that.left);
+//                                 // that.resize( e.clientX - (that.left) - left, that.height, that.top, that.left)
+//                                 break;
+//                         }
                         
-                        // if(e.clientX <= 20) return;
+//                         // if(e.clientX <= 20) return;
 
-                        // that.resize( (that.width + that.left - (e.clientX ))+20, that.height, that.top, e.clientX-20)
-                        // console.log(that.left, e.clientX, that.$parent.offset().left)
+//                         // that.resize( (that.width + that.left - (e.clientX ))+20, that.height, that.top, e.clientX-20)
+//                         // console.log(that.left, e.clientX, that.$parent.offset().left)
 
-                        return false;
-                    }
+//                         return false;
+//                     }
 
-                    function unResize(){
-                        $(document).unbind( 'mousemove', handleResize );
-                        $(document).unbind( 'mouseup', unResize );
+//                     function unResize(){
+//                         $(document).unbind( 'mousemove', handleResize );
+//                         $(document).unbind( 'mouseup', unResize );
 
-                        var offset = that.$proxy.position();
-                        console.log(offset.top, offset.left, '---++++---')
+//                         var offset = that.$proxy.position();
+//                         console.log(offset.top, offset.left, '---++++---')
 
-                        that.resize( that.$proxy.width(), that.$proxy.height(), offset.top, offset.left, true )
-                        that.$proxy.hide();
-                    }
-            })
+//                         that.resize( that.$proxy.width(), that.$proxy.height(), offset.top, offset.left, true )
+//                         that.$proxy.hide();
+//                     }
+//             })
 
         },
         _autoClose: function(){
@@ -1277,6 +1277,8 @@ console.log(left );
                 $( v ).remove();
             })
             that.$elArr = null;
+            that.$proxy.remove();
+            that.$proxy = null;
 
             // delete global array object
             t = layers.length;
@@ -1628,20 +1630,22 @@ console.log(left );
                 ]
             })
         },
-        alert: function( msg, title, callback ){
+        alert: function( msg, config, callback ){
             // title is not exist
-            if( typeof title === 'function' ){
-                callback = title;
-                title = '信息';
+            if( typeof config === 'function' ){
+                callback = config;
+                config = {};
+                config.title = Default.title;
             }
 
             return Dialog.create({
                 type: 'alert',
                 html: msg,
+                icon: config.icon || false,
                 fixed: true,
-                title: title,
+                title: config.title,
                 unload: true,
-                shade: true,
+                shade: config.shade === false ? false : true,
                 buttons: [
                     {
                         name: '确定',
