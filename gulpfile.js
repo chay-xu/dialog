@@ -5,11 +5,17 @@ var cssmin = require('gulp-minify-css');
 var uglify = require('gulp-uglify');
 var pngquant = require('imagemin-pngquant');
 var clean = require('gulp-clean');
-// var rev = require('gulp-rev');
+var sass = require('gulp-sass');
 var rename = require('gulp-rename');
 var sourcemaps = require('gulp-sourcemaps');
 
+var paths = {
+  js: 'src/**/*.js',
+  scss: 'src/**/*.scss',
+  image: 'src/**/*.{png,jpeg,gif,svg}'
+}
 
+// 清空文件夹
 gulp.task('clean', function(){
   return gulp.src('build/', {read: false})
       .pipe(clean());
@@ -17,7 +23,7 @@ gulp.task('clean', function(){
 
 // js压缩
 gulp.task('js', function () {
-  return gulp.src('src/**/*.js')
+  return gulp.src( paths.js )
       .pipe(sourcemaps.init())
       .pipe(uglify())
       .pipe(rename({
@@ -27,10 +33,16 @@ gulp.task('js', function () {
       .pipe(gulp.dest('build'));
 });
 
-// css压缩
+// scss编译压缩
 gulp.task('css', function () {
-  return gulp.src('src/**/*.css')
+  return gulp.src( paths.scss )
       .pipe(sourcemaps.init())
+      .pipe(sass(
+          {
+              // outputStyle: 'compressed',
+              bundleExec: true
+          }
+      ))
       .pipe(cssmin())
       .pipe(rename({
         suffix: '-min'
@@ -41,7 +53,7 @@ gulp.task('css', function () {
 
 // image压缩
 gulp.task('image', function () {
-  return gulp.src('src/**/*.{png,jpeg,gif,svg}')
+  return gulp.src( paths.image )
       .pipe(imagemin({
           progressive: true,
           svgoPlugins: [{removeViewBox: false}],
@@ -54,3 +66,9 @@ gulp.task('image', function () {
 gulp.task('dev', ['clean'], function(){
   gulp.start('css', 'image', 'js');
 })
+
+gulp.task('watch', function() {
+  gulp.watch( paths.image, ['image']);
+  gulp.watch( paths.scss, ['css']);
+  gulp.watch( paths.js, ['js']);
+});
