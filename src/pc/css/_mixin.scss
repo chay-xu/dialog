@@ -1,0 +1,47 @@
+@mixin opacity($opacity){
+    filter: alpha(opacity=$opacity*100);
+    opacity: $opacity;
+}
+
+@mixin tap-highlight-color(){
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+}
+
+@mixin user-select(){
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+@mixin box-shadow($shadow){
+    -webkit-box-shadow: $shadow;
+    -moz-box-shadow: $shadow;
+    box-shadow: $shadow;
+}
+
+@mixin border-radius($radius){
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin box-sizing($sizing){
+    -webkit-box-sizing: $sizing;
+    -moz-box-sizing: $sizing;
+    box-sizing: $sizing;
+}
+
+@mixin transform($transform){
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -ms-transform: $transform;
+    -o-transform: $transform;
+    transform: $transform;
+}
+
+@mixin transition($transition){
+    -webkit-transition: $transition;
+    -moz-transition: $transition;
+    -o-transition: $transition;
+    transition: $transition;
+}

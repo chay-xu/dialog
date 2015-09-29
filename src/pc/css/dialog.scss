@@ -1,0 +1,350 @@
+@import "_common";
+/**
+ * @file dialog plugin css style
+ * @author xucaiyu
+ * @email 569455187@qq.com
+ * @version 2.5.0
+ * @date 2015-09-28
+ * @license MIT License 
+ */
+
+table.xcy-fixed{
+    position: fixed;
+    _position: absolute;
+}
+/******* table begin *******/
+.xcy-warpper{
+    position: absolute;
+    @include border-radius( $borderRadius );
+    @include box-shadow( $warpperBoxShadow );
+}
+.xcy-table{
+    /*width: 100%;
+    height: 100%;*/
+    border-collapse: collapse;
+    /*table-layout: fixed;*/
+    /*border: 0 none;*/
+    /*margin:0;*/
+    visibility: visible;
+}
+.xcy-tl, .xcy-tc, .xcy-tr, .xcy-cl, .xcy-cc, .xcy-cr, .xcy-bl, .xcy-bc, .xcy-br{
+    padding: 0;
+    margin: 0;
+}
+
+/*top*/
+.xcy-tl, .xcy-tc, .xcy-tr{
+    height: $borderWidthHeight;
+    background-color: $blue;
+}
+.xcy-tl, .xcy-tr{
+    width: $borderWidthHeight;
+    display: block;
+}
+.xcy-tl{
+    border-top-left-radius: $borderRadius;
+}
+.xcy-tr{
+    border-top-right-radius: $borderRadius;
+}
+
+/*center*/
+.xcy-cl, .xcy-cr{
+    width: $borderWidthHeight;
+    height: auto;
+    background-color: $blue;
+    /*display: block;*/
+}
+
+/*bottom*/
+.xcy-bl, .xcy-bc, .xcy-br{
+    height: $borderWidthHeight;
+    background-color: $blue;
+}
+.xcy-bl, .xcy-br{
+    width: $borderWidthHeight;
+    display: block;
+}
+.xcy-bl{
+    border-bottom-left-radius: $borderRadius;
+}
+.xcy-br{
+    border-bottom-right-radius: $borderRadius;
+}
+/******* table end ******/
+
+/* content warpper */
+.xcy-layer{
+    height: 100%;
+    width: 100%;
+    background-color: $white;
+    position: relative;
+}
+/* title */
+.xcy-title{
+    background-color: #459BDA;
+    color: $white;
+    height: $titleHeight;
+    line-height: $titleHeight;
+    padding: 0 5px;
+    font-weight: bold;
+    text-shadow: $titleTextShadow;
+}
+.xcy-title span{
+    display: block;
+    width: 65%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+/* content */
+.xcy-content{
+    overflow: hidden;
+    /*padding: 10px;*/
+    position: relative;
+}
+/* foot */
+.xcy-foot{
+    height: $footHeight;
+    padding: $footPadding;
+    white-space: nowrap;
+    background-color: $footBackgroundColor;
+}
+/* foot button */
+.xcy-btn{
+    border: $btnBorder;
+    background-color: $btnBackgroundColor;
+    color: $btnColor;
+    height: $footHeight;
+    width: auto;
+    line-height: 1px;
+    padding: 6px 12px;
+    *line-height: normal;
+    *overflow: visible;
+    *width: 1;
+    *padding: 4px 12px;
+    display:inline-block;
+    *display:inline;
+    *zoom:1;
+    border-spacing: 0;
+    text-align: center;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    font-size: 12px;
+    font-family: Tahoma, Arial/9!important;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0;
+    @include border-radius( $btnBorderRadius );
+}
+.xcy-btn-l{
+    margin-left: $btnMargin;
+}
+.xcy-btn-m{
+    margin: 0 $btnMargin;
+}
+.xcy-btn-r{
+    margin-right: $btnMargin;
+}
+.xcy-foot button:focus{
+    outline: none 0;
+    border-color: $btnBorderColor_focus;
+    background-color: $btnBackgroundColor_focus;
+    @include box-shadow( $btnBoxShadow );
+}
+.xcy-foot button[disabled] {
+    cursor: no-drop; 
+    color: $btnColor_disabled; 
+    background-color: $btnBackgroundColor_disabled; 
+    border: $btnBorderColor_disabled; 
+    @include opacity(0.5);
+    @include box-shadow( none );
+}
+/* window button */
+.xcy-winBtn a{
+    font-size: 12px;
+}
+.xcy-winBtn-btn{
+    position: absolute;
+    top: 4px;
+    display: block;
+    height: 16px;
+    line-height: 16px;
+    width: 16px;
+    color: #62B1FF;
+    background-color: #AED7FF;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    /*border: 1px solid #AED7FF;*/
+    vertical-align: middle;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    border-radius: 8px;
+}
+#xcy-close-btn{
+    right: 10px;
+}
+#xcy-full-btn{
+    right: 30px;
+}
+#xcy-restore-btn{
+    right: 30px;
+}
+#xcy-min-btn{
+    right: 50px;
+}
+.xcy-winBtn a.xcy-winBtn-btn:hover{
+    background-color: #DEF;
+}
+#xcy-x-btn{
+    height: 18px;
+    line-height: 18px;
+    width: 18px;
+    background-color: #459BDA;
+    color: #fff;
+    font-weight: bold;
+    @include border-radius( 10px );
+    border: 2px solid #fff;
+    right: -12px;
+    top: -12px;
+}
+.xcy-winBtn a#xcy-x-btn:hover{
+    background-color: #ccc;
+}
+/* prompt */
+.xcy-prompt{
+    margin: 10px 5px;
+}
+.xcy-text{
+    word-break: break-all;
+    word-wrap: break-word;
+    margin-bottom: $promptTextMarginBottom;
+}
+.xcy-input{
+    width: 90%;
+    padding: $promptInputPadding;
+    margin: 0;
+    border: $promptBorder;
+}
+/* iframe */
+.xcy-main{
+    height: auto;
+    /*padding: 10px;*/
+    position: relative;
+}
+.xcy-iframe{
+    width: 100%;
+    height: 100%;
+}
+/* shade */
+.xcy-shade{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 998;
+    @include opacity( $shadeOpacity );
+    background-color: $shadeBackgroundColor;
+    /*-webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px);*/
+    /*display: none;*/
+}
+/* loading */
+.xcy-load{
+    /*position: absolute;*/
+    /*z-index: 999;*/
+    padding: 5px;
+    height: 24px;
+    line-height: 24px;
+    /*width: 100px;*/
+    text-align: center;
+    background: #fff;
+    cursor: wait;
+    font-size: 13px;
+}
+.xcy-load-img{
+    height: 100%;
+    width: 24px;
+    display: block;
+    float: left;
+    background: url(../images/loading.gif) left center no-repeat;
+    background-size: 100%;
+    margin-right: 5px;
+}
+.xcy-load-text{
+    height: 24px;
+    width: 32px;
+    display: block;
+    float: left;
+}
+/* resize */
+.xcy-resize .xcy-tl{
+    cursor: se-resize;
+}
+.xcy-resize .xcy-tc, .xcy-resize .xcy-bc{
+    cursor: n-resize;
+}
+.xcy-resize .xcy-tr{
+    cursor: ne-resize;
+}
+.xcy-resize .xcy-cl, .xcy-resize .xcy-cr{
+    cursor: w-resize;
+}
+.xcy-resize .xcy-bl{
+    cursor: ne-resize;
+}
+.xcy-resize .xcy-br{
+    cursor: se-resize;
+}
+/* drag */
+.xcy-drag{
+    cursor: move;
+}
+.xcy-proxy{
+    /*border: 3px dashed #3B5A82;*/
+    border: 3px solid #459BDA;
+    position: absolute;
+    border-radius: 5px;
+    @include box-sizing( border-box );
+    background-color: #fff;
+    opacity: .8;
+}
+.xcy-proxy-hidden{
+    display: block !important;
+    visibility: hidden !important;
+    /*position: absolute !important;*/
+    position: absolute;
+    top: -10000px !important;
+}
+/* icon */
+.xcy-icon-default{
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    height: 32px;
+    width: 32px;
+    margin-top: -16px;
+    background-repeat: no-repeat;
+}
+.xcy-icon-error{
+    background-image: url(../images/icon-error.png);
+}
+.xcy-icon-info{
+    background-image: url(../images/icon-info.png);
+}
+.xcy-icon-question{
+    background-image: url(../images/icon-question.png);
+}
+.xcy-icon-warning{
+    background-image: url(../images/icon-warning.png);
+}
+.xcy-icon-box{
+    padding: 5px 0 5px 42px;
+}
