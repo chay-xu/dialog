@@ -1,7 +1,8 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var imagemin = require('gulp-imagemin');
-var cssmin = require('gulp-minify-css');
+// var cssmin = require('gulp-minify-css');
+var css = require('gulp-css');
 var uglify = require('gulp-uglify');
 var pngquant = require('imagemin-pngquant');
 var clean = require('gulp-clean');
@@ -43,7 +44,7 @@ gulp.task('css', function () {
               bundleExec: true
           }
       ))
-      .pipe(cssmin())
+      .pipe(css())
       .pipe(rename({
         suffix: '-min'
       }))

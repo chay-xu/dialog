@@ -15,7 +15,7 @@ table.xcy-fixed{
 /******* table begin *******/
 .xcy-warpper{
     position: absolute;
-    @include border-radius( $borderRadius );
+    @include border-radius( $warpperBorderRadius );
     @include box-shadow( $warpperBoxShadow );
 }
 .xcy-table{
@@ -34,42 +34,42 @@ table.xcy-fixed{
 
 /*top*/
 .xcy-tl, .xcy-tc, .xcy-tr{
-    height: $borderWidthHeight;
-    background-color: $blue;
+    height: $layoutWidthHeight;
+    background-color: $layoutBackgroundColor;
 }
 .xcy-tl, .xcy-tr{
-    width: $borderWidthHeight;
+    width: $layoutWidthHeight;
     display: block;
 }
 .xcy-tl{
-    border-top-left-radius: $borderRadius;
+    border-top-left-radius: $layoutBorderRadius;
 }
 .xcy-tr{
-    border-top-right-radius: $borderRadius;
+    border-top-right-radius: $layoutBorderRadius;
 }
 
 /*center*/
 .xcy-cl, .xcy-cr{
-    width: $borderWidthHeight;
+    width: $layoutWidthHeight;
     height: auto;
-    background-color: $blue;
+    background-color: $layoutBackgroundColor;
     /*display: block;*/
 }
 
 /*bottom*/
 .xcy-bl, .xcy-bc, .xcy-br{
-    height: $borderWidthHeight;
-    background-color: $blue;
+    height: $layoutWidthHeight;
+    background-color: $layoutBackgroundColor;
 }
 .xcy-bl, .xcy-br{
-    width: $borderWidthHeight;
+    width: $layoutWidthHeight;
     display: block;
 }
 .xcy-bl{
-    border-bottom-left-radius: $borderRadius;
+    border-bottom-left-radius: $layoutBorderRadius;
 }
 .xcy-br{
-    border-bottom-right-radius: $borderRadius;
+    border-bottom-right-radius: $layoutBorderRadius;
 }
 /******* table end ******/
 
@@ -77,16 +77,16 @@ table.xcy-fixed{
 .xcy-layer{
     height: 100%;
     width: 100%;
-    background-color: $white;
+    background-color: $layerBackgroundColor;
     position: relative;
 }
 /* title */
 .xcy-title{
-    background-color: #459BDA;
-    color: $white;
+    background-color: $titleBackgroundColor;
+    color: $titleColor;
     height: $titleHeight;
     line-height: $titleHeight;
-    padding: 0 5px;
+    padding: $titlePadding;
     font-weight: bold;
     text-shadow: $titleTextShadow;
 }
@@ -118,11 +118,10 @@ table.xcy-fixed{
     height: $footHeight;
     width: auto;
     line-height: 1px;
-    padding: 6px 12px;
-    *line-height: normal;
+    padding: $btnPadding;
+    #{$hack_ie67}line-height: normal;
     *overflow: visible;
     *width: 1;
-    *padding: 4px 12px;
     display:inline-block;
     *display:inline;
     *zoom:1;
@@ -137,6 +136,7 @@ table.xcy-fixed{
     text-decoration: none;
     margin: 0;
     @include border-radius( $btnBorderRadius );
+    @include padding( 6px, 12px );
 }
 .xcy-btn-l{
     margin-left: $btnMargin;
@@ -149,7 +149,8 @@ table.xcy-fixed{
 }
 .xcy-foot button:focus{
     outline: none 0;
-    border-color: $btnBorderColor_focus;
+    // border-color: $btnBorderColor_focus;
+    // *filter: chroma(color=#000000);
     background-color: $btnBackgroundColor_focus;
     @include box-shadow( $btnBoxShadow );
 }
@@ -158,12 +159,13 @@ table.xcy-fixed{
     color: $btnColor_disabled; 
     background-color: $btnBackgroundColor_disabled; 
     border: $btnBorderColor_disabled; 
-    @include opacity(0.5);
+    @include opacity( $footOpacity );
     @include box-shadow( none );
 }
 /* window button */
 .xcy-winBtn a{
     font-size: 12px;
+    font-family: Tahoma, Arial/9!important;
 }
 .xcy-winBtn-btn{
     position: absolute;
@@ -260,27 +262,27 @@ table.xcy-fixed{
 .xcy-load{
     /*position: absolute;*/
     /*z-index: 999;*/
-    padding: 5px;
-    height: 24px;
-    line-height: 24px;
+    padding: $loadPadding;
+    height: $loadHeight;
+    line-height: $loadHeight;
     /*width: 100px;*/
     text-align: center;
-    background: #fff;
+    background-color: $loadBackgroundColor;
     cursor: wait;
     font-size: 13px;
 }
 .xcy-load-img{
     height: 100%;
-    width: 24px;
+    width: $loadWidth_img;
     display: block;
     float: left;
-    background: url(../images/loading.gif) left center no-repeat;
+    background: $loadBackground_img;
     background-size: 100%;
-    margin-right: 5px;
+    margin-right: $loadMarginRight_img;
 }
 .xcy-load-text{
-    height: 24px;
-    width: 32px;
+    height: $loadHeight_text;
+    width: $loadWidth_text;
     display: block;
     float: left;
 }
@@ -309,17 +311,16 @@ table.xcy-fixed{
 }
 .xcy-proxy{
     /*border: 3px dashed #3B5A82;*/
-    border: 3px solid #459BDA;
+    border: $proxyBorder;
     position: absolute;
-    border-radius: 5px;
-    @include box-sizing( border-box );
-    background-color: #fff;
-    opacity: .8;
+    @include border-radius( $proxyBorderRadius );
+    // @include box-sizing( border-box );
+    background-color: $proxyBackgroundColor;
+    @include opacity( .8 );
 }
 .xcy-proxy-hidden{
     display: block !important;
     visibility: hidden !important;
-    /*position: absolute !important;*/
     position: absolute;
     top: -10000px !important;
 }

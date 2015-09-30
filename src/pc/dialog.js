@@ -131,6 +131,7 @@
                         // change z-inde style
                         $.each( layers, function( i, obj ){
                             obj.$el.css( 'zIndex', obj._zIndex );
+                            console.log('----',obj)
                             obj.$proxy.css( 'zIndex', obj._zIndex );
                             obj.$shade && obj.$shade.css( 'zIndex', obj._zIndex );
                         });
@@ -213,7 +214,6 @@
         // that.css = $.extend( {}, Default.css, options.css );
         // dialog
         opt = $.extend( true, {}, Default, options );
-        var _drag = opt.drag;
         that.css = opt.css;
 
         that.options = opt;
@@ -242,7 +242,7 @@
         // init function 初始化之前执行的自定义函数
         opt.beforeFn.apply( this );
 
-        that.init( _drag );
+        that.init();
         // save global dialog
         layers.push( this );
 
@@ -262,7 +262,7 @@
                 showShade = that.type == 'shade' || opt.shade,
                 $el = that.$el,
                 resize = opt.resize,
-                $tit, id;
+                $tit, id, borderWidth;
 
             // shade layer
             if( showShade ){
@@ -317,9 +317,11 @@
             $el.attr( 'id', id );
 
             // append drag proxy
+            borderWidth = $el.find('.xcy-cl').outerWidth(true) * 2;
+
             that.$proxy = $('<div class="xcy-proxy xcy-proxy-hidden"><div class="xcy-title xcy-drag"><span>'+title+'</span></div></div>').css({
-                width: that.warpperWidth,
-                height: that.warpperHeight,
+                width: that.warpperWidth - borderWidth,
+                height: that.warpperHeight - borderWidth,
                 top: that.top,
                 left: that.left,
                 zIndex: that._zIndex
@@ -340,7 +342,7 @@
                             $win.bind( 'scroll', that._ie6Fix );
                         }else{
                             that.$el.addClass( 'xcy-fixed' );
-                            that.$proxy.css( 'position', 'fixed' );
+                            // that.$proxy.css( 'position', 'fixed' );
                         }
 
                     // parent is not body
@@ -409,38 +411,10 @@
             that._restore = {top: that.top, left: that.left, height: that.height, width: that.width };
 
             // drag layer move
-            if( opt.isMove ){   
+            if( opt.isMove ){
+                
                 // var timeStep;          
-                // set drag value
-                $.extend( _drag, {
-                    selector: that.$proxy,
-                    container: opt.container,
-                    fixed: opt.fixed,
-                    target: $('.xcy-title', $el),
-                    isBody: that._isBody
-                })
-                _drag.onStart = function( $drag ){
-                    // $drag.css({ top: that.top, left: that.left })
-                    $el.hide();
-                };
-                var onMove = _drag.onMove;
-                _drag.onMove = function( t, l ){
-                    // clearTimeout(timeStep)
-                    // showProxy()
-                    that.top = t;
-                    that.left = l;
-                    onMove( t, l );
-                };
-                _drag.onEnd = function( t, l ){
-                    that.$el.css({ top: t, left: l })
-                    // set _restore 修改原始位置
-                    that._restore.top = t;
-                    that._restore.left = l;
-                    $el.show();
-                };
-
-                // drag drop init
-                that._dragObj = new DragDrop( _drag );
+                that._move();
             }
             // 层级冒泡排序
             $el.bind('mousedown', function(){
@@ -922,6 +896,43 @@
             });
 
             return node;
+        },
+        _move: function(){
+            var that = this,
+                opt = that.options,
+                _drag = opt.drag,
+                $el = that.$el;
+
+            // set drag value
+            $.extend( _drag, {
+                selector: that.$proxy,
+                container: opt.container,
+                fixed: opt.fixed,
+                target: $('.xcy-title', $el),
+                isBody: that._isBody
+            })
+            _drag.onStart = function( $drag ){
+                // $drag.css({ top: that.top, left: that.left })
+                $el.hide();
+            };
+            var onMove = _drag.onMove;
+            _drag.onMove = function( t, l ){
+                // clearTimeout(timeStep)
+                // showProxy()
+                that.top = t;
+                that.left = l;
+                onMove( t, l );
+            };
+            _drag.onEnd = function( t, l ){
+                that.$el.css({ top: t, left: l })
+                // set _restore 修改原始位置
+                that._restore.top = t;
+                that._restore.left = l;
+                $el.show();
+            };
+
+            // drag drop init
+            that._dragObj = new DragDrop( _drag );
         },
         _topFixed: function( parent ){
             var that = this,

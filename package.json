@@ -30,6 +30,7 @@
     "imagemin-pngquant": "^4.1.2"
   },
   "devDependencies": {
+    "gulp-css": "^0.1.0",
     "gulp-sass": "^2.0.4"
   }
 }
