@@ -2,8 +2,8 @@
  * @file dialog plugin
  * @author xucaiyu
  * @email 569455187@qq.com
- * @version 2.0.5
- * @date 2015-06-18
+ * @version 2.5.0
+ * @date 2015-10-10
  * @license MIT License 
  */
  
@@ -436,11 +436,6 @@
                         iframe.onload = null;
                     };
                 }
-                // iframe层级冒泡排序
-                // $(that.$iframe[0].contentDocument).bind('mousedown', function(){
-                //     // bubble z-index, set drag ladyer z-index
-                //     that.$el.mousedown();
-                // })
             }
 
             // auto hidden
@@ -512,7 +507,18 @@
 //                                 break;
 //                             case 'xcy-resize-cr':
 //                                 if(e.clientX > that.parentWidth + left-6) return;
-//                                 console.log(e.clientX - that.left);
+//                                 // that.resize( e.clientX - (that.left) - left, that.height, that.top, that.left)
+//                                 break;
+//                             case 'xcy-resize-bl':
+//                                 if(e.clientX > that.parentWidth + left-6) return;
+//                                 // that.resize( e.clientX - (that.left) - left, that.height, that.top, that.left)
+//                                 break;
+//                             case 'xcy-resize-bc':
+//                                 if(e.clientX > that.parentWidth + left-6) return;
+//                                 // that.resize( e.clientX - (that.left) - left, that.height, that.top, that.left)
+//                                 break;
+//                             case 'xcy-resize-br':
+//                                 if(e.clientX > that.parentWidth + left-6) return;
 //                                 // that.resize( e.clientX - (that.left) - left, that.height, that.top, that.left)
 //                                 break;
 //                         }
@@ -652,7 +658,6 @@
             if( opt.animate ){
                 animateCss = {};
                 animateAlign = opt.animateAlign;
-                // console.log(that.warpperWidth, that.parentWidth)
                 if( animateAlign == 'bottom' ){
                     animateCss = {
                         top: that.parentHeight + that.warpperHeight,
@@ -1178,7 +1183,7 @@
 
             // move positon
             // if( !this._dragObj || isdrag ){
-                console.log( top, left, that.warpperHeight, that.warpperWidth )
+                // console.log( top, left, that.warpperHeight, that.warpperWidth )
                 // that.$el.css( that._setCss( top, left ) );
                 that.$el.css({
                     top: top,

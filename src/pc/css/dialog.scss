@@ -4,7 +4,7 @@
  * @author xucaiyu
  * @email 569455187@qq.com
  * @version 2.5.0
- * @date 2015-09-28
+ * @date 2015-10-10
  * @license MIT License 
  */
 
@@ -148,7 +148,7 @@ table.xcy-fixed{
     margin-right: $btnMargin;
 }
 .xcy-foot button:focus{
-    outline: none 0;
+    outline: 0 none;
     // border-color: $btnBorderColor_focus;
     // *filter: chroma(color=#000000);
     background-color: $btnBackgroundColor_focus;
@@ -164,8 +164,8 @@ table.xcy-fixed{
 }
 /* window button */
 .xcy-winBtn a{
+    font-family: Tahoma, Arial !important;
     font-size: 12px;
-    font-family: Tahoma, Arial/9!important;
 }
 .xcy-winBtn-btn{
     position: absolute;
