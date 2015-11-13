@@ -30,10 +30,39 @@
 			],
 			init: function(){},
 			closeFn: function(){}
-		}
+		};
+
+	var animEndEventNames = {
+	        'webkit' : 'webkitAnimationEnd',
+	        'o' : 'oAnimationEnd',
+	        'ms' : 'MSAnimationEnd',
+	        // 'moz' : 'mozAnimationEnd',
+	        'animation' : 'animationend'
+	    },
+	    animEndEventName = animEndEventNames[prefix().lowercase]||animEndEventNames['animation'];
+
+	function prefix(){
+	    var styles = getCompStyle(document.documentElement),
+	        pre = (Array.prototype.slice.call(styles).join('')
+	            .match(/-(moz|webkit|ms)-/) || ['', 'o']
+	        )[1],
+	        dom = ('WebKit|Moz|MS|O').match(new RegExp('(' + pre + ')', 'i'))[1];
+	    return {
+	        dom: dom,
+	        lowercase: pre,
+	        css: '-' + pre + '-',
+	        js: pre[0].toUpperCase() + pre.substr(1)
+	    };
+	};
+
+	function getCompStyle(elem,classes){
+	    return (window.getComputedStyle?window.getComputedStyle(elem,classes||null):elem.currentStyle) || null;
+	}
 
 	function DialogLayer( options ){
 		this.options = $.extend( {}, defaults, options ? options : {} );
+
+		this.isClosed = false;
 
 		// 销毁存在的对象
 		if( isDialog ) isDialog.close();
@@ -150,7 +179,10 @@
 		// 遮罩关闭
 		if( opts.shade ){
 			_self.$shade.on('click touchmove', function(){
-				_self.close();
+				if( !_self.isClosed ){
+					_self.isClosed = true;
+					_self.close();
+				}
 			})
 		}
 
@@ -181,6 +213,9 @@
 		var _self = this,
 			opts = _self.options;
 
+		if( !opts )
+			return;
+
 		if( opts.unload ){
 			if( opts.animation ){
 				_self.animate( _self.unload )
@@ -205,10 +240,12 @@
 		_self.$el.removeClass( opts.animation + 'in' )
 		_self.$el.addClass( opts.animation + 'out' )
 
-		_self.$el.on('webkitAnimationEnd', function(){
+		// _self.$el.on( animEndEventName, function(){
+		_self.$el.on( animEndEventName, function(){
+			console.log(1111)
 			_self.$el.removeClass( opts.animation + 'out' )
 
-			callback.apply(_self)
+			callback.apply( _self );
 			_self.$el.off();
 		})
 	}
@@ -223,6 +260,7 @@
 		// 移除dom
 		_self.$el.remove();
 
+		// 遮罩卸载
 		if( opts.shade ){
 			_self.$shade.off('click touchmove');
 			_self.$shade.remove();
@@ -246,6 +284,7 @@
 
 		_self.$el.hide();
 		_self.$shade && _self.$shade.hide();
+		_self.isClosed = false;
 	}
 
 	var dialog = {

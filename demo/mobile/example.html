@@ -3,7 +3,8 @@
 <head>
 	<title>dialog moblie</title>
 	<meta name="viewport" content="width=320.1, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<link rel="stylesheet" type="text/css" href="../../src/mobile/css/dialog.css">
+	<!-- <link rel="stylesheet" type="text/css" href="../../src/mobile/css/dialog.css"> -->
+	<link rel="stylesheet" type="text/css" href="../../build/mobile/dialog-min.css">
 	<!-- <link rel="stylesheet" type="text/css" href="../../build/moblie/css/dialog-min.css"> -->
 </head>
 <body style="height: 1200px; margin:0;">
@@ -42,6 +43,7 @@
 		Dialog.load( '成功', false)
 
 	})
+	var DialogConfirm;
 	$( '#confirm' ).click(function(){
 		/**
 		 * @prama { string } 消息内容
@@ -50,8 +52,20 @@
 		 * @prama { boolean } shade点击关闭
 		 * @return Dialog
 		 */
-		Dialog.confirm( '<div style="padding:10px 50px;">成功</div>')
-
+		// Dialog.confirm( '<div style="padding:10px 50px;">成功</div>')
+		if( !DialogConfirm ){
+			DialogConfirm = Dialog.create({
+				type: 'confirm',
+				html: '成功',
+				// shade: true,
+				unload: false,
+				close: true,
+				// animation: 'opacity'
+				animation: 'popscale'
+			})
+		}else{
+			DialogConfirm.show();
+		}
 	})
 	$( '#alert' ).click(function(){
 		/**
@@ -65,9 +79,12 @@
 		// })
 		Dialog.create({
 			type: 'tip',
+			// type: 'confirm',
 			html: '成功',
 			// shade: true,
-			animation: 'opacity'
+			close: true,
+			// animation: 'opacity'
+			animation: 'popscale'
 		})
 
 	})

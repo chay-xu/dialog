@@ -52,6 +52,24 @@ gulp.task('css', function () {
       .pipe(gulp.dest('build/'));
 });
 
+// common scss编译压缩
+gulp.task('commoncss', function () {
+  return gulp.src( paths.scss )
+      .pipe(sourcemaps.init())
+      .pipe(sass(
+          {
+              // outputStyle: 'compressed',
+              bundleExec: true
+          }
+      ))
+      .pipe(css())
+      .pipe(rename({
+        suffix: '-min'
+      }))
+      .pipe(sourcemaps.write('/'))
+      .pipe(gulp.dest('build/'));
+});
+
 // image压缩
 gulp.task('image', function () {
   return gulp.src( paths.image )

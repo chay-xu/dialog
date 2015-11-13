@@ -1,0 +1,62 @@
+@function ie67($value) {
+  @return #{'*' + $value};
+}
+$hack_ie67: '*';
+
+@mixin padding($tb, $lr){
+    padding: $tb $lr;
+    *padding: ($tb - 2px) $lr;
+}
+
+$warpperBoxShadow: 0 0 5px #888;
+$warpperBorderRadius: 5px;
+
+$layoutWidthHeight: 3px;
+$layoutBorderRadius: 5px;
+$layoutBackgroundColor: #459BDA;
+
+$layerBackgroundColor: #fff;
+
+$titleBackgroundColor: #459BDA;
+$titleColor: #fff;
+$titleHeight: 25px;
+$titlePadding: 0 5px;
+$titleTextShadow: 1px 1px 0 #0B77C5;
+
+$footHeight: 27px;
+$footPadding: 5px 10px;
+$footBackgroundColor: #EFF4F9;
+$footOpacity: .5;
+
+$btnBackgroundColor: #48B1FF;
+$btnColor: #fff;
+$btnBorder: 1px solid #5AA5DB;
+$btnBoxShadow: 0 0 5px #64BDFF;
+$btnBorderRadius: 3px;
+$btnPadding: 6px 12px;
+$btnMargin: 5px;
+$btnBackgroundColor_focus: #64BDFF;
+$btnBorderColor_focus: #1F92E7;
+$btnBackgroundColor_disabled: #ddd;
+$btnColor_disabled: #666;
+$btnBorderColor_disabled: 1px solid #999;
+
+$shadeBackgroundColor: #999;
+$shadeOpacity: .5;
+
+$promptTextMarginBottom: 5px;
+$promptInputPadding: 5px 5px;
+$promptBorder: 1px solid #74AEE6;
+
+$loadPadding: 5px;
+$loadHeight: 24px;
+$loadBackgroundColor: #fff;
+$loadWidth_img: 24px;
+$loadBackground_img: url(../images/loading.gif) center center no-repeat;
+$loadMarginRight_img: 5px;
+$loadWidth_text: 24px;
+$loadHeight_text: 32px;
+
+$proxyBorder: 3px solid #459BDA;
+$proxyBorderRadius: 5px;
+$proxyBackgroundColor: #fff;

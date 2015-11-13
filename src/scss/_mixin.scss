@@ -1,0 +1,102 @@
+@mixin opacity( $opacity ){
+    filter: alpha(opacity=$opacity*100);
+    opacity: $opacity;
+}
+
+@mixin tap-highlight-color(){
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+}
+
+@mixin user-select(){
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+@mixin displayflex(){
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: box;
+    display: -webkit-flex;
+    display: flex;
+}
+@mixin flex( $flex ){
+    -webkit-box-flex: $flex;
+    -moz-box-flex: $flex;
+    -ms-flex: $flex;
+    box-flex: $flex;
+    -webkit-flex: $flex;
+    flex: $flex;
+}
+
+@mixin box-shadow( $shadow ){
+    -webkit-box-shadow: $shadow;
+    -moz-box-shadow: $shadow;
+    box-shadow: $shadow;
+}
+
+@mixin border-radius( $radius ){
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin box-sizing( $sizing ){
+    -webkit-box-sizing: $sizing;
+    -moz-box-sizing: $sizing;
+    box-sizing: $sizing;
+}
+
+@mixin transform( $transform ){
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -ms-transform: $transform;
+    -o-transform: $transform;
+    transform: $transform;
+}
+
+@mixin transition( $transition ){
+    -webkit-transition: $transition;
+    -moz-transition: $transition;
+    -o-transition: $transition;
+    transition: $transition;
+}
+
+@mixin background-size( $size ){
+    -webkit-background-size: $size;
+    -moz-background-size: $size;
+    -o-background-size: $size;
+    background-size: $size;
+}
+
+@mixin backface-visibility( $property ){
+    -webkit-backface-visibility: $property;
+    -moz-backface-visibility: $property;
+    -ms-backface-visibility: $property;
+    backface-visibility: $property;
+}
+
+@mixin perspective( $visibility ){
+    -webkit-perspective: $visibility;
+    -moz-perspective: $visibility;
+    -ms-perspective: $visibility;
+}
+
+@mixin animation( $property ){
+    -webkit-animation: $property;
+    -moz-animation: $property;
+    animation: $property;
+}
+
+@mixin keyframes( $name ){
+    @-webkit-keyframes $name{
+        @content;
+    }
+    @-moz-keyframes $name{
+        @content;
+    }
+    @keyframes $name{
+        @content;
+    }
+}
