@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="../../build/mobile/dialog-min.css">
 	<!-- <link rel="stylesheet" type="text/css" href="../../build/moblie/css/dialog-min.css"> -->
 </head>
-<body style="height: 1200px; margin:0;">
+<body style="height: 1200px; margin:0; background-color: blue;">
 	<div>
 		<input type="button" id="load" value="加载层">
 		<input type="button" id="confirm" value="警告层">
@@ -118,7 +118,14 @@
 		 */
 		var init = $( this ).attr( 'data-dialog' );
 		if( !init ){
-			var html = '<div style="height:300px;width:150px;background:red;">1111111</div>'
+			var html = '<div style="height:300px;width:150px;background: yellow;">'+
+			+'<div>1111111</div>'
+			+'<div>33333</div>'
+			+'<div>33333</div>'
+			+'<div>33333</div>'
+			+'<div>33333</div>'
+			+'<div>33333</div>'
+			+'</div>'
 			pageDialog1 = Dialog.create({
 				type: 'page',
 				html: html,
@@ -140,7 +147,15 @@
 		 * @prama { function } ok 确认回调事件
 		 * @return Dialog
 		 */
-		var html = '<div style="height:150px;width:100%;background:white;">1111111</div>'
+		var html = '<div style="height:150px;width:100%;background:white;">'+
+			+'<div>1111111</div>'
+			+'<div>33333</div>'
+			+'<div>33333</div>'
+			+'<div>33333</div>'
+			+'<div>33333</div>'
+			+'<div>33333</div>'
+			+'</div>';
+			
 		Dialog.create({
 			type: 'page',
 			html: html,

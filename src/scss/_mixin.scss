@@ -83,7 +83,7 @@
     -ms-perspective: $visibility;
 }
 
-@mixin animation( $property ){
+@mixin animation( $property... ){
     -webkit-animation: $property;
     -moz-animation: $property;
     animation: $property;

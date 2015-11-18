@@ -15,7 +15,9 @@
     height: 100%;
     width: 100%;
     /*transition: opacity .5s;*/
-    @include animation( opacityin .5s );
+    /* @include animation( opacityin .5s );
+    @include backface-visibility( hidden );
+    @include perspective( 1000 ); */
 }
 .xcy-layer, .xcy-loading{
     position: fixed;
@@ -103,31 +105,31 @@
 }
 
 .slideleftin{
-    @include animation(slideleftin 350ms ease-in-out);
+    @include animation(slideleftin 550ms ease-in-out, opacityin 550ms ease-in-out);
 }
 .slideleftout{
-    @include animation(slideleftout 350ms ease-in-out);
+    @include animation(slideleftout 550ms ease-in-out, opacityout 550ms ease-in-out);
 }
 
 .sliderightin{
-    @include animation(sliderightin 350ms ease-in-out);
+    @include animation(sliderightin 550ms ease-in-out, opacityin 550ms ease-in-out);
 }
 .sliderightout{
-    @include animation(sliderightout 350ms ease-in-out);
+    @include animation(sliderightout 550ms ease-in-out, opacityout 550ms ease-in-out);
 }
 
 .slidedownin{
-    @include animation(slidedownin 350ms ease-in-out);
+    @include animation(slidedownin 550ms ease-in-out, opacityin 550ms ease-in-out);
 }
 .slidedownout{
-    @include animation(slidedownout 350ms ease-in-out);
+    @include animation(slidedownout 550ms ease-in-out, opacityout 550ms ease-in-out);
 }
 
 .slideupin{
-    @include animation(slideupin 350ms ease-in-out);
+    @include animation(slideupin 550ms ease-in-out, opacityin 550ms ease-in-out);
 }
 .slideupout{
-    @include animation(slideupout 350ms ease-in-out);
+    @include animation(slideupout 550ms ease-in-out, opacityout 550ms ease-in-out);
 }
 
 .opacityin{
@@ -135,138 +137,4 @@
 }
 .opacityout{
     @include animation(opacityout 350ms ease-in-out);
-}
-
-@include keyframes( loading ){
-    from {
-        -webkit-transform:rotate(0deg) translateZ(0);
-    }
-    to {
-        -webkit-transform:rotate(360deg) translateZ(0);
-    }
-}
-// 渐显示
-@include keyframes( opacityin ){
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
-}
-// 渐隐藏
-@include keyframes( opacityout ){
-    0%{
-        opacity: 1;
-    }
-    100%{
-        opacity: 0;
-    }
-}
-// 弹出显示
-@include keyframes( popscalein ){
-    0%{
-        @include transform( scale(0,0) );
-        opacity: 0;
-    }
-    45%{
-        @include transform( scale(1.2,1.2) );
-        opacity: 1;
-    }
-    100%{
-        @include transform( scale(1,1) );
-        /*opacity: 1;*/
-    }
-}
-// 弹出隐藏
-@include keyframes( popscaleout ){
-    0%{
-        @include transform( scale(1,1) );
-        opacity: 1;
-    }
-    45%{
-        @include transform( scale(1.2,1.2) );
-        opacity: 1;
-    }
-    100%{
-        @include transform( scale(0,0) );
-        opacity: 0;
-    }
-}
-// 向右渐显
-@include keyframes( slideleftin ){
-    from {
-        @include transform( translateX(-100%) );
-    }
-    to {
-        @include transform( translateX(0px) );
-    }
-}
-// 向右渐隐
-@include keyframes( slideleftout ){
-    from {
-        @include transform( translateX(0px) );
-    }
-    to {
-        @include transform( translateX(-100%) );
-    }
-}
-// 向左渐显
-@include keyframes( sliderightin ){
-    from {
-        @include transform( translateX(100%) );
-    }
-    to {
-        @include transform( translateX(0px) );
-    }
-}
-// 向左渐隐
-@include keyframes( sliderightout ){
-    from {
-        @include transform( translateX(0px) );
-    }
-
-    to {
-        @include transform( translateX(100%) );
-    }
-}
-// 向上渐显
-@include keyframes( slideupin ){
-    from {
-        @include transform( translate3d(0,100%,0) );
-    }
-
-    to {
-        @include transform( translate3d(0,0,0) );
-    }
-}
-// 向上渐隐
-@include keyframes( slideupout ){
-    from {
-        @include transform( translate3d(0,0,0) );
-    }
-
-    to {
-        @include transform( translate3d(0,100%,0) );
-    }
-}
-// 向下渐显
-@include keyframes( slidedownin ){
-    from {
-        @include transform( translate3d(0,-100%,0) );
-    }
-
-    to {
-        @include transform( translate3d(0,0,0) );
-    }
-}
-// 向下渐隐
-@include keyframes( slidedownout ){
-    from {
-        @include transform( translate3d(0,0,0) );
-    }
-
-    to {
-        @include transform( translate3d(0,-100%,0) );
-    }
 }

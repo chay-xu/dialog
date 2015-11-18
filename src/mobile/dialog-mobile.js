@@ -242,7 +242,6 @@
 
 		// _self.$el.on( animEndEventName, function(){
 		_self.$el.on( animEndEventName, function(){
-			console.log(1111)
 			_self.$el.removeClass( opts.animation + 'out' )
 
 			callback.apply( _self );
