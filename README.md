@@ -143,3 +143,91 @@ className: '',
             }
 
 # dialog-mobile.js
+#### base
+<table>
+  <thead>
+    <tr>
+      <th>Param</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>className</td>
+      <td><code>string</code></td>
+      <td></td>
+      <td>className</td>
+    </tr>
+    <tr>
+      <td>type</td>
+      <td><code>string</code></td>
+      <td>load</td>
+      <td>
+        <code>load</code>
+        <code>tip</code>
+        <code>confirm</code>
+        <code>alert</code>
+        <code>page</code>
+      </td>
+    </tr>
+    <tr>
+      <td>html</td>
+      <td><code>string</code></td>
+      <td></td>
+      <td>dialog content html</td>
+    </tr>
+    <tr>
+      <td>mask</td>
+      <td><code>boolean</code></td>
+      <td>true</td>
+      <td>shows or hides the mask layer</td>
+    </tr>
+    <tr>
+      <td>maskClose</td>
+      <td><code>boolean</code></td>
+      <td>true</td>
+      <td>bind close event to mask layer</td>
+    </tr>
+    <tr>
+      <td>animation</td>
+      <td><code>string | boolean</code></td>
+      <td>false</td>
+      <td>css3 animation</td>
+    </tr>
+    <tr>
+      <td>unload</td>
+      <td><code>boolean</code></td>
+      <td>true</td>
+      <td>destroy dialog object</td>
+    </tr>
+    <tr>
+      <td>buttons</td>
+      <td><code>array</code></td>
+      <td>
+        {
+					name: '取消',
+					callback: function(){}
+				},
+				{
+					name: '确认',
+					callback: function(){}
+				}
+      </td>
+      <td>buttons param</td>
+    </tr>
+    <tr>
+      <td>init</td>
+      <td><code>function</code></td>
+      <td>function(){}</td>
+      <td>dialog init</td>
+    </tr>
+    <tr>
+      <td>closeBtn</td>
+      <td><code>function</code></td>
+      <td>function(){}</td>
+      <td>close button is clicked</td>
+    </tr>
+  </tbody>
+</table>
