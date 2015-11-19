@@ -221,7 +221,7 @@ className: '',
       <td>init</td>
       <td><code>function</code></td>
       <td>function(){}</td>
-      <td>dialog init</td>
+      <td>init callback</td>
     </tr>
     <tr>
       <td>closeBtn</td>
