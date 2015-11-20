@@ -182,7 +182,7 @@
 		if( opts.mask ){
 			_self.$mask.on('click touchmove', function(){
 				if( !_self.isClosed ){
-					clearTimeout( timer );
+					timer && clearTimeout( timer );
 					_self.isClosed = true;
 					_self.close();
 				}
