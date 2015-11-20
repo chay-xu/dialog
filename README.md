@@ -300,7 +300,7 @@ Dialog.tip( '成功', false).close()
 The public destroy() method can be used to free some memory, remove dom and off event.
 ```js
 var tip = Dialog.tip( '成功', false);
-tip.show()
+tip.unload()
 ```
 
 .hide()
