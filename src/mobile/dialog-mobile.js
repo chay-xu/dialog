@@ -167,12 +167,13 @@
 			opts = _self.options,
 			type = opts.type,
 			time = opts.time,
-			html = opts.html;
+			html = opts.html,
+			timer = null;
 		
 		// 定时关闭
 		if( time !== false ){
 			if( time == true ) time = 1200;
-			setTimeout(function(){
+			timer = setTimeout(function(){
 				_self.close();
 			}, time );
 		}
@@ -181,6 +182,7 @@
 		if( opts.mask ){
 			_self.$mask.on('click touchmove', function(){
 				if( !_self.isClosed ){
+					clearTimeout( timer );
 					_self.isClosed = true;
 					_self.close();
 				}
