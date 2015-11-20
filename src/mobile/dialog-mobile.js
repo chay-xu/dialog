@@ -11,9 +11,10 @@
 		_zIndex = 999900,
 		defaults = {
 			type: 'load',
+			className: '',
 			time: false,
-			shade: true,
-			shadeClose: true,
+			mask: true,
+			maskClose: true,
 			html: '',
 			animation: false,
 			unload: true,
@@ -74,7 +75,7 @@
 			opts = _self.options,
 			type = opts.type,
 			html = opts.html,
-			$div = $('<div class="xcy-layer"></div>'),
+			$div = $('<div class="xcy-layer '+ opts.className +'"></div>'),
 			content = '',
 			tags = '',
 			align = opts.align,
@@ -123,13 +124,13 @@
 		}
 
 		// 遮罩
-		if( opts.shade ){
-			_self.$shade = $('<div class="xcy-shade"></div>');
-			_self.$shade.attr( 'id', 'xcy-layer-' + (_cid++) );
+		if( opts.mask ){
+			_self.$mask = $('<div class="xcy-mask"></div>');
+			_self.$mask.attr( 'id', 'xcy-layer-' + (_cid++) );
 
-			$( 'body' ).append( _self.$shade );
+			$( 'body' ).append( _self.$mask );
 			// 设置遮罩层css
-			_self.$shade.css({
+			_self.$mask.css({
 				'zIndex': _zIndex++
 			})
 		}
@@ -177,8 +178,8 @@
 		}
 
 		// 遮罩关闭
-		if( opts.shade ){
-			_self.$shade.on('click touchmove', function(){
+		if( opts.mask ){
+			_self.$mask.on('click touchmove', function(){
 				if( !_self.isClosed ){
 					_self.isClosed = true;
 					_self.close();
@@ -260,9 +261,9 @@
 		_self.$el.remove();
 
 		// 遮罩卸载
-		if( opts.shade ){
-			_self.$shade.off('click touchmove');
-			_self.$shade.remove();
+		if( opts.mask ){
+			_self.$mask.off('click touchmove');
+			_self.$mask.remove();
 		}
 		_self.options = null;
 	}
@@ -274,7 +275,7 @@
 		if( isDialog ) isDialog.close();
 
 		_self.$el.show();
-		_self.$shade && _self.$shade.show();
+		_self.$mask && _self.$mask.show();
 		isDialog = _self;
 	}
 	DialogLayer.prototype.hide = function(){
@@ -282,7 +283,7 @@
 			opts = _self.options;
 
 		_self.$el.hide();
-		_self.$shade && _self.$shade.hide();
+		_self.$mask && _self.$mask.hide();
 		_self.isClosed = false;
 	}
 
@@ -294,14 +295,14 @@
 			return isDialog = new DialogLayer({
 				html: html,
 				time: time !== undefined ? time : 1200,
-				shadeClose: close ? close : false
+				maskClose: close ? close : false
 			});
 		},
-		confirm: function( html, sure, cancel, close ){
+		confirm: function( html, ok, cancel, close ){
 			return isDialog = new DialogLayer({
 				type: 'confirm',
 				html: html,
-				shadeClose: close ? close : false,
+				maskClose: close ? close : false,
 				buttons: [
 					{
 						name: '取消',
@@ -309,19 +310,19 @@
 					},
 					{
 						name: '确认',
-						callback: sure
+						callback: ok
 					}
 				]
 			});
 		},
-		alert: function( html, sure, close ){
+		alert: function( html, ok, close ){
 			return isDialog = new DialogLayer({
 				type: 'alert',
 				html: html,
-				shadeClose: close ? close : false,
+				maskClose: close ? close : false,
 				buttons: [{
 					name: '确认',
-					callback: sure ? sure : function(){}
+					callback: ok ? ok : function(){}
 				}]
 			});
 		},
@@ -330,7 +331,7 @@
 				type: 'tip',
 				html: html,
 				time: typeof time === 'number' ? time : 1200,
-				shadeClose: typeof close === 'boolean' ? close : true,
+				maskClose: typeof close === 'boolean' ? close : true,
 				closeFn: callback ? callback : function(){}
 			});
 		},
@@ -338,8 +339,8 @@
 			return isDialog = new DialogLayer({
 				type: 'page',
 				html: html,
-				callback: callback,
-				shadeClose: close ? close : true
+				init: callback,
+				maskClose: close ? close : true
 			});
 		},
 		config: function( options ){

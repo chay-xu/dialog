@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="../../build/mobile/dialog-min.css">
 	<!-- <link rel="stylesheet" type="text/css" href="../../build/moblie/css/dialog-min.css"> -->
 </head>
-<body style="height: 1200px; margin:0; background-color: blue;">
+<body style="height: 1200px; margin:0;">
 	<div>
 		<input type="button" id="load" value="加载层">
 		<input type="button" id="confirm" value="警告层">
@@ -37,10 +37,10 @@
 		/**
 		 * @prama { string } 消息内容
 		 * @prama { number|boolean } 可选 时间延长,false不消失
-		 * @prama { boolean } 可选 shade点击关闭
+		 * @prama { boolean } 可选 mask点击关闭
 		 * @return Dialog
 		 */
-		Dialog.load( '成功', false)
+		var qd = Dialog.load( '成功', false);
 
 	})
 	var DialogConfirm;
@@ -49,7 +49,7 @@
 		 * @prama { string } 消息内容
 		 * @prama { function } ok 确认回调事件
 		 * @prama { function } cancel 确认回调事件
-		 * @prama { boolean } shade点击关闭
+		 * @prama { boolean } mask点击关闭
 		 * @return Dialog
 		 */
 		// Dialog.confirm( '<div style="padding:10px 50px;">成功</div>')
@@ -57,7 +57,7 @@
 			DialogConfirm = Dialog.create({
 				type: 'confirm',
 				html: '成功',
-				// shade: true,
+				// mask: true,
 				unload: false,
 				close: true,
 				// animation: 'opacity'
@@ -71,7 +71,7 @@
 		/**
 		 * @prama { string } 消息内容
 		 * @prama { function } ok 确认回调事件
-		 * @prama { boolean } shade点击关闭
+		 * @prama { boolean } mask点击关闭
 		 * @return Dialog
 		 */
 		// Dialog.alert( '<div style="padding:10px 50px;">成功</div>', function(t){
@@ -81,7 +81,7 @@
 			type: 'tip',
 			// type: 'confirm',
 			html: '成功',
-			// shade: true,
+			// mask: true,
 			close: true,
 			// animation: 'opacity'
 			animation: 'popscale'
@@ -92,14 +92,14 @@
 		/**
 		 * @prama { string } 消息内容
 		 * @prama { number|boolean } 时间延长 false不消失
-		 * @prama { boolean } shade点击关闭
+		 * @prama { boolean } mask点击关闭
 		 * @return Dialog
 		 */
 		// Dialog.tip( '成功')
 		Dialog.create({
 			type: 'tip',
 			html: '成功',
-			shade: false,
+			mask: false,
 			align: 'bottom',
 			animation: 'slideup'
 		})
@@ -130,7 +130,7 @@
 				type: 'page',
 				html: html,
 				unload: false,
-				shade: false
+				mask: false
 			})
 			$( this ).attr( 'data-dialog', 'true' );
 		}else{
@@ -155,7 +155,7 @@
 			+'<div>33333</div>'
 			+'<div>33333</div>'
 			+'</div>';
-			
+
 		Dialog.create({
 			type: 'page',
 			html: html,
