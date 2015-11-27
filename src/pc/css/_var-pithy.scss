@@ -8,45 +8,63 @@ $hack_ie67: '*';
     *padding: ($tb - 2px) $lr;
 }
 
-$warpperBoxShadow: 0 0 5px #888;
+$warpperBoxShadow: 0 0 5px #ccc;
 $warpperBorderRadius: 5px;
 
-$layoutWidthHeight: 3px;
-$layoutBorderRadius: 5px;
-$layoutBackgroundColor: #459BDA;
+$layoutWidthHeight: 1px;
+$layoutBorderRadius: 0;
+$layoutBackgroundColor: #ccc;
 
 $layerBackgroundColor: #fff;
 
-$titleBackgroundColor: #459BDA;
-$titleColor: #fff;
+$titleBackgroundColor: #fbfbfb;
+$titleColor: #5f5f5f;
 $titleHeight: 25px;
 $titlePadding: 0 5px;
-$titleTextShadow: 1px 1px 0 #0B77C5;
+$titleTextShadow: 1px 1px 0 #e0e0e0;
 
 $footHeight: 27px;
 $footPadding: 5px 10px;
-$footBackgroundColor: #EFF4F9;
-$footOpacity: .5;
+$footBackgroundColor: #fff;
 
-$btnBackgroundColor: #48B1FF;
+$btnBackgroundColor: #ff7421;
 $btnColor: #fff;
-$btnBorder: 1px solid #5AA5DB;
-$btnBoxShadow: 0 0 5px #64BDFF;
+$btnBorder: 0px solid #5AA5DB;
+$btnBoxShadow: 0 0 5px #ff7421;
 $btnBorderRadius: 3px;
 $btnPadding: 6px 12px;
 $btnMargin: 5px;
-$btnBackgroundColor_focus: #64BDFF;
+$btnBackgroundColor_focus: #e86618;
 $btnBorderColor_focus: #1F92E7;
 $btnBackgroundColor_disabled: #ddd;
 $btnColor_disabled: #666;
 $btnBorderColor_disabled: 1px solid #999;
+$btnOpacity_disabled: .5;
+
+$winBtnHeight: 16px;
+$winBtnWidth: 16px;
+$winBtnBorderRadius: 8px;
+$winBtnBackgroundColor: #fbfbfb;
+$winBtnColor: #ff7421;
+$winBtnTop: 4px;
+$winBtnBackgroundColor_hover: #ffd3b9;
+
+$xBtnHeight: 18px;
+$xBtnWidth: 18px;
+$xBtnBackgroundColor: #dadada;
+$xBtnColor: #fff;
+$xBtnBorderRadius: 10px;
+$xBtnBorder: 2px solid #fff;
+$xBtnRight: -12px;
+$xBtnTop: -12px;
+$xBtnBackgroundColor_hover: #ff7421;
 
 $shadeBackgroundColor: #999;
 $shadeOpacity: .5;
 
 $promptTextMarginBottom: 5px;
 $promptInputPadding: 5px 5px;
-$promptBorder: 1px solid #74AEE6;
+$promptBorder: 1px solid #ff7421;
 
 $loadPadding: 5px;
 $loadHeight: 24px;
@@ -57,6 +75,6 @@ $loadMarginRight_img: 5px;
 $loadWidth_text: 24px;
 $loadHeight_text: 32px;
 
-$proxyBorder: 3px solid #459BDA;
-$proxyBorderRadius: 5px;
+$proxyBorder: 1px solid #ff7421;
+$proxyBorderRadius: 0;
 $proxyBackgroundColor: #fff;

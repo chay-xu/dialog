@@ -13,6 +13,12 @@
     -ms-user-select: none;
 }
 
+@mixin appearance( $button ){
+    -moz-appearance: $button;
+    -webkit-appearance: $button;
+    appearance: $button;
+}
+
 @mixin displayflex(){
     display: -webkit-box;
     display: -moz-box;

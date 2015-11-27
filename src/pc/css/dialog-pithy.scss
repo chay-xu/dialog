@@ -1,5 +1,5 @@
 @import "_mixin";
-@import "_var";
+@import "_var-pithy";
 /**
  * @file dialog plugin css style
  * @author xucaiyu
@@ -113,6 +113,7 @@ table.xcy-fixed{
 }
 /* foot button */
 .xcy-btn{
+    outline: 0 none;
     border: $btnBorder;
     background-color: $btnBackgroundColor;
     color: $btnColor;
@@ -148,8 +149,11 @@ table.xcy-fixed{
 .xcy-btn-r{
     margin-right: $btnMargin;
 }
-.xcy-foot button:focus{
+button::-moz-focus-inner{
     outline: 0 none;
+}
+.xcy-foot button:focus{
+    // outline: 0 none;
     // border-color: $btnBorderColor_focus;
     // *filter: chroma(color=#000000);
     background-color: $btnBackgroundColor_focus;
@@ -160,7 +164,7 @@ table.xcy-fixed{
     color: $btnColor_disabled; 
     background-color: $btnBackgroundColor_disabled; 
     border: $btnBorderColor_disabled; 
-    @include opacity( $footOpacity );
+    @include opacity( $btnOpacity_disabled );
     @include box-shadow( none );
 }
 /* window button */
@@ -197,7 +201,7 @@ table.xcy-fixed{
     right: 50px;
 }
 .xcy-winBtn a.xcy-winBtn-btn:hover{
-    background-color: #DEF;
+    background-color: $winBtnBackgroundColor_hover;
 }
 #xcy-x-btn{
     height: $xBtnHeight;
@@ -212,7 +216,7 @@ table.xcy-fixed{
     top: $xBtnTop;
 }
 .xcy-winBtn a#xcy-x-btn:hover{
-    background-color: #ccc;
+    background-color: $xBtnBackgroundColor_hover;
 }
 /* prompt */
 .xcy-prompt{
@@ -228,6 +232,7 @@ table.xcy-fixed{
     padding: $promptInputPadding;
     margin: 0;
     border: $promptBorder;
+    outline: none;
 }
 /* iframe */
 .xcy-main{

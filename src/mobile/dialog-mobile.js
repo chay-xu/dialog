@@ -33,7 +33,9 @@
 			closeFn: function(){}
 		};
 
-	var animEndEventNames = {
+	var isSupportsTouches = ("createTouch" in document),
+		StartEvent = isSupportsTouches ? 'touchstart' : 'click',
+		animEndEventNames = {
 	        'webkit' : 'webkitAnimationEnd',
 	        'o' : 'oAnimationEnd',
 	        'ms' : 'MSAnimationEnd',
@@ -42,6 +44,7 @@
 	    },
 	    animEndEventName = animEndEventNames[prefix().lowercase]||animEndEventNames['animation'];
 
+	// 动画兼容
 	function prefix(){
 	    var styles = getCompStyle(document.documentElement),
 	        pre = (Array.prototype.slice.call(styles).join('')
@@ -180,7 +183,8 @@
 
 		// 遮罩关闭
 		if( opts.mask ){
-			_self.$mask.on('click touchmove', function(){
+			_self.$mask.on( StartEvent, function(){
+				console.log(!_self.isClosed)
 				if( !_self.isClosed ){
 					timer && clearTimeout( timer );
 					_self.isClosed = true;
@@ -243,12 +247,13 @@
 		_self.$el.removeClass( opts.animation + 'in' )
 		_self.$el.addClass( opts.animation + 'out' )
 
+		// 动画
 		// _self.$el.on( animEndEventName, function(){
 		_self.$el.on( animEndEventName, function(){
 			_self.$el.removeClass( opts.animation + 'out' )
 
-			callback.apply( _self );
 			_self.$el.off();
+			callback.apply( _self );
 		})
 	}
 	DialogLayer.prototype.unload = function(){
@@ -264,7 +269,7 @@
 
 		// 遮罩卸载
 		if( opts.mask ){
-			_self.$mask.off('click touchmove');
+			_self.$mask.off( StartEvent );
 			_self.$mask.remove();
 		}
 		_self.options = null;
