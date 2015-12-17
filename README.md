@@ -1,11 +1,14 @@
 # Dialog
 dialog layer plugin support pc and mobile
 
-see demo pc：[dialog](http://xu8511831.github.io/demo/dialog/pc/index.html) mobile： [dialog](http://xu8511831.github.io/demo/dialog/mobile/index.html)
+see demo 
+
+* [pc dialog](http://xu8511831.github.io/demo/dialog/pc/index.html) 
+* [mobile dialog](http://xu8511831.github.io/demo/dialog/mobile/index.html)
 
 # dialog.js
 
-#### base
+#### base options
 <table>
   <thead>
     <tr>
@@ -69,6 +72,18 @@ see demo pc：[dialog](http://xu8511831.github.io/demo/dialog/pc/index.html) mob
       </td>
     </tr>
     <tr>
+      <td>shade</td>
+      <td><code>boolean</code></td>
+      <td>true</td>
+      <td>whether to display the mask layer</td>
+    </tr>
+    <tr>
+      <td>shadeClose</td>
+      <td><code>boolean</code></td>
+      <td>false</td>
+      <td>the mask layer auto close</td>
+    </tr>
+    <tr>
       <td>buttons</td>
       <td><code>array</code></td>
       <td>
@@ -85,10 +100,30 @@ see demo pc：[dialog](http://xu8511831.github.io/demo/dialog/pc/index.html) mob
       <td>closeBtn</td>
       <td><code>function</code></td>
       <td>function(){}</td>
-      <td>close button</td>
+      <td>Function to execute when the button is closed</td>
+    </tr>
+    <tr>
+      <td>beforeFn</td>
+      <td><code>function</code></td>
+      <td>function(){}</td>
+      <td>Function that are executed before the initialization </td>
+    </tr>
+    <tr>
+      <td>afterFn</td>
+      <td><code>function</code></td>
+      <td>function(){}</td>
+      <td>Function that are executed after the initialization </td>
+    </tr>
+    <tr>
+      <td>onloadFn</td>
+      <td><code>function</code></td>
+      <td>function(){}</td>
+      <td>Function after the completion of the iframe load</td>
     </tr>
   </tbody>
-</table> 
+</table>
+
+### load
 className: '',
             container: 'body',
             // css: {},
