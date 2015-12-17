@@ -51,13 +51,13 @@ see demo
     </tr>
     <tr>
       <td>left</td>
-      <td><code>string | number</code></td>
+      <td><code>string</code>|<code>number</code></td>
       <td>'50%'</td>
       <td>dialog position</td>
     </tr>
     <tr>
       <td>top</td>
-      <td><code>string | number</code></td>
+      <td><code>string</code>|<code>number</code></td>
       <td>'50%'</td>
       <td>dialog position</td>
     </tr>
@@ -75,13 +75,19 @@ see demo
       <td>shade</td>
       <td><code>boolean</code></td>
       <td>true</td>
-      <td>whether to display the mask layer</td>
+      <td>whether to display the shade layer</td>
     </tr>
     <tr>
       <td>shadeClose</td>
       <td><code>boolean</code></td>
       <td>false</td>
-      <td>the mask layer auto close</td>
+      <td>the shade layer auto close</td>
+    </tr>
+    <tr>
+      <td>delay</td>
+      <td><code>boolean</code>|<code>number</code></td>
+      <td>false</td>
+      <td>close time interval, in ms. If the value is <strong>true</strong>, the default is 1800ms. the value is <strong>false</strong>, the not close</td>
     </tr>
     <tr>
       <td>buttons</td>
