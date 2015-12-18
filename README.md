@@ -227,6 +227,9 @@ see demo
   </tbody>
 </table>
 
+### Instance Methods
+
+
 # dialog-mobile.js
 #### base
 <table>
