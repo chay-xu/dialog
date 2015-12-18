@@ -144,7 +144,7 @@ see demo
       <td>dialog position</td>
     </tr>
     <tr>
-      <td>closeBtn</td>
+      <td>closeBtnFn</td>
       <td><code>function</code></td>
       <td>function(){}</td>
       <td>Function to execute when the button is closed</td>
@@ -206,6 +206,17 @@ see demo
       <td><code>string</code></td>
       <td>auto</td>
       <td>iframe window overflow scroll</td>
+    </tr>
+    <tr>
+      <td>winBtn</td>
+      <td><code>boolean</code></td>
+      <td>true</td>
+      <td>
+      	add buttons
+      	<code>min</code>
+      	<code>restore</code>
+      	<code>full</code>
+      </td>
     </tr>
     <tr>
       <td>onloadFn</td>
