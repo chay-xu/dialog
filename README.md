@@ -66,10 +66,23 @@ see demo
       <td><code>string</code></td>
       <td>center</td>
       <td>
+      	buttons algin positon
         <code>left</code>
         <code>center</code>
         <code>right</code>
       </td>
+    </tr>
+    <tr>
+      <td>animate</td>
+      <td><code>boolean</code></td>
+      <td>false</td>
+      <td>fade animation</td>
+    </tr>
+    <tr>
+      <td>animateAlign</td>
+      <td><code>string</code></td>
+      <td>bottom</td>
+      <td>fade animation direction</td>
     </tr>
     <tr>
       <td>shade</td>
