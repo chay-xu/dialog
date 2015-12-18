@@ -84,6 +84,12 @@ see demo
       <td>the shade layer auto close</td>
     </tr>
     <tr>
+      <td>opacity</td>
+      <td><code>number</code></td>
+      <td>0.5</td>
+      <td>the shade layer opacity</td>
+    </tr>
+    <tr>
       <td>delay</td>
       <td><code>boolean</code>|<code>number</code></td>
       <td>false</td>
@@ -100,7 +106,7 @@ see demo
     <tr>
       <td>fixed</td>
       <td><code>boolean</code></td>
-      <td>true</td>
+      <td>false</td>
       <td>fixed positioned dialog layer</td>
     </tr>
     <tr>
@@ -114,12 +120,12 @@ see demo
       <td><code>array</code></td>
       <td>
       	<pre>
-        {
+        [{
           name: '确定',
           callback: function(){},
           disabled: false,
           focus: false
-        }
+        }]
         </pre>
       </td>
       <td>dialog position</td>
