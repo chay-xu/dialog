@@ -34,7 +34,7 @@ see demo
     <tr>
       <td>css</td>
       <td><code>object</code></td>
-      <td>{ padding: '10px' }</td>
+      <td><pre>{ padding: '10px' }</pre></td>
       <td>css object</td>
     </tr>
     <tr>
@@ -87,18 +87,40 @@ see demo
       <td>delay</td>
       <td><code>boolean</code>|<code>number</code></td>
       <td>false</td>
-      <td>close time interval, in ms. If the value is <strong>true</strong>, the default is 1800ms. the value is <strong>false</strong>, the not close</td>
+      <td>
+      close time interval, in ms. If the value is <strong>true</strong>, the default is 1800ms. the value is <strong>false</strong>, the not close
+      </td>
+    </tr>
+    <tr>
+      <td>unload</td>
+      <td><code>boolean</code></td>
+      <td>true</td>
+      <td>unbind event and destory DOM element</td>
+    </tr>
+    <tr>
+      <td>fixed</td>
+      <td><code>boolean</code></td>
+      <td>true</td>
+      <td>fixed positioned dialog layer</td>
+    </tr>
+    <tr>
+      <td>isMove</td>
+      <td><code>boolean</code></td>
+      <td>true</td>
+      <td>drag and drop move the dialog layer</td>
     </tr>
     <tr>
       <td>buttons</td>
       <td><code>array</code></td>
       <td>
+      	<pre>
         {
           name: '确定',
           callback: function(){},
           disabled: false,
           focus: false
         }
+        </pre>
       </td>
       <td>dialog position</td>
     </tr>
