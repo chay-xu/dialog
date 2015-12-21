@@ -75,7 +75,7 @@ see demo
     <tr>
       <td>drag</td>
       <td><code>object</code></td>
-      <td>[drag options](#drag)</td>
+      <td><a href="#drag" >drag options</a></td>
       <td>
       	buttons algin positon
         <code>left</code>
