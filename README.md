@@ -73,6 +73,17 @@ see demo
       </td>
     </tr>
     <tr>
+      <td>drag</td>
+      <td><code>object</code></td>
+      <td>[drag options](#drag)</td>
+      <td>
+      	buttons algin positon
+        <code>left</code>
+        <code>center</code>
+        <code>right</code>
+      </td>
+    </tr>
+    <tr>
       <td>animate</td>
       <td><code>boolean</code></td>
       <td>false</td>
@@ -160,6 +171,26 @@ see demo
       <td><code>function</code></td>
       <td>function(){}</td>
       <td>Function that are executed after the initialization </td>
+    </tr>
+  </tbody>
+</table>
+
+### drag options ###
+<table>
+  <thead>
+    <tr>
+      <th>Param</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>value</td>
+      <td><code>string</code></td>
+      <td></td>
+      <td>value</td>
     </tr>
   </tbody>
 </table>
@@ -265,6 +296,21 @@ dialogAlert.buttons([{
     disabled: false,
     focus: false
 }]).html( '内容' );
+```
+
+.moveTo()
+```js
+/**
+ * @param {number|string} top position
+ * @param {number|string} left position
+ * @return this
+ */
+var dialogPage = Dialog({
+	title: 'title',
+	html: 'do something'
+});
+dialogPage.moveTo( '50%', '100%' );
+
 ```
 
 .hide()
