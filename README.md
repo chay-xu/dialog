@@ -229,6 +229,94 @@ see demo
 
 ### Instance Methods
 
+.title()
+```js
+/**
+ * @param {string} title contents
+ * @return title
+ */
+var dialogAlert = Dialog.alert( '成功', function(){} );
+var title = dialogAlert.title();
+console.log( title );
+```
+
+.html()
+```js
+/**
+ * @param {string} html contents
+ * @return this
+ */
+var dialogAlert = Dialog.alert( '成功', function(){} );
+var title = dialogAlert.html( '内容' ).title( '标题' );
+console.log( title );
+```
+
+.buttons()
+```js
+/**
+ * @param {array} buttons array
+ * @return this
+ */
+var dialogAlert = Dialog.alert( '成功', function(){} );
+
+dialogAlert.buttons([{
+    name: '取消',
+    callback: function(){},
+    disabled: false,
+    focus: false
+}]).html( '内容' );
+```
+
+.hide()
+```js
+/**
+ * @return this
+ */
+var dialogAlert = Dialog.alert( '成功', function(){} );
+
+dialogAlert.hide();
+```
+
+.show()
+```js
+/**
+ * @return this
+ */
+var dialogAlert = Dialog.alert( '成功', function(){} );
+
+dialogAlert.show();
+```
+
+.close()
+```js
+/**
+ * hide or destory the dialog instance
+ */
+var dialogAlert = Dialog.alert( '成功', function(){} );
+
+dialogAlert.close();
+```
+
+.unload()
+```js
+/**
+ * unbind event and destory dom element
+ */
+var dialogAlert = Dialog.alert( '成功', function(){} );
+
+dialogAlert.unload();
+```
+
+.closeAll()
+```js
+/**
+ * close all of dialog layers on the page
+ */
+var dialogAlert1 = Dialog.alert( '成功', function(){} );
+var dialogAlert2 = Dialog.alert( '成功', function(){} );
+
+dialogAlert1.closeAll();
+```
 
 # dialog-mobile.js
 #### base
