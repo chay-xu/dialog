@@ -75,13 +75,8 @@ see demo
     <tr>
       <td>drag</td>
       <td><code>object</code></td>
-      <td><a href="#drag" >drag options</a></td>
-      <td>
-      	buttons algin positon
-        <code>left</code>
-        <code>center</code>
-        <code>right</code>
-      </td>
+      <td><a href="#drag" >options</a></td>
+      <td>drag and drop</td>
     </tr>
     <tr>
       <td>animate</td>
