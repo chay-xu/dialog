@@ -182,10 +182,46 @@ see demo
   </thead>
   <tbody>
     <tr>
-      <td>value</td>
-      <td><code>string</code></td>
-      <td></td>
-      <td>value</td>
+      <td>limit</td>
+      <td><code>boolean</code></td>
+      <td>true</td>
+      <td>whether to let the dialog layer limit range</td>
+    </tr>
+    <tr>
+      <td>range</td>
+      <td><code>array</code></td>
+      <td>[ 0, 9999, 9999, 0 ]</td>
+      <td><code>top-right-bottom-left</code> limit range</td>
+    </tr>
+    <tr>
+      <td>lockX</td>
+      <td><code>boolean</code></td>
+      <td>false</td>
+      <td>lock X axis does not move</td>
+    </tr>
+    <tr>
+      <td>lockY</td>
+      <td><code>boolean</code></td>
+      <td>false</td>
+      <td>lock Y axis does not move</td>
+    </tr>
+    <tr>
+      <td>onStart</td>
+      <td><code>function</code></td>
+      <td>function(){}</td>
+      <td>drag the start of execution</td>
+    </tr>
+    <tr>
+      <td>onMove</td>
+      <td><code>function</code></td>
+      <td>function(){}</td>
+      <td>draging to execute function</td>
+    </tr>
+    <tr>
+      <td>onEnd</td>
+      <td><code>function</code></td>
+      <td>function(){}</td>
+      <td>drag the end of execution</td>
     </tr>
   </tbody>
 </table>
