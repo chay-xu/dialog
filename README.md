@@ -75,7 +75,7 @@ see demo
     <tr>
       <td>drag</td>
       <td><code>object</code></td>
-      <td><a href="#drag" >options</a></td>
+      <td><a href="#drag-options">options</a></td>
       <td>drag and drop</td>
     </tr>
     <tr>
