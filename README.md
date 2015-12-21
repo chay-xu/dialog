@@ -246,7 +246,7 @@ see demo
   </tbody>
 </table>
 
-### prompt options
+### iframe options
 <table>
   <thead>
     <tr>
