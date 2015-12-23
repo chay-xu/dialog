@@ -73,7 +73,7 @@
             isMove: true,
             resize: true,
             drag: {
-                limit: true,
+                limit: false,
                 range: [ 0, 9999, 9999, 0 ],
                 // client: false,
                 lockX: false,
@@ -186,7 +186,7 @@
             }
 
             delay = delay || 150;
-            context = context || null;  
+            context = context || null;
             var timeout,
                 runIt = function(){
                     callback.apply(context);  
@@ -229,7 +229,9 @@
 
         // fixed or limit choose
         that._isBody = (this.$parent[0].nodeName == 'BODY');
-        if( (opt.fixed && !that._isBody) || that.type == 'msg' ) 
+        // 悬浮就不能拖动
+        // if( (opt.fixed && !that._isBody) || that.type == 'msg' ) 
+        if( (opt.fixed) || that.type == 'msg' ) 
             that.options.isMove = false;
 
         // private
@@ -341,7 +343,15 @@
                             $win.bind( 'scroll', that._ie6Fix );
                         }else{
                             that.$el.addClass( 'xcy-fixed' );
-                            // that.$proxy.css( 'position', 'fixed' );
+                            // that.$proxy.addClass( 'xcy-fixed' );
+                            
+                            // $win.bind( 'scroll', function(){
+                            //     console.log(that.top + $doc.scrollTop())
+                            //     that.$proxy.css({
+                            //         top: that.top + $doc.scrollTop(),
+                            //         left: that.left + $doc.scrollLeft()
+                            //     })
+                            // } );
                         }
 
                     // parent is not body
@@ -928,7 +938,11 @@
                 onMove( t, l );
             };
             _drag.onEnd = function( t, l ){
-                that.$el.css({ top: t, left: l })
+                // t = t - $doc.scrollTop();
+                // l = l - $doc.scrollLeft();
+
+                that.$el.css({ top: t, left: l });
+
                 // set _restore 修改原始位置
                 that._restore.top = t;
                 that._restore.left = l;
@@ -1491,11 +1505,11 @@
                 left = position.left;
                 top = position.top;
 
-                that.$drag.css( { 'left': left, 'top': top } );
+                that.$drag.css( {'left': left, 'top': top} );
                 that.left = left;
                 that.top = top;
 
-                that.options.onMove( top, left );
+                that.options.onMove( that.top, that.left );
             },
             // drag end, unbind event
             _end: function(){

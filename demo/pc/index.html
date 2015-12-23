@@ -19,7 +19,7 @@
 	<script type="text/javascript">
 		var alertObj = Dialog.create({
             type: 'alert',
-            html: '添加数据失败！<br>添加数据失败！',
+            html: 'Failed to add data!<br>try again later.',
             shade: false,
             fixed: false,
             // fixed: true,
@@ -42,7 +42,7 @@
 		Dialog.create({
             container: '#table-warp',
             type: 'confirm',
-            html: 'msg2',
+            html: 'Are you want cancel?',
             shade: false,
             // fixed: true,
             isMove: true,
@@ -66,9 +66,9 @@
         })
         Dialog.create({
             type: 'prompt',
-            html: 'prompt text',
+            html: 'Please enter a word.',
             shade: false,
-            fixed: true,
+            fixed: false,
             title: 'prompt',
             left: '85%',
             unload: true,
@@ -83,7 +83,7 @@
         })
         Dialog.create({
             type: 'page',
-            html: 'msg2',
+            html: 'Custom content',
             shade: false,
             fixed: true,
             title: 'page',
@@ -101,7 +101,7 @@
         })
         Dialog.create({
             type: 'page',
-            html: 'msg2 msg2',
+            html: 'No title',
             shade: false,
             fixed: true,
             title: false,
@@ -138,7 +138,7 @@
         })
         Dialog.create({
             type: 'msg',
-            html: 'msg2',
+            html: 'This is a message',
             shade: false,
             fixed: true,
             title: false,
@@ -159,8 +159,8 @@
             type: 'iframe',
             html: 'msg2',
             shade: false,
-            fixed: true,
-            title: 'iframe 框架',
+            fixed: false,
+            title: 'iframe',
             left: '45%',
             top: '90%',
             src: 'http://www.baidu.com',
