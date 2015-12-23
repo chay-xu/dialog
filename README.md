@@ -1,11 +1,16 @@
 # Dialog
 dialog layer plugin support pc and mobile
 
-see demo pc：[dialog](http://xu8511831.github.io/demo/dialog/pc/index.html) mobile： [dialog](http://xu8511831.github.io/demo/dialog/mobile/index.html)
+![image](https://github.com/xu8511831/dialog/raw/master/demo/img/demo.png)
+
+see demo 
+
+* [pc dialog](http://xu8511831.github.io/demo/dialog/pc/index.html) 
+* [mobile dialog](http://xu8511831.github.io/demo/dialog/mobile/index.html)
 
 # dialog.js
 
-#### base
+#### base options
 <table>
   <thead>
     <tr>
@@ -31,7 +36,7 @@ see demo pc：[dialog](http://xu8511831.github.io/demo/dialog/pc/index.html) mob
     <tr>
       <td>css</td>
       <td><code>object</code></td>
-      <td>{ padding: '10px' }</td>
+      <td><pre>{ padding: '10px' }</pre></td>
       <td>css object</td>
     </tr>
     <tr>
@@ -48,13 +53,13 @@ see demo pc：[dialog](http://xu8511831.github.io/demo/dialog/pc/index.html) mob
     </tr>
     <tr>
       <td>left</td>
-      <td><code>string | number</code></td>
+      <td><code>string</code>|<code>number</code></td>
       <td>'50%'</td>
       <td>dialog position</td>
     </tr>
     <tr>
       <td>top</td>
-      <td><code>string | number</code></td>
+      <td><code>string</code>|<code>number</code></td>
       <td>'50%'</td>
       <td>dialog position</td>
     </tr>
@@ -63,84 +68,334 @@ see demo pc：[dialog](http://xu8511831.github.io/demo/dialog/pc/index.html) mob
       <td><code>string</code></td>
       <td>center</td>
       <td>
+      	buttons algin positon
         <code>left</code>
         <code>center</code>
         <code>right</code>
       </td>
     </tr>
     <tr>
+      <td>drag</td>
+      <td><code>object</code></td>
+      <td><a href="#drag-options">options</a></td>
+      <td>drag and drop</td>
+    </tr>
+    <tr>
+      <td>animate</td>
+      <td><code>boolean</code></td>
+      <td>false</td>
+      <td>fade animation</td>
+    </tr>
+    <tr>
+      <td>animateAlign</td>
+      <td><code>string</code></td>
+      <td>bottom</td>
+      <td>fade animation direction</td>
+    </tr>
+    <tr>
+      <td>shade</td>
+      <td><code>boolean</code></td>
+      <td>true</td>
+      <td>whether to display the shade layer</td>
+    </tr>
+    <tr>
+      <td>shadeClose</td>
+      <td><code>boolean</code></td>
+      <td>false</td>
+      <td>the shade layer auto close</td>
+    </tr>
+    <tr>
+      <td>opacity</td>
+      <td><code>number</code></td>
+      <td>0.5</td>
+      <td>the shade layer opacity</td>
+    </tr>
+    <tr>
+      <td>delay</td>
+      <td><code>boolean</code>|<code>number</code></td>
+      <td>false</td>
+      <td>
+      close time interval, in ms. If the value is <strong>true</strong>, the default is 1800ms. the value is <strong>false</strong>, the not close
+      </td>
+    </tr>
+    <tr>
+      <td>unload</td>
+      <td><code>boolean</code></td>
+      <td>true</td>
+      <td>unbind event and destory DOM element</td>
+    </tr>
+    <tr>
+      <td>fixed</td>
+      <td><code>boolean</code></td>
+      <td>false</td>
+      <td>fixed positioned dialog layer</td>
+    </tr>
+    <tr>
+      <td>isMove</td>
+      <td><code>boolean</code></td>
+      <td>true</td>
+      <td>drag and drop move the dialog layer</td>
+    </tr>
+    <tr>
       <td>buttons</td>
       <td><code>array</code></td>
       <td>
-        {
+      	<pre>
+        [{
           name: '确定',
           callback: function(){},
           disabled: false,
           focus: false
-        }
+        }]
+        </pre>
       </td>
       <td>dialog position</td>
     </tr>
     <tr>
-      <td>closeBtn</td>
+      <td>closeBtnFn</td>
       <td><code>function</code></td>
       <td>function(){}</td>
-      <td>close button</td>
+      <td>Function to execute when the button is closed</td>
+    </tr>
+    <tr>
+      <td>beforeFn</td>
+      <td><code>function</code></td>
+      <td>function(){}</td>
+      <td>Function that are executed before the initialization </td>
+    </tr>
+    <tr>
+      <td>afterFn</td>
+      <td><code>function</code></td>
+      <td>function(){}</td>
+      <td>Function that are executed after the initialization </td>
     </tr>
   </tbody>
-</table> 
-className: '',
-            container: 'body',
-            // css: {},
-            css: { padding: '10px' },
-            html: '加载中...',
-            value: '',
-            title: '信息',
-            left: '50%',
-            top: '50%',
-            src: 'about:blank',
-            scrolling: 'auto',
-            align: 'center',
-            animate: false,
-            animateAlign: 'bottom',
-            winBtn: true,
-            buttons: [
-                {
-                    name: '确定',
-                    callback: function(){},
-                    disabled: false,
-                    focus: false
-                }
-                // ,
-                // {
-                //     name: '取消',
-                //     callback: function(){},
-                //     disabled: false,
-                //     focus: false
-                // }
-            ],
-            closeBtn: function(){},         // 关闭图层执行
-            beforeFn: function(){},         // 初始化之前执行函数
-            onloadFn: function(){},         // iframe 页面加载完成执行
-            afterFn: function(){},          // 初始化之后执行函数
-            shade: true,
-            shadeClose: false,
-            unload: true,
-            delay: false,
-            opacity: 0.5,
-            fixed: false,
-            isMove: true,
-            resize: true,
-            drag: {
-                limit: true,
-                range: [ 0, 9999, 9999, 0 ],
-                // client: false,
-                lockX: false,
-                lockY: false,
-                onStart: function(){},
-                onMove: function(){},
-                onEnd: function(){}
-            }
+</table>
+
+### drag options ###
+<table>
+  <thead>
+    <tr>
+      <th>Param</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>limit</td>
+      <td><code>boolean</code></td>
+      <td>true</td>
+      <td>whether to let the dialog layer limit range</td>
+    </tr>
+    <tr>
+      <td>range</td>
+      <td><code>array</code></td>
+      <td>[ 0, 9999, 9999, 0 ]</td>
+      <td><code>top-right-bottom-left</code> limit range</td>
+    </tr>
+    <tr>
+      <td>lockX</td>
+      <td><code>boolean</code></td>
+      <td>false</td>
+      <td>lock X axis does not move</td>
+    </tr>
+    <tr>
+      <td>lockY</td>
+      <td><code>boolean</code></td>
+      <td>false</td>
+      <td>lock Y axis does not move</td>
+    </tr>
+    <tr>
+      <td>onStart</td>
+      <td><code>function</code></td>
+      <td>function(){}</td>
+      <td>drag the start of execution</td>
+    </tr>
+    <tr>
+      <td>onMove</td>
+      <td><code>function</code></td>
+      <td>function(){}</td>
+      <td>draging to execute function</td>
+    </tr>
+    <tr>
+      <td>onEnd</td>
+      <td><code>function</code></td>
+      <td>function(){}</td>
+      <td>drag the end of execution</td>
+    </tr>
+  </tbody>
+</table>
+
+### prompt options
+<table>
+  <thead>
+    <tr>
+      <th>Param</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>value</td>
+      <td><code>string</code></td>
+      <td></td>
+      <td>value</td>
+    </tr>
+  </tbody>
+</table>
+
+### iframe options
+<table>
+  <thead>
+    <tr>
+      <th>Param</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>src</td>
+      <td><code>url</code></td>
+      <td>about:blank</td>
+      <td>address of the resource</td>
+    </tr>
+    <tr>
+      <td>scrolling</td>
+      <td><code>string</code></td>
+      <td>auto</td>
+      <td>iframe window overflow scroll</td>
+    </tr>
+    <tr>
+      <td>winBtn</td>
+      <td><code>boolean</code></td>
+      <td>true</td>
+      <td>
+      	add buttons
+      	<code>min</code>
+      	<code>restore</code>
+      	<code>full</code>
+      </td>
+    </tr>
+    <tr>
+      <td>onloadFn</td>
+      <td><code>function</code></td>
+      <td>function(){}</td>
+      <td>Function after the completion of the iframe load</td>
+    </tr>
+  </tbody>
+</table>
+
+### Instance Methods
+
+.title()
+```js
+/**
+ * @param {string} title contents
+ * @return title
+ */
+var dialogAlert = Dialog.alert( '成功', function(){} );
+var title = dialogAlert.title();
+console.log( title );
+```
+
+.html()
+```js
+/**
+ * @param {string} html contents
+ * @return this
+ */
+var dialogAlert = Dialog.alert( '成功', function(){} );
+var title = dialogAlert.html( '内容' ).title( '标题' );
+console.log( title );
+```
+
+.buttons()
+```js
+/**
+ * @param {array} buttons array
+ * @return this
+ */
+var dialogAlert = Dialog.alert( '成功', function(){} );
+
+dialogAlert.buttons([{
+    name: '取消',
+    callback: function(){},
+    disabled: false,
+    focus: false
+}]).html( '内容' );
+```
+
+.moveTo()
+```js
+/**
+ * @param {number|string} top position
+ * @param {number|string} left position
+ * @return this
+ */
+var dialogPage = Dialog({
+	title: 'title',
+	html: 'do something'
+});
+dialogPage.moveTo( '50%', '100%' );
+
+```
+
+.hide()
+```js
+/**
+ * @return this
+ */
+var dialogAlert = Dialog.alert( '成功', function(){} );
+
+dialogAlert.hide();
+```
+
+.show()
+```js
+/**
+ * @return this
+ */
+var dialogAlert = Dialog.alert( '成功', function(){} );
+
+dialogAlert.show();
+```
+
+.close()
+```js
+/**
+ * hide or destory the dialog instance
+ */
+var dialogAlert = Dialog.alert( '成功', function(){} );
+
+dialogAlert.close();
+```
+
+.unload()
+```js
+/**
+ * unbind event and destory dom element
+ */
+var dialogAlert = Dialog.alert( '成功', function(){} );
+
+dialogAlert.unload();
+```
+
+.closeAll()
+```js
+/**
+ * close all of dialog layers on the page
+ */
+var dialogAlert1 = Dialog.alert( '成功', function(){} );
+var dialogAlert2 = Dialog.alert( '成功', function(){} );
+
+dialogAlert1.closeAll();
+```
 
 # dialog-mobile.js
 #### base
