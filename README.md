@@ -1,6 +1,8 @@
 # Dialog
 dialog layer plugin support pc and mobile
 
+![image](https://github.com/xu8511831/dialog/raw/master/demo/img/demo.png)
+
 see demo 
 
 * [pc dialog](http://xu8511831.github.io/demo/dialog/pc/index.html) 
