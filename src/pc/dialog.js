@@ -60,7 +60,7 @@
                 //     focus: false
                 // }
             ],
-            closeBtn: function(){},         // 关闭图层执行
+            closeBtnFn: function(){},         // 关闭图层执行
             beforeFn: function(){},         // 初始化之前执行函数
             onloadFn: function(){},         // iframe 页面加载完成执行
             afterFn: function(){},          // 初始化之后执行函数
@@ -131,7 +131,6 @@
                         // change z-inde style
                         $.each( layers, function( i, obj ){
                             obj.$el.css( 'zIndex', obj._zIndex );
-                            console.log('----',obj)
                             obj.$proxy.css( 'zIndex', obj._zIndex );
                             obj.$shade && obj.$shade.css( 'zIndex', obj._zIndex );
                         });
@@ -186,7 +185,7 @@
                 return;  
             }
 
-            delay = delay || 150;  
+            delay = delay || 150;
             context = context || null;  
             var timeout,
                 runIt = function(){
@@ -638,7 +637,7 @@
             }
 
             // window controll buttons
-            if( type !== 'load' && opt.closeBtn ){
+            if( type !== 'load' && opt.closeBtnFn ){
                 winBtn = that._winBtnHtml( type );
                 // render window buttons
                 $( '.xcy-layer', $el ).append( winBtn );
@@ -841,7 +840,7 @@
         _winBtnHtml: function( type ){
             var that = this,
                 opts = that.options,
-                closeBtn = opts.closeBtn,
+                closeBtnFn = opts.closeBtnFn,
                 winBtn = opts.winBtn,
                 node = $( '<div class="xcy-winBtn"></div>' ),
                 state = true,
@@ -867,7 +866,7 @@
                     case 'xcy-close-btn':
                     case 'xcy-x-btn':
                         // return callback
-                        if( closeBtn ) isReturn = closeBtn( that.title() );
+                        if( closeBtnFn ) isReturn = closeBtnFn( that.title() );
 
                         if( isReturn === false ){
                             return;
@@ -1683,7 +1682,7 @@
                 fixed: true,
                 unload: true,
                 shade: shade || false,
-                closeBtn: !delay ? function(){} : false,
+                closeBtnFn: !delay ? function(){} : false,
                 delay: delay,
                 isMove: false
             })
