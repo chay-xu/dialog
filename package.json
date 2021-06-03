@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xu8511831/dialog.git"
+    "url": "git+https://github.com/chay-xu/dialog.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/xu8511831/dialog/issues"
+    "url": "https://github.com/chay-xu/dialog/issues"
   },
-  "homepage": "https://github.com/xu8511831/dialog#readme",
+  "homepage": "https://github.com/chay-xu/dialog#readme",
   "dependencies": {
     "gulp": "^3.9.0",
     "gulp-clean": "^0.3.1",
