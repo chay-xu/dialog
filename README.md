@@ -1,12 +1,12 @@
 # Dialog
 dialog layer plugin support pc and mobile
 
-![image](https://github.com/xu8511831/dialog/raw/master/demo/img/demo.png)
+![image](https://github.com/chay-xu/dialog/raw/master/demo/img/demo.png)
 
 see demo 
 
-* [pc dialog](http://xu8511831.github.io/demo/dialog/pc/index.html) 
-* [mobile dialog](http://xu8511831.github.io/demo/dialog/mobile/index.html)
+* [pc dialog](http://chay-xu.github.io/demo/dialog/pc/index.html) 
+* [mobile dialog](http://chay-xu.github.io/demo/dialog/mobile/index.html)
 
 # dialog.js
 
